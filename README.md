@@ -1,1 +1,1 @@
-# Spoty2 O inimego agora é outro
+# Spotyfy 2 O inimego agora é outro
