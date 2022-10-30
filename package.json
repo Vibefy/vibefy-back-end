@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:Spotifray/SpotiFray.git",
-  "author": "Gabriel Fray Garandy <gabrielfraygarandy@gmail.com>",
+  "author": "gabriel fray garandy <gabrielfraygarandy@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest --verbose"
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test": "yarn docker:up && yarn prisma migrate deploy && jest -i"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
