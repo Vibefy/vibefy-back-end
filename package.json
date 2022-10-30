@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
     "build": "tsc",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest --verbose"
+    "prisma-dev" : "dotenv -e .env -- yarn prisma migrate dev",
+    "prisma-test": "dotenv -e .env.test -- yarn prisma migrate dev"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
