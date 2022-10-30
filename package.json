@@ -8,10 +8,11 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
     "build": "tsc",
-    "prisma-dev" : "dotenv -e .env -- yarn prisma migrate dev",
+    "prisma-dev": "dotenv -e .env -- yarn prisma migrate dev",
     "prisma-test": "dotenv -e .env.test -- yarn prisma migrate deploy && jest -i"
   },
   "dependencies": {
+    "@prisma/client": "^4.5.0",
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",

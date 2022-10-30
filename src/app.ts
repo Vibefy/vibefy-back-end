@@ -4,5 +4,5 @@ const app = express()
 
 app.listen(3000,()=>
 {
-    console.log('salve')
+    console.log("Initializing with success!")
 })
