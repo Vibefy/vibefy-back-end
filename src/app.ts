@@ -1,8 +1,7 @@
 import express from "express";
 
-const app = express()
+const app = express();
 
-app.listen(3000,()=>
-{
-    console.log('salve')
-})
+app.listen(3000, () => {
+  console.log("Servidor executando");
+});
