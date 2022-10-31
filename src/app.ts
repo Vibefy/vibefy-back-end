@@ -4,5 +4,7 @@ const app = express()
 
 app.listen(3000,()=>
 {
-    console.log("Initializing with success!")
+    console.log("Executing application!")
 })
+
+export default app
