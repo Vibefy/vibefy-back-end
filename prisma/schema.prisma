@@ -15,6 +15,7 @@ model user{
   email String
   logo String
   password String
+  isActive Boolean @default(true)
   admHash String @ignore
   payment payment_info?
   created_at DateTime

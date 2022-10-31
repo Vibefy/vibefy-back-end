@@ -1,10 +1,10 @@
 import express from "express";
+import { sessionRoute } from "./routes/session.route";
+import { userRoute } from "./routes/user.route";
 
 const app = express()
 
-app.listen(3000,()=>
-{
-    console.log("Executing application!")
-})
+app.use("/user",userRoute)
+app.use("/login",sessionRoute)
 
 export default app
