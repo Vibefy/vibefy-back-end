@@ -8,12 +8,8 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
     "build": "tsc",
-
     "prisma-dev": "dotenv -e .env -- yarn prisma migrate dev",
     "prisma-test": "dotenv -e .env.test -- yarn prisma migrate deploy && jest -i"
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "test": "yarn docker:up && yarn prisma migrate deploy && jest -i
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
