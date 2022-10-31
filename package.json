@@ -6,7 +6,7 @@
   "author": "gabriel fray garandy <gabrielfraygarandy@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules src/app.ts",
+    "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
     "prisma-dev": "dotenv -e .env -- yarn prisma migrate dev",
     "prisma-test": "dotenv -e .env.test -- yarn prisma migrate deploy && jest -i"
