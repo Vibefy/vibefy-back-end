@@ -2,7 +2,7 @@
   "name": "spotifray",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:Spotifray/SpotiFray.git",
+  "repository": "git@github.com:spotifray/spotifray.git",
   "author": "gabriel fray garandy <gabrielfraygarandy@gmail.com>",
   "license": "MIT",
   "scripts": {
