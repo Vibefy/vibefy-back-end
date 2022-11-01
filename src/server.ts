@@ -1,18 +1,7 @@
-import app from "./app"
-import prismaClient from "./prisma"
+import app from "./app";
 
-async function initialize()
-{
-    app.listen(3000,()=>
-    {
-        console.log("Executing application!")
-    })
-    await prismaClient.$connect().then((connection)=>
-    {
-        console.log("Prisma connection success!")
-    }).catch((errConnection)=>
-    {
-        console.log(errConnection)
-    })
+async function initialize() {
+  app.listen(3000, () => {
+    console.log("Executing application!");
+  });
 }
-initialize()

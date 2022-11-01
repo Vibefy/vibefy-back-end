@@ -4,12 +4,7 @@ import { userRoute } from "./routes/user.route";
 
 const app = express();
 
-app.use("/user",userRoute)
-app.use("/login",sessionRoute)
+app.use("/user", userRoute);
+app.use("/login", sessionRoute);
 
-export default app
-
-app.listen(3000, () => {
-  console.log("Servidor executando");
-});
-
+export default app;

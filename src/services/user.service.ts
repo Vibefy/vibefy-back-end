@@ -1,7 +1,5 @@
 import { IUser } from "../interfaces/user.interface";
-import prismaClient from "../prisma";
+import prismaClient from "..";
 
-export async function userCreateService(data : IUser)
-{
-    
-}
+export const userCreateService = async (data: IUser) => {
+};
