@@ -1,42 +1,39 @@
 {
-  "name": "spotifray",
+  "name": "sprint5",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:Spotifray/SpotiFray.git",
-  "author": "gabriel fray garandy <gabrielfraygarandy@gmail.com>",
+  "main": "./src/server.ts",
+  "author": "Projeto_back_end-vibefy",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "prisma-dev": "dotenv -e .env -- yarn prisma migrate dev",
-    "prisma-test": "dotenv -e .env.test -- yarn prisma migrate deploy && jest -i"
-  },
-  "dependencies": {
-    "@prisma/client": "^4.5.0",
-    "bcryptjs": "^2.4.3",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.0.3",
-    "dotenv-cli": "^6.0.0",
-    "express": "^4.18.2",
-    "express-async-errors": "^3.1.1",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.8.0",
-    "reflect-metadata": "^0.1.13",
-    "ts-node-dev": "^2.0.0",
-    "typeorm": "^0.3.10"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/express": "^4.17.14",
-    "@types/jest": "^29.2.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.4",
     "@types/jsonwebtoken": "^8.5.9",
-    "@types/node": "^18.11.7",
     "@types/supertest": "^2.0.12",
-    "jest": "^29.2.2",
-    "prisma": "^4.5.0",
-    "sqlite3": "^5.1.2",
-    "supertest": "^6.3.1",
-    "ts-jest": "^29.0.3",
+    "@types/yup": "^0.32.0",
+    "jest": "^28.1.2",
+    "sqlite3": "^5.0.8",
+    "supertest": "^6.2.4",
+    "ts-jest": "^28.0.5",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.6",
+    "yup": "^0.32.11"
   }
 }

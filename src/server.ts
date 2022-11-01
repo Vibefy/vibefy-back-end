@@ -1,5 +1,5 @@
 import app from "./app"
-import prismaClient from "./prisma"
+import dataSource from "./data-source"
 
 async function initialize()
 {
@@ -7,12 +7,9 @@ async function initialize()
     {
         console.log("Executing application!")
     })
-    await prismaClient.$connect().then((connection)=>
+    await dataSource.initialize().then((res)=>
     {
-        console.log("Prisma connection success!")
-    }).catch((errConnection)=>
-    {
-        console.log(errConnection)
-    })
+        console.log("Connected with db")
+    }).catch((err)=> console.log(err))
 }
 initialize()
