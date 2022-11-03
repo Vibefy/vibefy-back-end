@@ -3,7 +3,6 @@ import express, { Request, Response } from "express";
 import { sessionRoute } from "./routes/session.route";
 import { userRoute } from "./routes/user.route";
 import aswRouter from "./routes/aws.Routes"
-
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 
