@@ -36,6 +36,10 @@
           "name": {
             "type": "string"
           }
+          "name": { "type": "string" },
+          "email": { "type": " string" },
+          "logo": { "type": "string" },
+          "password": { "type": "string" }
         }
       }
     }
