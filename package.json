@@ -8,7 +8,7 @@
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
+    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -18,7 +18,7 @@
     "@types/multer-s3": "^3.0.0",
     "@types/supertest": "^2.0.12",
     "@types/yup": "^0.32.0",
-    "jest": "^28.1.2",
+    "jest": "^29.2.2",
     "sqlite3": "^5.0.8",
     "supertest": "^6.2.4",
     "ts-jest": "^28.0.5",
