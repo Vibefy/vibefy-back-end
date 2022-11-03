@@ -1,0 +1,47 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Vibefy API",
+    "description": "API para um streamer de músicas de forma aleatória, baseada em playlists de acordo com a vibe do usuário",
+    "termsOfService": "http://localhost:3000/terms",
+    "contact": {
+      "email": "support@vibefy.com"
+    },
+    "version": "1.0.0"
+  },
+
+  "paths": {
+    "/user": {
+      "post": {
+        "summary": "Criação de usuários",
+        "description": "Esta rota faz a criação de usuários para o aplicativo",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application.json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "createUser": {
+        "type": "object",
+        "users": {
+          "name": {
+            "type": "string"
+          }
+          "name": { "type": "string" },
+          "email": { "type": " string" },
+          "logo": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      }
+    }
+  }
+}
