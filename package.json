@@ -11,6 +11,7 @@
     "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.4",
@@ -29,6 +30,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.201.0",
     "aws-sdk": "^2.1245.0",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
