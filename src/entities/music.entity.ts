@@ -24,7 +24,7 @@ class Music
     @Column("float")
     duration : number
 
-    @ManyToOne(()=> Artist,(artist)=> artist.music)
+    @ManyToOne(()=> Artist,(artist)=>artist.music)
     artist : Artist
 
     @OneToMany(()=> PlaylistsMusics,(playlists_musics)=> playlists_musics.playlist)
