@@ -19,9 +19,7 @@
         "requestBody": {
           "content": {
             "application.json": {
-              "schema": {
-                "$ref": "#/components/schemas/createUser"
-              }
+              "schema": { "$ref": "#/components/schemas/createUser" }
             }
           }
         }
@@ -33,9 +31,10 @@
       "createUser": {
         "type": "object",
         "users": {
-          "name": {
-            "type": "string"
-          }
+          "name": { "type": "string" },
+          "email": { "type": " string" },
+          "logo": { "type": "string" },
+          "password": { "type": "string" }
         }
       }
     }
