@@ -22,7 +22,7 @@ class Artist
     @Column("varchar",{default : true})
     isActive : boolean
 
-    @OneToMany(()=> Music,(music)=> music.artist)
+    @OneToMany(()=> Music,(music)=> music.artist,{eager : true})
     @JoinColumn()
     music : Music[]
 

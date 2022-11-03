@@ -1,4 +1,5 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { array } from "yup";
 import { sessionRoute } from "./routes/session.route";
 import { userRoute } from "./routes/user.route";
 import swaggerUi from "swagger-ui-express";
