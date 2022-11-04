@@ -6,10 +6,9 @@
 2. [Links Relevantes](#links)
 3. [Techs](#techs)
 4. [Instalando Dependências](#install)
-5. [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-6. [Migrations](#33-migrations)
-7. [Autenticação](#4-autenticação)
-8. [Termos de uso ](#termos)
+5. [Desenvolvedores](#devs)
+6. [Termos de uso](#terms)
+
 
 ---
 <a name="sobre"></a>
@@ -23,9 +22,13 @@
 - O projeto conta com playlists excluivas para musicas sem direitos autorais, para aqueles usuários que necessitam de musicas de fundo para seus pitch, videos, livestream  e etc...
 - Em resumo somos um projeto de soluções musicais para otimizar seu tempo e agregar felicidade em suas necessidades do dia a dia.
 
+<a name="links"></a>
+
 ## 2. Links relevantes 
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
+
+- <a name="deploy-da-aplicação" href ="https://exemplo@exemplo.com.br" target="_blank">Link da aplicação</a>	
 
 - <a name="documentação-api" href="https://exemplo@exemplo.com.br" target="_blank">Documentação API</a>
 
@@ -37,8 +40,8 @@
 
 ## 3.techs
 
-[ Voltar para o topo ](#tabela-de-conteúdos)
  Visão Geral das tecnologias usadas no projeto.
+
 
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
@@ -51,228 +54,9 @@
 - [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [Nodemailer](https://nodemailer.com/about/)
 - [Multer-s3](https://www.npmjs.com/package/multer-s3)
-- A URL base da aplicação:
+
 
 
 ---
 <a name="install"></a>
-
-## 4. instalando dependências
-
-- Clone o projeto em sua máquina e instale as dependências com o comando:
-
-```shell
-yarn
-```
-
-### 4.1. Variáveis de Ambiente
-
-Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
-```
-cp .env.example .env
-```
-
-Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
-
-### 4.2. Migrations
-
-Execute as migrations com o comando:
-
-```
-yarn typeorm migration:run -d src/data-source.ts
-```
-
----
-
-## 5. Endpoints
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### Índice
-
-- [Users](#1-users)
-    - [POST - /users](#11-criação-de-usuário)
-    - [GET - /users](#12-listando-usuários)
-	- [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
-
----
-
-## 1. **Users**
-[ Voltar para os Endpoints ](#5-endpoints)
-
-O objeto User é definido como:
-
-| Campo      | Tipo   | Descrição                                     |
-| -----------|--------|-------------------------------------------------|
-| id         | string | Identificador único do usuário                  |
-| name       | string | O nome do usuário.                              |
-| email      | string | O e-mail do usuário.                            |
-| password   | string | A senha de acesso do usuário                    |
-| isAdm      | boolean | Define se um usuário é Administrador ou não.   |
-
-### Endpoints
-
-| Método   | Rota       | Descrição                               |
-|----------|------------|-----------------------------------------|
-| POST     | /users     | Criação de um usuário.                  |
-| GET      | /users     | Lista todos os usuários                 |
-| GET      | /users/:user_id     | Lista um usuário usando seu ID como parâmetro 
-
----
-
-### 1.1. **Criação de Usuário**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
-### `/users`
-
-### Exemplo de Request:
-```
-POST /users
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-```json
-{
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
-}
-```
-
-### Schema de Validação com Yup:
-```javascript
-name: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return titlelify(originalValue) 
-	}),
-email: yup
-        .string()
-	.email()
-	.required()
-	.transform((value, originalValue) => { 
-		return originalValue.toLowerCase() 
-	}),
-password: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return bcrypt.hashSync(originalValue, 10) 
-	}),
-isAdm: yup
-        .boolean()
-	.required(),
-```
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-```
-201 Created
-```
-
-```json
-{
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
-}
-```
-
-### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 409 Conflict   | Email already registered. |
-
----
-
-### 1.2. **Listando Usuários**
-
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users`
-
-### Exemplo de Request:
-```
-GET /users
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-```json
-Vazio
-```
-
-### Exemplo de Response:
-```
-200 OK
-```
-```json
-[
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
-	}
-]
-```
-
-### Possíveis Erros:
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
-
----
-
-### 1.3. **Listar Usuário por ID**
-
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users/:user_id`
-
-### Exemplo de Request:
-```
-GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-| Parâmetro   | Tipo        | Descrição                             |
-|-------------|-------------|---------------------------------------|
-| user_id     | string      | Identificador único do usuário (User) |
-
-### Corpo da Requisição:
-```json
-Vazio
-```
-
-### Exemplo de Response:
-```
-200 OK
-```
-```json
-{
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
-}
-```
-
-### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 404 Not Found   | User not found. |
 
