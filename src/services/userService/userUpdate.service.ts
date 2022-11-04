@@ -1,0 +1,35 @@
+import * as bcrypt from "bcrypt";
+import AppDataSource from "../../data-source";
+import User from "../../entities/user.entity";
+import { AppError } from "../../error/appError";
+import { IUserUpdateParamenst } from "../../interfaces/users";
+
+export const userUpdateService = async ({
+  id,
+  name,
+  email,
+  password,
+}: IUserUpdateParamenst) => {
+  const userRepository = AppDataSource.getRepository(User);
+  const users = await userRepository.find();
+  const findUser = users.find((user) => user.id === id);
+
+  if (!findUser) {
+    throw new AppError(403, "Wrong email/password");
+  }
+
+  if (name == undefined && email == undefined && password == undefined) {
+    throw new AppError(401, "body empty");
+  }
+
+  const updatedOn = new Date();
+
+  userRepository.update(findUser!.id, {
+    name: name ? name : findUser.name,
+    email: email ? email : findUser.email,
+    password: password ? await bcrypt.hash(password, 10) : findUser.password,
+    updated_At: updatedOn,
+  });
+
+  return true;
+};

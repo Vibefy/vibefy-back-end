@@ -11,6 +11,7 @@
     "test": "cross-env NODE_ENV=test SECRET_KEY=secret_key jest"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.4",
