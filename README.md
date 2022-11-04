@@ -88,7 +88,7 @@ AWS_SECRET_ACCESS_KEY= chave de acesso da aws para salvar seus arquivos
 query: SELECT * FROM current_schema()
 query: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
 query: SELECT version();
-Servidor executando
+Servidor executando.
 ```
 
 <a name="devs"></a>
