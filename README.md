@@ -26,7 +26,6 @@
 
 ## 2. Links relevantes 
 
-[ Voltar para o topo ](#tabela-de-conteúdos)
 
 - <a name="deploy-da-aplicação" href ="https://exemplo@exemplo.com.br" target="_blank">Link da aplicação</a>	
 
@@ -106,6 +105,5 @@ Servidor executando
 
 ## 6. Termos de uso
 
-[ Voltar para o topo ](#tabela-de-conteúdos)
 
 Este é um projeto Open Source para fins educacionais e não comerciais, **Tipo de licença** - <a name="mit" href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
