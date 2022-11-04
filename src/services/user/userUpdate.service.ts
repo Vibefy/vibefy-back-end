@@ -11,8 +11,7 @@ export const userUpdateService = async ({
   password,
 }: IUserUpdateParamenst) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.find();
-  const findUser = users.find((user) => user.id === id);
+  const findUser = await userRepository.findOneBy({id});
 
   if (!findUser) {
     throw new AppError(403, "Wrong email/password");

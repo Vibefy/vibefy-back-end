@@ -1,4 +1,4 @@
-import DeleteMusicService from "../../services/awsServices/deleteFile.service";
+import DeleteMusicService from "../../services/aws/deleteFile.service";
 import { Request, Response } from "express";
 export const deleteFileController = async (
   request: Request,
