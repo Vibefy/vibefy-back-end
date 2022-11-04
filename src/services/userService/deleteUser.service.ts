@@ -5,15 +5,16 @@ import { AppError } from "../../error/appError";
 
 export const deleteUserService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.find();
 
-  const findUser = users.find((user) => user.id === id);
+  const user = await userRepository.findOneBy({id})
 
-  if (findUser.isActive !== true) {
-    throw new AppError(400, "id Invalid");
+  console.log(user)
+
+  if (user.isActive === false) {
+    throw new AppError(400, "User is not active");
   }
 
-  userRepository.update(findUser!.id, {
+  userRepository.update(user!.id, {
     isActive: false,
   });
 

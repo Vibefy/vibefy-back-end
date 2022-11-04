@@ -1,4 +1,4 @@
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import AppDataSource from "../../data-source";
 import Adm from "../../entities/adm.entity";
 import Artist from "../../entities/artist.entity";
@@ -13,32 +13,26 @@ export const createUserService = async ({
   email,
   password,
 }: IUserRequest) => {
-  const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.find();
-  const artRepository = AppDataSource.getRepository(Artist);
-  const arts = await artRepository.find();
-  const amdRepository = AppDataSource.getRepository(Adm);
-  const adms = await amdRepository.find();
+  const userRepository = AppDataSource.getRepository(User)
+  const users = await userRepository.findOneBy({email})
+  const artRepository = AppDataSource.getRepository(Artist)
+  const arts = await artRepository.findOneBy({email})
+  const amdRepository = AppDataSource.getRepository(Adm)
+  const adms = await amdRepository.findOneBy({email})
+  const paymentRepository = AppDataSource.getRepository(Payment)
 
-  const emailAlreadyExists = users.find((user) => user.email === email);
-  const emailAlreadyExistsArt = arts.find((user) => user.email === email);
-  const emailAlreadyExistsAdm = adms.find((user) => user.email === email);
-
-  if (emailAlreadyExists || emailAlreadyExistsArt || emailAlreadyExistsAdm) {
+  if (users || arts || adms) {
     throw new AppError(400, "Email already exists");
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  const payment_user = new Payment();
-  const playlists_users = new Playlist();
-
   const user = new User();
   user.name = name;
   user.email = email;
   user.password = passwordHash;
-  user.payment = payment_user;
-  user.playlist = [playlists_users];
+  user.payment = null
+  user.playlist = [];
 
 
   userRepository.create(user);

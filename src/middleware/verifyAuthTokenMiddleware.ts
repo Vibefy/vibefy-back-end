@@ -19,7 +19,7 @@ export const verifyAuthTokenMiddleware = async (
 
         req.userEmail = decoded.email;
 
-        req.user = { id: decoded.id, type: decoded.type };
+        req.user = { id: decoded.sub, type: decoded.type };
 
         next();
       }
