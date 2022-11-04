@@ -33,7 +33,7 @@
 - <a name="documentação-api" href="https://exemplo@exemplo.com.br" target="_blank">Documentação API</a>
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
-<img>https://imgur.com/a/5FMDUZJ</img>
+<img>https://i.imgur.com/UO8G8XD.png</img>
 
 ---
 <a name="techs"></a>
