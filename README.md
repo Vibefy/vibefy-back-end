@@ -5,7 +5,7 @@
 1. [Sobre](#sobre)
 2. [Links Relevantes](#links)
 3. [Techs](#techs)
-4. [Instalando Dependências](#install)
+4. [Instalação](#install)
 5. [Desenvolvedores](#devs)
 6. [Termos de uso](#terms)
 
@@ -60,3 +60,33 @@
 ---
 <a name="install"></a>
 
+## 4. Instalação e uso
+
+### 4.1 Requisitos:
+- NodeJs a partir da versão 16.14.1
+- Gerenciador de pacotes yarn ou npm
+- Banco de dados PostgreSQL
+
+### 4.2 Instalação
+4.2.1 - Crie um banco de dados chamado vibe_database no PostgreSQL
+4.2.2 - Após o clone no repositório para adicionar todas as dependências do package json execute o comando: 
+`yarn install` 
+
+4.2.3 - Crie um arquivo na raiz do projeto chamado .env e faça as configurações das variáveis de ambiente com base no .env.example do projeto
+```
+SECRET_KEY= chave secreta definida pelo seu time de desenvolvimento
+DATABASE_URL=postgresql://seu_usuario:sua_senha@localhost:5432/vibe_database
+ADM_HASH= hash de administrador definida pela equipe de desenvolvimento
+AWS_ACCESS_KEY_ID= id de acesso da aws para salvar seus arquivos
+AWS_SECRET_ACCESS_KEY= chave de acesso da aws para salvar seus arquivos
+```
+4.2.4 - Para rodar projeto utilize o comando `yarn dev` no terminal, caso de tudo certo receberá uma mensagem parecida com essa:
+``
+[INFO] 17:23:18 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.8.4)
+query: SELECT * FROM current_schema()
+query: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+query: SELECT version();
+Servidor executando
+``
+
+<a name="devs"></a>
