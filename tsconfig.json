@@ -13,8 +13,8 @@
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
     "outDir": "./build",
-    "rootDir": "src"
+    "rootDir": "./src"
   },
-  "include": ["src/**/*", "@types"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
