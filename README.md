@@ -41,7 +41,7 @@
 ---
 <a align="left" name="techs"></a>
 
-## 3.techs
+## 3. Techs
 
  Visão Geral das tecnologias usadas no projeto.
 
@@ -93,3 +93,13 @@ Servidor executando
 ```
 
 <a name="devs"></a>
+
+## 5. Desenvolvedores
+
+
+- <a name="Gabriel-Fernandes" href="https://www.linkedin.com/in/gabriel-lima-fernandes/" target="_blank">Gabriel Fernandes</a>
+- <a name="Gabriel-fray" href="https://www.linkedin.com/in/gabrielfray/" target="_blank">Gabriel Fray</a>
+- <a name="Guilherme-teles" href="https://www.linkedin.com/in/guilherme-teles-103853235/" target="_blank">Guilherme Teles</a>
+- <a name="Henrique-pires-Bezerra" href="https://www.linkedin.com/in/henrique-pires-bezerra/" target="_blank">Henrique Pires Bezerra</a>
+- <a name="Victor-Ávila" href="https://www.linkedin.com/in/victor-avila-br/" target="_blank">Victor Ávila</a>
+- <a name="Vinicius-Moreira-Henrique" href=" https://www.linkedin.com/in/vinicius-moreira-henrique/" target="_blank">Vinicius Moreira Henrique</a>
