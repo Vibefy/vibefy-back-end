@@ -81,12 +81,12 @@ AWS_ACCESS_KEY_ID= id de acesso da aws para salvar seus arquivos
 AWS_SECRET_ACCESS_KEY= chave de acesso da aws para salvar seus arquivos
 ```
 4.2.4 - Para rodar projeto utilize o comando `yarn dev` no terminal, caso de tudo certo receberá uma mensagem parecida com essa:
-``
+```
 [INFO] 17:23:18 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.8.4)
 query: SELECT * FROM current_schema()
 query: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
 query: SELECT version();
 Servidor executando
-``
+```
 
 <a name="devs"></a>
