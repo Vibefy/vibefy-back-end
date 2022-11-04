@@ -9,6 +9,8 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": false,
     "emitDecoratorMetadata": true,
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
