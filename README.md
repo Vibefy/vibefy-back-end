@@ -34,10 +34,12 @@
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-<img height="200" align="left" src="https://i.imgur.com/UO8G8XD.png"></img>
+<img height="700" align="left" src="https://i.imgur.com/UO8G8XD.png"></img>
+
+
 
 ---
-<a name="techs"></a>
+<a align="left" name="techs"></a>
 
 ## 3.techs
 
