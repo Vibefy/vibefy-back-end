@@ -103,6 +103,7 @@ Servidor executando.
 - <a name="Victor-Ávila" href="https://www.linkedin.com/in/victor-avila-br/" target="_blank">Victor Ávila</a>
 - <a name="Vinicius-Moreira-Henrique" href="https://www.linkedin.com/in/vinicius-moreira-henrique/" target="_blank">Vinicius Moreira Henrique</a>
 
+<a name="terms"></a>
 ## 6. Termos de uso
 
 
