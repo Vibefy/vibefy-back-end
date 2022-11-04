@@ -21,21 +21,87 @@
             "application.json": {
               "schema": {
                 "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Janet",
+                    "email": "email@user.com",
+                    "password": "1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "avatar_img": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "payment": { "type": "object" },
+                    "playlist": { "type": "array" },
+                    "created_At": { "type": "string" },
+                    "updated_At": { "type": "string" }
+                  }
+                },
+                "example": {
+                  "id": "21369faaa2ddabffab03d3e80e08ac1181526a",
+                  "name": "Joana",
+                  "email": "joana@kenzie.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": "true",
+                  "payment": {},
+                  "playlist": [],
+                  "created_At": "December 17, 1995 03:24:00",
+                  "updated_At": "December 17, 1995 03:24:00"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application.json": {
+                "example": {
+                  "message": "Field is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application.json": {
+                "example": { "message": "Email is already being used" }
               }
             }
           }
         }
       }
+    },
+    "/user/profile": {
+      "post": {
+        "summary": "Listar o próprio perfil",
+        "description": "Esta rota faz a listagem do próprio perfil do usuário, esta rota necessita de autenticação"
+      }
     }
   },
+
   "components": {
     "schemas": {
       "createUser": {
         "type": "object",
-        "users": {
+        "properties": {
           "name": { "type": "string" },
           "email": { "type": " string" },
-          "logo": { "type": "string" },
           "password": { "type": "string" }
         }
       }

@@ -20,7 +20,6 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
   const adms = await amdRepository.findOne({
     where: { email },
   });
-  console.log(adms, arts, users)
 
   if (!users && !arts && !adms) {
     throw new AppError(403, "Wrong email/password");
