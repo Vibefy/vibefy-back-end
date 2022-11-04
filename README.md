@@ -2,7 +2,7 @@
 
 ## Tabela de Conteúdos
 
-- [Visão Geral](#1-visão-geral)
+- [Sobre](#sobre)
 - [Diagrama ER](#2-diagrama-er)
 - [Início Rápido](#3-início-rápido)
     - [Instalando Dependências](#31-instalando-dependências)
@@ -12,8 +12,8 @@
 - [Endpoints](#5-endpoints)
 
 ---
-
-## 1. Visão Geral
+<a name="sobre"></a>
+## 1. Sobre
 
 Visão geral do projeto, um pouco das tecnologias usadas.
 
