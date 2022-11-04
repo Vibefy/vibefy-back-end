@@ -1,39 +1,48 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import Artist from "./artist.entity";
 import Playlist from "./playlist.entity";
 import PlaylistsMusics from "./playlists_musics.entity";
 
 @Entity("music")
-class Music
-{
-    @PrimaryGeneratedColumn("uuid")
-    id : string
+class Music {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column("varchar")
-    name : string
+  @Column("varchar")
+  name: string;
 
-    @Column("varchar")
-    artistName : string
+  @Column("varchar")
+  artistName: string;
 
-    @Column("varchar")
-    genre : string
-    
-    @Column("varchar")
-    description : string
+  @Column("varchar")
+  genre: string;
 
-    @Column("float")
-    duration : number
+  @Column("varchar")
+  description: string;
 
-    @ManyToOne(()=> Artist,(artist)=>artist.music)
-    artist : Artist
+  @Column("float")
+  duration: number;
 
-    @OneToMany(()=> PlaylistsMusics,(playlists_musics)=> playlists_musics.playlist)
-    playlist : Playlist[]
+  @ManyToOne(() => Artist, (artist) => artist.music)
+  artist: Artist;
 
-    @Column("timestamp",{default : new Date()})
-    created_At : Date
+  @Column("timestamp",{default : new Date()})
+  created_At : Date
 
-    @Column("timestamp",{default : new Date()})
-    updated_At : Date
+  @Column("timestamp",{default : new Date()})
+  updated_At : Date
+  @OneToMany(
+    () => PlaylistsMusics,
+    (playlists_musics) => playlists_musics.playlist
+  )
+  playlist: Playlist[];
+
+
 }
-export default Music
+export default Music;
