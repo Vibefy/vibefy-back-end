@@ -1,8 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 import uploadConfig from "../config/upload";
-import { deleteFileController } from "../controllers/awsController/deleteFileController";
-import { uploadMusicController } from "../controllers/awsController/uploadMusicController";
+import { deleteFileController } from "../controllers/aws/deleteFileController";
+import { uploadMusicController } from "../controllers/aws/uploadMusicController";
 
 const routes = Router();
 const upload = multer(uploadConfig);
