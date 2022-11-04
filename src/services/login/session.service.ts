@@ -1,4 +1,4 @@
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../error/appError";
 import AppDataSource from "../../data-source";
