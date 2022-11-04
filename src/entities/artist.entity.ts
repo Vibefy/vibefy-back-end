@@ -19,17 +19,17 @@ class Artist
     @Column("varchar")
     password : string
 
-    @Column("varchar",{default : true})
+    @Column("boolean",{default : true})
     isActive : boolean
 
     @OneToMany(()=> Music,(music)=> music.artist,{eager : true})
     @JoinColumn()
     music : Music[]
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     created_At : Date
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     updated_At : Date
 }
 export default Artist

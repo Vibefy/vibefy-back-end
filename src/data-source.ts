@@ -6,7 +6,7 @@ const AppDataSource = new DataSource(process.env.NODE_ENV === "test" ?
         type : "sqlite",
         database : ":memory:",
         synchronize : true,
-        entities : ["./entities/*.ts"]
+        entities : ["src/entities/*.ts"]
     }
     :
     {
@@ -18,7 +18,7 @@ const AppDataSource = new DataSource(process.env.NODE_ENV === "test" ?
         synchronize : false,
         logging : true,
         port : 5432,
-        migrations : ["./migrations/*.ts"],
-        entities : ["./entities/*.ts"]
+        migrations : ["src/migrations/*.ts"],
+        entities : ["src/entities/*.ts"]
     })
 export default AppDataSource

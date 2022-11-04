@@ -30,10 +30,10 @@ class Music
     @OneToMany(()=> PlaylistsMusics,(playlists_musics)=> playlists_musics.playlist)
     playlist : Playlist[]
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     created_At : Date
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     updated_At : Date
 }
 export default Music

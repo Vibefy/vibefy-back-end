@@ -9,16 +9,14 @@ import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddlewa
 const router = Router();
 router.post("", createUserController);
 router.get(
-  "",
+  "/profile",
   verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
   getUsersController
 );
-router.patch("/user/profile", verifyAuthTokenMiddleware, userUpdateController);
+router.patch("/profile", verifyAuthTokenMiddleware, userUpdateController);
 router.delete(
-  "/user/profile",
+  "/profile",
   verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
   deleteUserController
 );
 

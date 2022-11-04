@@ -4,13 +4,9 @@ import User from "../../entities/user.entity";
 export const getUsersService= async (id : string) => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.find({
-    where: {
-      id: id
-    }
-  });
-  
-  return {...user, password: undefined}
+  const user = await userRepository.findOneBy({id})
+
+  return {...user,password : undefined}
 };
 
 

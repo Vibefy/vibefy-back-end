@@ -86,7 +86,6 @@ describe("GET - /user/profile",()=>
         expect(body).toHaveProperty("password")
         expect(body).toHaveProperty("avatar_img")
         expect(body).toHaveProperty("payment")
-        expect(typeof body.payment).toBe("object")
         expect(body).toHaveProperty("playlist")
         expect(Array.isArray(body.playlist)).toBeTruthy()
         expect(body).toHaveProperty("created_At")

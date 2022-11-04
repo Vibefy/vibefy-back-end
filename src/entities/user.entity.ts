@@ -22,20 +22,20 @@ class User
     @Column("varchar")
     password : string
 
-    @Column("varchar",{default : true})
+    @Column("boolean",{default : true})
     isActive : boolean
 
-    @OneToOne(()=> Payment,{nullable : true,eager : true})
+    @OneToOne(()=> Payment,{eager : true,nullable : true})
     @JoinColumn()
     payment : Payment
 
     @OneToMany(()=> PlaylistsUsers,(PlaylistsUsers)=> PlaylistsUsers.playlist)
     playlist : Playlist[]
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     created_At : Date
 
-    @Column("date",{default : new Date()})
+    @Column("timestamp",{default : new Date()})
     updated_At : Date
 }
 export default User

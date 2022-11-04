@@ -18,7 +18,7 @@ class PlaylistsUsers
     @ManyToOne(()=> Playlist)
     playlist: Playlist[]
 
-    @Column("date")
+    @Column("timestamp")
     created_At : Date
 
 }
