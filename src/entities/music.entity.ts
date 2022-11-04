@@ -32,16 +32,17 @@ class Music {
   @ManyToOne(() => Artist, (artist) => artist.music)
   artist: Artist;
 
+  @Column("timestamp",{default : new Date()})
+  created_At : Date
+
+  @Column("timestamp",{default : new Date()})
+  updated_At : Date
   @OneToMany(
     () => PlaylistsMusics,
     (playlists_musics) => playlists_musics.playlist
   )
   playlist: Playlist[];
 
-  @Column("date", { default: new Date() })
-  created_At: Date;
 
-  @Column("date", { default: new Date() })
-  updated_At: Date;
 }
 export default Music;

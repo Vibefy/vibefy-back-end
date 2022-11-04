@@ -1,4 +1,4 @@
-import UploadMuisicService from "../../services/awsServices/postFile.service";
+import UploadMuisicService from "../../services/aws/postFile.service";
 import { Request, Response } from "express";
 export const uploadMusicController = async (
   request: Request,
