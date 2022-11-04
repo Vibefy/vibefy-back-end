@@ -19,9 +19,9 @@ class User
     @Column("varchar",{default : "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"})
     avatar_img : string
 
-    @Column("varchar")
-    password : string
-
+    @Column("varchar", {select: false})
+    password: string;
+  
     @Column("boolean",{default : true})
     isActive : boolean
 

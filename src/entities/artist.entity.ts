@@ -24,7 +24,7 @@ class Artist {
   })
   avatar_img: string;
 
-  @Column("varchar")
+  @Column("varchar", {select: false})
   password: string;
 
   @Column("boolean",{default : true})

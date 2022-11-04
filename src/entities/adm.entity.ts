@@ -17,7 +17,7 @@ class Adm {
   })
   avatar_img: string;
 
-  @Column("varchar")
+  @Column("varchar", {select: false})
   password: string;
 }
 export default Adm;
