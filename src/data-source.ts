@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import "dotenv/config"
 
-const dataSource = new DataSource(process.env.NODE_ENV == "test" ? 
+const appDataSource = new DataSource(process.env.NODE_ENV == "test" ? 
     {
         type : "sqlite",
         database : ":memory:",
@@ -21,4 +21,4 @@ const dataSource = new DataSource(process.env.NODE_ENV == "test" ?
         migrations : ["./migrations/*.ts"],
         entities : ["./entities/*.ts"]
     })
-export default dataSource
+export default appDataSource

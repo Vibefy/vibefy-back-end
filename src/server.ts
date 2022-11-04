@@ -1,15 +1,13 @@
-import app from "./app"
-import dataSource from "./data-source"
+import app from "./app";
+import AppDataSource from "./data-source";
 
-async function initialize()
-{
-    app.listen(3000,()=>
-    {
-        console.log("Executing application!")
-    })
-    await dataSource.initialize().then((res)=>
-    {
-        console.log("Connected with db")
-    }).catch((err)=> console.log(err))
-}
-initialize()
+
+(async () => {
+  await AppDataSource.initialize().catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });
+
+  app.listen(3000, () => {
+    console.log("Servidor executando");
+  });
+})();
