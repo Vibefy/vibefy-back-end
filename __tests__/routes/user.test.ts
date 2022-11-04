@@ -3,9 +3,23 @@ import app from "../../src/app"
 import { user, userUpdated, userWithout } from "../mocks/user"
 import {IUser} from "../interfaces/user"
 import { login } from "../mocks/session"
+import AppDataSource from "../../src/data-source"
+import { DataSource } from "typeorm"
 
 describe("POST - /user",()=>
 {
+    let connect: DataSource
+    beforeAll(async()=>
+    {
+        await AppDataSource.initialize().then((connection)=>
+        {
+            connect = connection
+        })
+    })
+    afterAll(()=>
+    {
+        connect.destroy()
+    })
     it("Should to be able a creation of user",async ()=>
     {
         const response = await request(app).post("/user").send(user)

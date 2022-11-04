@@ -4,15 +4,23 @@ import app from "../../src/app"
 import { user } from "../mocks/user"
 import {login} from "../mocks/session"
 import { decode } from "jsonwebtoken";
+import AppDataSource from "../../src/data-source";
 describe("POST - /login",()=>
 {
-    let connection : DataSource;
+    let connect: DataSource
     beforeAll(async()=>
     {
-
         // await request(app).post("/adm")
         // await request(app).post("/artist")
         await request(app).post("/user").send(user)
+        await AppDataSource.initialize().then((connection)=>
+        {
+            connect = connection
+        })
+    })
+    afterAll(()=>
+    {
+        connect.destroy()
     })
     it("Should to able a login",async ()=>
     {
