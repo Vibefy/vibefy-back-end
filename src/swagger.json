@@ -58,6 +58,7 @@
             }
           },
           "400": {
+            "description": "Bad Request",
             "content": {
               "application.json": {
                 "example": {
@@ -67,6 +68,7 @@
             }
           },
           "403": {
+            "description": "Forbidden",
             "content": {
               "application.json": {
                 "example": { "message": "Email is already being used" }
@@ -78,13 +80,13 @@
     },
     "/user/profile": {
       "get": {
-        "security": {"bearerAuth": []},
+        "security": [{ "bearerAuth": [] }],
         "tags": ["User"],
         "summary": "Listar o próprio perfil",
         "description": "Esta rota faz a listagem do próprio perfil do usuário, esta rota necessita de autenticação",
         "responses": {
           "200": {
-            "description": "Ok",
+            "description": "OK",
             "content": {
               "application.json": {
                 "schema": {
@@ -109,6 +111,34 @@
             "$ref": "#/components/UnauthorizedError"
           }
         }
+      },
+      "patch": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Atualizar informações do usuário",
+        "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
+        "requestBody": {
+          "content": {
+            "application.json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated",
+            "content": {
+              "application.json": {
+                "example": { "message": "User updated" }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
       }
     }
   },
@@ -119,7 +149,7 @@
         "type": "object",
         "properties": {
           "name": { "type": "string" },
-          "email": { "type": " string" },
+          "email": { "type": "string" },
           "password": { "type": "string" }
         }
       },
@@ -149,7 +179,7 @@
       "description": "Unauthorized",
       "content": {
         "application.json": {
-          "example": { "message": "Unauthorized" }
+          "example": { "message": "Invalid token" }
         }
       }
     }
