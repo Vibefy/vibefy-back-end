@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Music from "./music.entity";
 import Payment from "./payment_user.entity";
@@ -19,7 +20,8 @@ class User
     @Column("varchar",{default : "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"})
     avatar_img : string
 
-    @Column("varchar", {select: false})
+    @Column("varchar")
+    @Exclude()
     password: string;
   
     @Column("boolean",{default : true})

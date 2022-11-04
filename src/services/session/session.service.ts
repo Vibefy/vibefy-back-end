@@ -11,18 +11,16 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.findOne({
     where: { email },
-    select: ["password"],
   });
   const artRepository = AppDataSource.getRepository(Artist);
   const arts = await artRepository.findOne({
     where: { email },
-    select: ["password"],
   });
   const amdRepository = AppDataSource.getRepository(Adm);
   const adms = await amdRepository.findOne({
     where: { email },
-    select: ["password"],
   });
+  console.log(adms, arts, users)
 
   if (!users && !arts && !adms) {
     throw new AppError(403, "Wrong email/password");

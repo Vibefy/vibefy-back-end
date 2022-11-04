@@ -21,13 +21,17 @@ export const createAdmService = async ({
   const adms = await amdRepository.findOneBy({email})
 
   if (users || arts || adms) {
-    throw new AppError(400, "Email already exists");
+    throw new AppError(403, "Email already exists");
+  }
+
+  if(name == undefined || email == undefined || password == undefined){
+    throw new AppError(400, "Field is required");
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
 
   if(admHash !== "69faaa2bffab03d3e80e08ac1181526a"){
-    throw new AppError(400, "Secrect key invalid");
+    throw new AppError(401, "Secrect key invalid");
   }
 
   const adm = new Adm();

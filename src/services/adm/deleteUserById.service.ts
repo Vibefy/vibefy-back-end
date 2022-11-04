@@ -7,6 +7,7 @@ export const deleteUserByIdService= async (id : string) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({id})
+  
   if(user){
     userRepository.update(user!.id, {
         isActive: false,
