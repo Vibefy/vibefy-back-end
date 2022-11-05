@@ -1,5 +1,5 @@
 import * as bcrypt from "bcryptjs";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import Adm from "../../entities/adm.entity";
 import Artist from "../../entities/artist.entity";
 import Payment from "../../entities/payment_user.entity";

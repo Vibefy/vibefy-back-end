@@ -1,5 +1,5 @@
 import * as bcrypt from "bcryptjs";
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import User from "../../entities/user.entity";
 import { AppError } from "../../error/appError";
 import { IUserUpdateParamenst } from "../../interfaces/users";
