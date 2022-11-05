@@ -1,12 +1,17 @@
 {
-  "name": "sprint5",
+  "name": "vibefy",
   "version": "1.0.0",
+  "description": "a really cool app",
+  "engines": {
+    "node": "18.x"
+  },
   "main": "./src/server.ts",
-  "author": "Projeto_back_end-vibefy",
+  "author": "projeto-back-end-vibefy",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
+    "start": "node dist/app.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest"
   },

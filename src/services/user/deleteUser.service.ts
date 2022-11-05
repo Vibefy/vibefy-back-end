@@ -1,4 +1,4 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import User from "../../entities/user.entity";
 import { AppError } from "../../error/appError";
 
@@ -9,7 +9,7 @@ export const deleteUserService = async (id: string) => {
 
   console.log(user);
 
-  if (user.isActive === false) {
+  if (user!.isActive === false) {
     throw new AppError(400, "User is not active");
   }
 
