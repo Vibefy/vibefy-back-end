@@ -8,16 +8,44 @@ export default {
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(request, file, callback) {
-      const fileNameCorrect = file.originalname.replace(/[^a-zA-Z0-9 ]/g, "");
-      if (fileNameCorrect.includes("mp3")) {
-        return callback(null, fileNameCorrect.replace("mp3", "") + ".mp3");
-      } else if (fileNameCorrect.includes("png")) {
-        return callback(null, fileNameCorrect.replace("png", "") + ".png");
-      } else if (fileNameCorrect.includes("jpg")) {
-        return callback(null, fileNameCorrect.replace("jpg", "") + ".jpg");
-      } else {
-        return callback(null, fileNameCorrect.replace("jpge", "") + ".jpge");
-      }
+      const fileNameCorrect = validateFile(file.originalname)
+
+      return callback(null, fileNameCorrect)
     },
   }),
 };
+
+const validateFile = (fileName: string) => {
+  let fileWithNoExtension = fileNameWithOutExtension(fileName)
+
+  let fileWithNoSpecialCharacters = removeSpecialCharacters(fileWithNoExtension)
+
+  let fileExtensionOnly = separateTheFilenameExtension(fileName)
+
+  return fileWithNoSpecialCharacters + fileExtensionOnly
+}
+
+export const fileNameWithOutExtension = (fileName: string) => {
+  let string = fileName.split(".")
+ 
+  string.pop()
+  
+  return string.join(".")
+}
+
+const removeSpecialCharacters = (fileName: string) => {
+  const fileWithNoSpecialCharacters = []
+  const dotSeparatedFilename = fileName.split(".")
+
+  dotSeparatedFilename.map((elem) => {
+    fileWithNoSpecialCharacters.push(elem.replace(/[^a-zA-Z0-9 ]/g, ""))
+  })
+
+  return fileWithNoSpecialCharacters.join(".")
+}
+
+const separateTheFilenameExtension = (fileName: string) => {
+  let string = fileName.split(".")
+
+  return `.${string.pop()}` 
+}
