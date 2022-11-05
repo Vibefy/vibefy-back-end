@@ -5,18 +5,15 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
-    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
-    "strictNullChecks": true,
-    "strictFunctionTypes": false,
     "emitDecoratorMetadata": true,
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
     "outDir": "./build",
-    "rootDir": "./src"
+    "rootDir": "./"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["."],
+  "exclude": ["node_modules","./build","./__tests__","./tmp","./docker-compose.yml","./Dockerfile","./jest.config.js","./@types"]
 }
