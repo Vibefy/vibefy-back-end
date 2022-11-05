@@ -11,9 +11,9 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "node dist/app.js",
+    "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest"
+    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --verbose"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
