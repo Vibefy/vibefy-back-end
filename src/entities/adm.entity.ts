@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("adm")
@@ -18,6 +19,7 @@ class Adm {
   avatar_img: string;
 
   @Column("varchar")
+  @Exclude()
   password: string;
 }
 export default Adm;

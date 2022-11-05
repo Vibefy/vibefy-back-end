@@ -9,11 +9,17 @@ import Adm from "../../entities/adm.entity";
 
 export const sessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.findOneBy({ email });
+  const users = await userRepository.findOne({
+    where: { email },
+  });
   const artRepository = AppDataSource.getRepository(Artist);
-  const arts = await artRepository.findOneBy({ email });
+  const arts = await artRepository.findOne({
+    where: { email },
+  });
   const amdRepository = AppDataSource.getRepository(Adm);
-  const adms = await amdRepository.findOneBy({ email });
+  const adms = await amdRepository.findOne({
+    where: { email },
+  });
 
   if (!users && !arts && !adms) {
     throw new AppError(403, "Wrong email/password");
@@ -49,11 +55,11 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
     return { token };
   } else {
     type = "adm";
-    const passwordMatch = bcrypt.compareSync(password, adms.password);
+    const passwordMatch = bcrypt.compareSync(password, adms!.password);
     const token = jwt.sign(
       { email: email, type: type },
       String(process.env.SECRET_KEY),
-      { expiresIn: "24h", subject: adms.id }
+      { expiresIn: "24h", subject: adms!.id }
     );
 
     if (!passwordMatch) {

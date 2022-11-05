@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Music from "./music.entity";
 import Payment from "./payment_user.entity";
@@ -20,8 +21,9 @@ class User
     avatar_img : string
 
     @Column("varchar")
-    password : string
-
+    @Exclude()
+    password: string;
+  
     @Column("boolean",{default : true})
     isActive : boolean
 
