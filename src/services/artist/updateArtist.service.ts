@@ -19,10 +19,14 @@ export const artistUpdateService = async ({
   if (name == undefined && email == undefined && password == undefined) {
     throw new AppError(401, "body empty");
   }
+
+  const updateDate = new Date()
+
   artistRepository.update(findUser!.id, {
     name: name ? name : findUser.name,
     email: email ? email : findUser.email,
     password: password ? await bcrypt.hash(password, 10) : findUser.password,
+    updated_At : updateDate
   });
   return true;
 };
