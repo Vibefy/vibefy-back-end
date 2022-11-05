@@ -12,8 +12,5 @@
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
     "outDir": "./build",
-    "rootDir": "./"
   },
-  "include": ["."],
-  "exclude": ["node_modules","./build","./__tests__","./tmp","./docker-compose.yml","./Dockerfile","./jest.config.js","./@types"]
 }
