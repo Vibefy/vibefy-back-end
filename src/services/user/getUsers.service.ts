@@ -1,4 +1,4 @@
-import AppDataSource from "../../data-source";
+import { AppDataSource } from "../../data-source";
 import User from "../../entities/user.entity";
 import {classToPlain} from "class-transformer"
 

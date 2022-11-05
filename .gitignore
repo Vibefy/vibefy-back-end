@@ -1,6 +1,4 @@
 node_modules/
 dist/
-yarn.lock
 .env
 .env.test
-package-lock.json

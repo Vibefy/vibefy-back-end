@@ -5,18 +5,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
-    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
-    "strictNullChecks": true,
-    "strictFunctionTypes": false,
     "emitDecoratorMetadata": true,
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
     "outDir": "./build",
-    "rootDir": "./src"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "resolveJsonModule": true
+  }
 }

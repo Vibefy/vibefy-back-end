@@ -1,11 +1,11 @@
 import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../error/appError";
-import AppDataSource from "../../data-source";
 import User from "../../entities/user.entity";
 import { IUserLogin } from "../../interfaces/users";
 import Artist from "../../entities/artist.entity";
 import Adm from "../../entities/adm.entity";
+import { AppDataSource } from "../../data-source";
 
 export const sessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
