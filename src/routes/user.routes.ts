@@ -6,11 +6,11 @@ import { createUserController } from "../controllers/user/createUser.controller"
 import { deleteUserController } from "../controllers/user/deleteUser.controller"
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { userUpdateController } from "../controllers/user/userUpdate.controller";
-import { IUserRequest } from "../interfaces/users";
+import { IUserRequest,IUserUpdate } from "../interfaces/users";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
-import { userCreate } from "../schema/user";
+import { userCreate, userUpdate } from "../schema/user";
 
 const router = Router();
 
@@ -20,7 +20,7 @@ router.get(
   verifyAuthTokenMiddleware,
   getUsersController)
 
-router.patch("/profile", verifyAuthTokenMiddleware, userUpdateController)
+router.patch("/profile", verifyAuthTokenMiddleware,schemaValidationMiddleware<IUserUpdate>(userUpdate), userUpdateController)
 router.delete("/profile", verifyAuthTokenMiddleware, deleteUserController)
 
 //routes adm pro user

@@ -4,7 +4,7 @@ import User from "../../entities/user.entity";
 import { AppError } from "../../error/appError";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
-import { IAdmRequest } from "../../interfaces/amd";
+import { IAdmRequest } from "../../interfaces/adm";
 
 export const createAdmService = async ({
   name,
