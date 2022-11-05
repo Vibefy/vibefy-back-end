@@ -1,11 +1,10 @@
-import * as bcrypt from "bcryptjs";
-import { AppDataSource } from "../../data-source";
-import Adm from "../../entities/adm.entity";
-import Artist from "../../entities/artist.entity";
-import Payment from "../../entities/payment_user.entity";
-import User from "../../entities/user.entity";
-import { AppError } from "../../error/appError";
 import { IUserRequest } from "../../interfaces/users";
+import { AppDataSource } from "../../data-source";
+import Artist from "../../entities/artist.entity";
+import { AppError } from "../../error/appError";
+import User from "../../entities/user.entity";
+import Adm from "../../entities/adm.entity";
+import * as bcrypt from "bcryptjs";
 
 export const createUserService = async ({
   name,
@@ -18,7 +17,6 @@ export const createUserService = async ({
   const arts = await artRepository.findOneBy({ email });
   const amdRepository = AppDataSource.getRepository(Adm);
   const adms = await amdRepository.findOneBy({ email });
-  const paymentRepository = AppDataSource.getRepository(Payment);
 
   if (users || arts || adms) {
     throw new AppError(400, "Email already exists");

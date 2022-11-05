@@ -1,7 +1,7 @@
 import * as bcrypt from "bcryptjs";
-import AppDataSource from "../../data-source";
 import Adm from "../../entities/adm.entity";
 import { AppError } from "../../error/appError";
+import { AppDataSource } from "../../data-source";
 import { IUserUpdateParamenst } from "../../interfaces/users";
 
 export const userUpdateService = async ({
@@ -11,7 +11,7 @@ export const userUpdateService = async ({
   password,
 }: IUserUpdateParamenst) => {
   const admRepository = AppDataSource.getRepository(Adm);
-  const findUser = await admRepository.findOneBy({id});
+  const findUser = await admRepository.findOneBy({ id });
 
   if (!findUser) {
     throw new AppError(403, "Wrong email/password");
