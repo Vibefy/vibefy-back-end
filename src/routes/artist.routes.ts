@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteArtistController } from "../controllers/artist/artistDelet.controller";
+import { deleteArtistController } from "../controllers/artist/artistDelete.controller";
 import { artistUpdateController } from "../controllers/artist/artistUpdate.controller";
 import { createArtistController } from "../controllers/artist/createArtist.controller";
 import { getArtistController } from "../controllers/artist/getArtist.controller";
