@@ -3,11 +3,13 @@ import { createUserController } from "../controllers/userController/createUser.c
 import { deleteUserController } from "../controllers/userController/deletUser.controller";
 import { getUsersController } from "../controllers/userController/getUsers.controller";
 import { userUpdateController } from "../controllers/userController/userUpdate.controller";
-import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
+import { IUser, IUserRequest } from "../interfaces/users";
+import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
+import { userCreate } from "../schema/user";
 
 const router = Router();
-router.post("", createUserController);
+router.post("",schemaValidationMiddleware<IUserRequest>(userCreate),createUserController);
 router.get(
   "/profile",
   verifyAuthTokenMiddleware,

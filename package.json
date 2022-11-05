@@ -8,7 +8,7 @@
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "dotenv -e .env.test jest --verbose"
+    "test": "dotenv -e .env.test jest"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

@@ -12,22 +12,21 @@ describe("POST - /login",()=>
     {
         // await request(app).post("/adm")
         // await request(app).post("/artist")
-        await request(app).post("/user").send(user)
         await AppDataSource.initialize().then((connection)=>
         {
             connect = connection
         })
     })
-    afterAll(()=>
+    afterAll(async ()=>
     {
-        connect.destroy()
+        await AppDataSource.dropDatabase()
+        await connect.destroy()
     })
     it("Should to able a login",async ()=>
     {
+        await request(app).post("/user").send(user)
         const response = await request(app).post("/login").send(login)
         expect(response.statusCode).toBe(200)
         expect(response.body).toHaveProperty("token")
-        const token = response.body.token
-        expect(decode(token)).toHaveProperty("id")
     })
 })

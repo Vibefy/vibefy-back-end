@@ -16,20 +16,21 @@ describe("POST - /user",()=>
             connect = connection
         })
     })
-    afterAll(()=>
+    afterAll(async()=>
     {
-        connect.destroy()
+        await AppDataSource.dropDatabase()
+        await connect.destroy()
     })
     it("Should to be able a creation of user",async ()=>
     {
         const response = await request(app).post("/user").send(user)
+        console.log(response.body)
         const body = response.body as IUser
         expect(typeof body).toBe("object")
         expect(response.statusCode).toBe(201)
         expect(body).toHaveProperty("id")
         expect(body).toHaveProperty("name")
         expect(body).toHaveProperty("email")
-        expect(body).toHaveProperty("password")
         expect(body).toHaveProperty("avatar_img")
         expect(body).toHaveProperty("payment")
         expect(body).toHaveProperty("playlist")
@@ -50,40 +51,6 @@ describe("POST - /user",()=>
         expect(response.body).toHaveProperty("message")
     })
 })
-describe("POST - /user/profile/img",()=>
-{
-    it("Should to be able sending image to user profile",async()=>
-    {
-        const loginRes = await request(app).post("/login").send(login)
-        const token = loginRes.body.token
-        const response = await request(app).post("/user/profile/img").set("Authorization", `Bearer ${token}`).attach("img", "../mocks/user/mock_img.png")
-        expect(response.statusCode).toBe(200)
-        expect(response.body).toHaveProperty("message")
-    })
-    it("Should not to be able sending image without img field",async()=>
-    {
-        const loginRes = await request(app).post("/login").send(login)
-        const token = loginRes.body.token
-        const response = await request(app).post("/user/profile/img").set("Authorization", `Bearer ${token}`)
-        expect(response.statusCode).toBe(400)
-        expect(response.body).toHaveProperty("message")
-    })
-    it("Should not to be able sending image without token",async()=>
-    {
-        const response = await request(app).post("/user/profile/img").attach("img","../mocks/user/mock_img.png")
-        expect(response.statusCode).toBe(401)
-        expect(response.body).toHaveProperty("message")
-    })
-    it("Should not to be able sending image in unknown format",async()=>
-    {
-        const loginRes = await request(app).post("/login").send(login)
-        const token = loginRes.body.token
-        const response = await request(app).post("/user/profile/img").set("Authorization",`Bearer ${token}`).attach("img","../mocks/user/mock_img.pngg")
-        expect(response.statusCode).toBe(400)
-        expect(response.body).toHaveProperty("message")
-    })
-})
-
 describe("GET - /user/profile",()=>
 {
     it("Should not be able show user profile",async()=>
@@ -97,7 +64,6 @@ describe("GET - /user/profile",()=>
         expect(body).toHaveProperty("id")
         expect(body).toHaveProperty("name")
         expect(body).toHaveProperty("email")
-        expect(body).toHaveProperty("password")
         expect(body).toHaveProperty("avatar_img")
         expect(body).toHaveProperty("payment")
         expect(body).toHaveProperty("playlist")
