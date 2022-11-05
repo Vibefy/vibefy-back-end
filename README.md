@@ -30,7 +30,7 @@
 
 - <a name="deploy-da-aplicação" href ="https://vibefyproject.herokuapp.com/" target="_blank">Link da aplicação</a>	
 
-- <a name="documentação-api" href="https://vibefyproject.herokuapp.com//api-docs" target="_blank">Documentação API</a>
+- <a name="documentação-api" href="https://vibefyproject.herokuapp.com/api-docs" target="_blank">Documentação API</a>
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
