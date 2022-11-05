@@ -30,6 +30,8 @@ export const createUserService = async ({
   user.password = passwordHash;
   user.payment = null
   user.playlist = [];
+  user.created_At = new Date()
+  user.updated_At = new Date()
 
 
   userRepository.create(user);

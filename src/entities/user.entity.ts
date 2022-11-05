@@ -32,10 +32,10 @@ class User
     @OneToMany(()=> PlaylistsUsers,(PlaylistsUsers)=> PlaylistsUsers.playlist)
     playlist : Playlist[]
 
-    @Column("timestamp",{default : new Date()})
+    @Column("date")
     created_At : Date
 
-    @Column("timestamp",{default : new Date()})
+    @Column("date")
     updated_At : Date
 }
 export default User

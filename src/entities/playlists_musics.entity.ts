@@ -11,7 +11,7 @@ class PlaylistsMusics
     @Column("int")
     music_count : number
 
-    @Column("timestamp")
+    @Column("date")
     created_At : Date
 
     @ManyToOne(()=> Playlist)

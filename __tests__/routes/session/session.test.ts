@@ -1,10 +1,9 @@
 import request from "supertest"
 import { DataSource } from "typeorm";
-import app from "../../src/app"
-import { user } from "../mocks/user"
-import {login} from "../mocks/session"
-import { decode } from "jsonwebtoken";
-import AppDataSource from "../../src/data-source";
+import app from "../../../src/app"
+import { user } from "../../mocks/user"
+import {login} from "../../mocks/session"
+import AppDataSource from "../../../src/data-source";
 describe("POST - /login",()=>
 {
     let connect: DataSource
@@ -19,7 +18,6 @@ describe("POST - /login",()=>
     })
     afterAll(async ()=>
     {
-        await AppDataSource.dropDatabase()
         await connect.destroy()
     })
     it("Should to able a login",async ()=>
@@ -30,3 +28,5 @@ describe("POST - /login",()=>
         expect(response.body).toHaveProperty("token")
     })
 })
+
+export { login };
