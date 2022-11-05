@@ -12,5 +12,6 @@
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
     "outDir": "./build",
+    "resolveJsonModule" : true
   },
 }
