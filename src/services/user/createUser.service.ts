@@ -29,7 +29,6 @@ export const createUserService = async ({
   user.email = email;
   user.password = passwordHash;
   user.playlist = [];
-
   userRepository.create(user);
   await userRepository.save(user);
 
