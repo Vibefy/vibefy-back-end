@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import admRoutes from "./routes/adm.routes"
 import handleErrorMiddleware from "./middleware/error.middleware";
-import { mailRoute } from "./routes/mail.route";
+import { mailRoute } from "./routes/mail.routes"
 import { artistRouter } from "./routes/artist.routes";
 
 const app = express();
