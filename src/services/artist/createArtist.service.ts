@@ -36,7 +36,7 @@ export const createArtistService = async ({
   artist.updated_At = new Date();
 
    artRepository.create(artist);
-  await amdRepository.save(artist);
+  await artRepository.save(artist);
 
   const artistSerialized = classToPlain(artist);
   return artistSerialized;
