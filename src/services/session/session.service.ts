@@ -49,11 +49,11 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
     return { token };
   } else {
     type = "adm";
-    const passwordMatch = bcrypt.compareSync(password, adms.password);
+    const passwordMatch = bcrypt.compareSync(password, adms!.password);
     const token = jwt.sign(
       { email: email, type: type },
       String(process.env.SECRET_KEY),
-      { expiresIn: "24h", subject: adms.id }
+      { expiresIn: "24h", subject: adms!.id }
     );
 
     if (!passwordMatch) {
