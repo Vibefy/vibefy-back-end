@@ -3,7 +3,6 @@ import { createUserController } from "../controllers/user/createUser.controller"
 import { deleteUserController } from "../controllers/user/deletUser.controller";
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { userUpdateController } from "../controllers/user/userUpdate.controller";
-import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 
 const router = Router();
