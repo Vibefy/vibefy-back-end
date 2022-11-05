@@ -41,18 +41,7 @@
             "content": {
               "application.json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": { "type": "string" },
-                    "name": { "type": "string" },
-                    "email": { "type": "string" },
-                    "avatar_img": { "type": "string" },
-                    "isActive": { "type": "boolean" },
-                    "payment": { "type": "object" },
-                    "playlist": { "type": "array" },
-                    "created_At": { "type": "string" },
-                    "updated_At": { "type": "string" }
-                  }
+                  "$ref": "#/components/schemas/responseUser"
                 },
                 "example": {
                   "id": "21369faaa2ddabffab03d3e80e08ac1181526a",
@@ -69,6 +58,7 @@
             }
           },
           "400": {
+            "description": "Bad Request",
             "content": {
               "application.json": {
                 "example": {
@@ -78,6 +68,7 @@
             }
           },
           "403": {
+            "description": "Forbidden",
             "content": {
               "application.json": {
                 "example": { "message": "Email is already being used" }
@@ -88,9 +79,66 @@
       }
     },
     "/user/profile": {
-      "post": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
         "summary": "Listar o próprio perfil",
-        "description": "Esta rota faz a listagem do próprio perfil do usuário, esta rota necessita de autenticação"
+        "description": "Esta rota faz a listagem do próprio perfil do usuário, esta rota necessita de autenticação",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseUser"
+                },
+
+                "example": {
+                  "id": "21369faaa2ddabffab03d3e80e08ac1181526a",
+                  "name": "Joana",
+                  "email": "joana@kenzie.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": "true",
+                  "payment": {},
+                  "playlist": [],
+                  "created_At": "December 17, 1995 03:24:00",
+                  "updated_At": "December 17, 1995 03:24:00"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Atualizar informações do usuário",
+        "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
+        "requestBody": {
+          "content": {
+            "application.json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated",
+            "content": {
+              "application.json": {
+                "example": { "message": "User updated" }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
       }
     }
   },
@@ -101,8 +149,37 @@
         "type": "object",
         "properties": {
           "name": { "type": "string" },
-          "email": { "type": " string" },
+          "email": { "type": "string" },
           "password": { "type": "string" }
+        }
+      },
+      "responseUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "avatar_img": { "type": "string" },
+          "isActive": { "type": "boolean" },
+          "payment": { "type": "object" },
+          "playlist": { "type": "array" },
+          "created_At": { "type": "string" },
+          "updated_At": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "UnauthorizedError": {
+      "description": "Unauthorized",
+      "content": {
+        "application.json": {
+          "example": { "message": "Invalid token" }
         }
       }
     }
