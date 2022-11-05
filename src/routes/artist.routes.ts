@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createAdmController } from "../controllers/adm/createAdm.controller";
+import { createArtistController } from "../controllers/artist/createArtist.controller";
 
 const artistRouter = Router();
-artistRouter.post("", createAdmController);
+artistRouter.post("", createArtistController);
 
 export { artistRouter };
