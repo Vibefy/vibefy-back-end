@@ -30,9 +30,7 @@ export const createUserService = async ({
   user.name = name;
   user.email = email;
   user.password = passwordHash;
-  user.payment = null;
   user.playlist = [];
-
   userRepository.create(user);
   await userRepository.save(user);
 
