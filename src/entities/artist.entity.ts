@@ -36,10 +36,10 @@ class Artist {
   @JoinColumn()
   music: Music[];
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   created_At : Date
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   updated_At : Date
 
 }

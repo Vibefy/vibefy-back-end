@@ -5,9 +5,7 @@ import { AppDataSource } from "../../data-source";
 export const getUsersService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOneBy({
-    id,
-  });
+  const user = await userRepository.findOne({where : {id},relations: {playlist : true}});
 
   return classToPlain(user);
 };
