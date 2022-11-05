@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import admRoutes from "./routes/adm.routes"
 import handleErrorMiddleware from "./middleware/error.middleware";
-import { mailRoute } from "./routes/mail.route";
+import { mailRoute } from "./routes/mail.routes";
 
 const app = express();
 app.use(express.json())

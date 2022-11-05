@@ -1,19 +1,27 @@
-import { Router } from "express";
+import { Router } from "express"
 import { deleteUserByIdController } from "../controllers/adm/deleteUserById.controller";
 import { getAllUsersController } from "../controllers/adm/getAllUsers.controller";
 import { getUserByIdController } from "../controllers/adm/getUserById.controller";
 import { createUserController } from "../controllers/user/createUser.controller";
-import { deleteUserController } from "../controllers/user/deletUser.controller";
+import { deleteUserController } from "../controllers/user/deleteUser.controller"
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { userUpdateController } from "../controllers/user/userUpdate.controller";
+import { IUserRequest } from "../interfaces/users";
+import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
+import { userCreate } from "../schema/user";
 
 const router = Router();
-router.post("", createUserController);
-router.get("/profile", verifyAuthTokenMiddleware, getUsersController);
-router.patch("/profile", verifyAuthTokenMiddleware, userUpdateController);
-router.delete("/profile", verifyAuthTokenMiddleware, deleteUserController);
+
+router.post("",schemaValidationMiddleware<IUserRequest>(userCreate),createUserController);
+router.get(
+  "/profile",
+  verifyAuthTokenMiddleware,
+  getUsersController)
+
+router.patch("/profile", verifyAuthTokenMiddleware, userUpdateController)
+router.delete("/profile", verifyAuthTokenMiddleware, deleteUserController)
 
 //routes adm pro user
 router.delete("/:id", verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, deleteUserByIdController);

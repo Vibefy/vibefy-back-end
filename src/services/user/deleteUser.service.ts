@@ -7,8 +7,6 @@ export const deleteUserService = async (id: string) => {
 
   const user = await userRepository.findOneBy({ id });
 
-  console.log(user);
-
   if (user!.isActive === false) {
     throw new AppError(400, "User is not active");
   }
