@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "node build/src/server.js",
+    "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest"
   },
