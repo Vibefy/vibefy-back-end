@@ -11,7 +11,8 @@
     "emitDecoratorMetadata": true,
     "typeRoots": ["./@types", "./node_modules/@types"],
     "esModuleInterop": true,
-    "outDir": "./build",
-    "resolveJsonModule": true
-  }
+    "outDir": "./dist",
+    "resolveJsonModule" : true
+  },
+
 }

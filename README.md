@@ -10,6 +10,7 @@
 5. [Desenvolvedores](#devs)
 6. [Termos de uso](#terms)
 
+
 ---
 
 <a name="sobre"></a>
@@ -35,7 +36,7 @@
 
 <img height="700" align="center" src="https://i.imgur.com/UO8G8XD.png"></img>
 
----
+- <a name="deploy-da-aplicação" href ="https://vibefyproject.herokuapp.com/" target="_blank">Link da aplicação</a>	
 
 <a align="left" name="techs"></a>
 
@@ -56,25 +57,43 @@ Visão Geral das tecnologias usadas no projeto.
 - [Multer-s3](https://www.npmjs.com/package/multer-s3)
 
 ---
+<a align="left" name="techs"></a>
 
+## 3. Techs
+
+ Visão Geral das tecnologias usadas no projeto.
+
+
+- [NodeJS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/)
+- [Yup](https://www.npmjs.com/package/yup)
+- [Docker](https://docs.docker.com)
+- [Aws-sdk](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
+- [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [Nodemailer](https://nodemailer.com/about/)
+- [Multer-s3](https://www.npmjs.com/package/multer-s3)
+
+
+
+---
 <a name="install"></a>
 
 ## 4. Instalação e uso
 
 ### 4.1 Requisitos:
-
 - NodeJs a partir da versão 16.14.1
 - Gerenciador de pacotes yarn ou npm
 - Banco de dados PostgreSQL
 
 ### 4.2 Instalação
-
 4.2.1 - Crie um banco de dados chamado vibe_database no PostgreSQL
-4.2.2 - Após o clone no repositório para adicionar todas as dependências do package json execute o comando:
-`yarn install`
+4.2.2 - Após o clone no repositório para adicionar todas as dependências do package json execute o comando: 
+`yarn install` 
 
 4.2.3 - Crie um arquivo na raiz do projeto chamado .env e faça as configurações das variáveis de ambiente com base no .env.example do projeto
-
 ```
 SECRET_KEY= chave secreta definida pelo seu time de desenvolvimento
 DATABASE_URL=postgresql://seu_usuario:sua_senha@localhost:5432/vibe_database
@@ -82,7 +101,6 @@ ADM_HASH= hash de administrador definida pela equipe de desenvolvimento
 AWS_ACCESS_KEY_ID= id de acesso da aws para salvar seus arquivos
 AWS_SECRET_ACCESS_KEY= chave de acesso da aws para salvar seus arquivos
 ```
-
 4.2.4 - Para rodar projeto utilize o comando `yarn dev` no terminal, caso de tudo certo receberá uma mensagem parecida com essa:
 
 ```
@@ -96,6 +114,7 @@ Servidor executando.
 <a name="devs"></a>
 
 ## 5. Desenvolvedores
+
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
