@@ -1,4 +1,3 @@
-=======
 
 # Vibefy documentation API
 
