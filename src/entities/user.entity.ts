@@ -1,5 +1,5 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import Music from "./music.entity";
 import Payment from "./payment_user.entity";
 import Playlist from "./playlist.entity";
 import PlaylistsUsers from "./playlists_users.entity";
@@ -20,8 +20,9 @@ class User
     avatar_img : string
 
     @Column("varchar")
-    password : string
-
+    @Exclude()
+    password: string;
+  
     @Column("boolean",{default : true})
     isActive : boolean
 
@@ -32,10 +33,10 @@ class User
     @OneToMany(()=> PlaylistsUsers,(PlaylistsUsers)=> PlaylistsUsers.playlist)
     playlist : Playlist[]
 
-    @Column("timestamp",{default : new Date()})
+    @Column("date")
     created_At : Date
 
-    @Column("timestamp",{default : new Date()})
+    @Column("date")
     updated_At : Date
 }
 export default User

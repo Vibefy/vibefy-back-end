@@ -1,15 +1,15 @@
 import * as bcrypt from "bcryptjs";
-import { AppDataSource } from "../../data-source";
 import User from "../../entities/user.entity";
 import { AppError } from "../../error/appError";
-import { IUserUpdateParamenst } from "../../interfaces/users";
+import { AppDataSource } from "../../data-source";
+import { IUserUpdateParam } from "../../interfaces/users";
 
 export const userUpdateService = async ({
   id,
   name,
   email,
   password,
-}: IUserUpdateParamenst) => {
+}: IUserUpdateParam) => {
   const userRepository = AppDataSource.getRepository(User);
   const findUser = await userRepository.findOneBy({ id });
 

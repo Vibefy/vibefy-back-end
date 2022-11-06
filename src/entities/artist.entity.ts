@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   Column,
   Entity,
@@ -25,6 +26,7 @@ class Artist {
   avatar_img: string;
 
   @Column("varchar")
+  @Exclude()
   password: string;
 
   @Column("boolean",{default : true})
@@ -34,10 +36,10 @@ class Artist {
   @JoinColumn()
   music: Music[];
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   created_At : Date
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   updated_At : Date
 
 }

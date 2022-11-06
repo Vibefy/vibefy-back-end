@@ -32,10 +32,10 @@ class Music {
   @ManyToOne(() => Artist, (artist) => artist.music)
   artist: Artist;
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   created_At : Date
 
-  @Column("timestamp",{default : new Date()})
+  @Column("date")
   updated_At : Date
   @OneToMany(
     () => PlaylistsMusics,

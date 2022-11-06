@@ -17,11 +17,11 @@ export interface IUserLogin {
   password: string;
 }
 
-export interface IUserUpdateParamenst {
+export interface IUserUpdateParam {
+  id : string;
   name?: string;
   email?: string;
   password?: string;
-  id: string;
   type?: string
 }
 

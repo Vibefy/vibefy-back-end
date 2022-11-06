@@ -9,11 +9,17 @@ import { AppDataSource } from "../../data-source";
 
 export const sessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
-  const users = await userRepository.findOneBy({ email });
+  const users = await userRepository.findOne({
+    where: { email },
+  });
   const artRepository = AppDataSource.getRepository(Artist);
-  const arts = await artRepository.findOneBy({ email });
+  const arts = await artRepository.findOne({
+    where: { email },
+  });
   const amdRepository = AppDataSource.getRepository(Adm);
-  const adms = await amdRepository.findOneBy({ email });
+  const adms = await amdRepository.findOne({
+    where: { email },
+  });
 
   if (!users && !arts && !adms) {
     throw new AppError(403, "Wrong email/password");

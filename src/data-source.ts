@@ -19,3 +19,4 @@ export const AppDataSource = new DataSource({
       ? ["dist/src/migrations/*.js"]
       : ["src/migrations/*.ts"],
 });
+
