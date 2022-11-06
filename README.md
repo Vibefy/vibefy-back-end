@@ -28,7 +28,7 @@
 
 ## 2. Links relevantes
 
-- <a name="deploy-da-aplicação" href ="https://exemplo@exemplo.com.br" target="_blank">Link da aplicação</a>
+- <a name="deploy-da-aplicação" href ="https://vibefyproject.herokuapp.com/" target="_blank">Link da aplicação</a>
 
 - <a name="documentação-api" href="https://exemplo@exemplo.com.br" target="_blank">Documentação API</a>
 
