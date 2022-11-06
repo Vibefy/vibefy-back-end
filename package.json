@@ -2,9 +2,6 @@
   "name": "vibefy",
   "version": "1.0.0",
   "description": "a really cool app",
-  "engines": {
-    "node": "16.17.x"
-  },
   "main": "./src/server.ts",
   "author": "projeto-back-end-vibefy",
   "license": "MIT",
@@ -13,7 +10,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --verbose"
+    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --runInBand --verbose"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

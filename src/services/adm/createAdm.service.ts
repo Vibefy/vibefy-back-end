@@ -29,7 +29,7 @@ export const createAdmService = async ({
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  if (admHash !== "69faaa2bffab03d3e80e08ac1181526a") {
+  if (admHash !== process.env.ADM_HASH) {
     throw new AppError(401, "Secrect key invalid");
   }
 

@@ -2,7 +2,7 @@ import app from "../../../src/app"
 import request from "supertest"
 import { user, userUpdated, userWithout } from "../../mocks/user"
 import {IUser} from "../../interfaces/user"
-import { login } from "../../mocks/session"
+import { loginUser } from "../../mocks/session"
 import {AppDataSource} from "../../../src/data-source"
 import {DataSource} from "typeorm"
 
@@ -37,7 +37,7 @@ describe("/user",()=>
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
     }) 
-    it("POST /user - Should not to be able a creation of user with duplicate email",async()=>
+    it("POST /user - Should not to be able a creation of user using the same email",async()=>
     {
         const response = await request(app).post("/user").send(user)
         expect(response.statusCode).toBe(403)
@@ -51,7 +51,7 @@ describe("/user",()=>
     })
     it("GET /user/profile - Should be able show user profile",async()=>
     {
-        const loginRes = await request(app).post("/login").send(login)
+        const loginRes = await request(app).post("/login").send(loginUser)
         token = loginRes.body.token
         const response = await request(app).get("/user/profile").set("Authorization", `Bearer ${token}`)
         const body = response.body as IUser
