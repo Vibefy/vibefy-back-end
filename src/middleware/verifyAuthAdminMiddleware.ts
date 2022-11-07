@@ -15,7 +15,7 @@ export const verifyAuthAdminMiddleware = (
       process.env.SECRET_KEY as string,
       (err: any, decoded: any) => {
         if (type !== "adm") {
-          return res.status(403).json({ message: "Unauthorized" });
+          return res.status(401).json({ message: "Unauthorized" });
         }
 
         next();

@@ -8,8 +8,9 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  avatar_img : string;
+  created_At: Date;
+  updated_At: Date;
 }
 
 export interface IUserLogin {
