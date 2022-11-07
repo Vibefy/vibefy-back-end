@@ -30,13 +30,11 @@
 
 - <a name="deploy-da-aplicação" href ="https://vibefyproject.herokuapp.com/" target="_blank">Link da aplicação</a>
 
-- <a name="documentação-api" href="https://exemplo@exemplo.com.br" target="_blank">Documentação API</a>
+- <a name="documentação-api" href="https://vibefyproject.herokuapp.com/api-docs" target="_blank">Documentação API</a>
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
 <img height="700" align="center" src="https://i.imgur.com/UO8G8XD.png"></img>
-
-- <a name="deploy-da-aplicação" href ="https://vibefyproject.herokuapp.com/" target="_blank">Link da aplicação</a>	
 
 <a align="left" name="techs"></a>
 
@@ -58,25 +56,6 @@ Visão Geral das tecnologias usadas no projeto.
 
 ---
 <a align="left" name="techs"></a>
-
-## 3. Techs
-
- Visão Geral das tecnologias usadas no projeto.
-
-
-- [NodeJS](https://nodejs.org/en/)
-- [Express](https://expressjs.com/pt-br/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [TypeORM](https://typeorm.io/)
-- [Yup](https://www.npmjs.com/package/yup)
-- [Docker](https://docs.docker.com)
-- [Aws-sdk](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
-- [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
-- [Nodemailer](https://nodemailer.com/about/)
-- [Multer-s3](https://www.npmjs.com/package/multer-s3)
-
-
 
 ---
 <a name="install"></a>
