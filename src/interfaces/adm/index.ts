@@ -2,17 +2,17 @@ export interface IAdmRequest {
   name: string;
   email: string;
   password: string;
-  avatar_img? : string;
+  avatar_img?: string;
   admHash: string;
 }
 
 export interface IAdm {
-  id : string;
+  id: string;
   name: string;
   email: string;
-  avatar_img? : string;
-  created_At : Date;
-  updated_At : Date;
+  avatar_img?: string;
+  created_At: Date;
+  updated_At: Date;
 }
 
 export interface IAdmLogin {
@@ -25,7 +25,7 @@ export interface IAdmUpdateParam {
   email?: string;
   password?: string;
   id: string;
-  type?: string
+  type?: string;
 }
 
 export interface IAdmUpdate {
@@ -34,6 +34,6 @@ export interface IAdmUpdate {
   password?: string;
 }
 
-export interface IAdmDelete{
-  id: string
+export interface IAdmDelete {
+  id: string;
 }

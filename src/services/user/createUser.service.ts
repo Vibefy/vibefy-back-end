@@ -1,11 +1,11 @@
-import { IUserRequest } from "../../interfaces/users";
+import * as bcrypt from "bcryptjs";
+import Adm from "../../entities/adm.entity";
+import User from "../../entities/user.entity";
+import { AppError } from "../../error/appError";
+import { classToPlain } from "class-transformer";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
-import { AppError } from "../../error/appError";
-import User from "../../entities/user.entity";
-import Adm from "../../entities/adm.entity";
-import * as bcrypt from "bcryptjs";
-import { classToPlain } from "class-transformer";
+import { IUserRequest } from "../../interfaces/users";
 
 export const createUserService = async ({
   name,
@@ -20,7 +20,7 @@ export const createUserService = async ({
   const adms = await amdRepository.findOneBy({ email });
 
   if (users || arts || adms) {
-    throw new AppError(403, "Email already exists");
+    throw new AppError(403, "E-mail already exist");
   }
 
   const passwordHash = await bcrypt.hash(password, 10);

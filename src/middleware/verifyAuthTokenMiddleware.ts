@@ -25,6 +25,6 @@ export const verifyAuthTokenMiddleware = async (
       }
     );
   } catch {
-    return res.status(401).json({ message: "invalid token" });
+    return res.status(401).json({ message: "Invalid token" });
   }
 };

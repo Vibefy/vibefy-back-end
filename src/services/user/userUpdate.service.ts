@@ -14,11 +14,11 @@ export const userUpdateService = async ({
   const findUser = await userRepository.findOneBy({ id });
 
   if (!findUser) {
-    throw new AppError(403, "Wrong email/password");
+    throw new AppError(403, "Wrong e-mail/password");
   }
 
   if (name == undefined && email == undefined && password == undefined) {
-    throw new AppError(401, "body empty");
+    throw new AppError(401, "Required fields not filled");
   }
 
   const updatedOn = new Date();

@@ -1,11 +1,11 @@
-import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AppError } from "../../error/appError";
-import User from "../../entities/user.entity";
-import { IUserLogin } from "../../interfaces/users";
-import Artist from "../../entities/artist.entity";
+import * as bcrypt from "bcryptjs";
 import Adm from "../../entities/adm.entity";
+import User from "../../entities/user.entity";
+import { AppError } from "../../error/appError";
+import Artist from "../../entities/artist.entity";
 import { AppDataSource } from "../../data-source";
+import { IUserLogin } from "../../interfaces/users";
 
 export const sessionService = async ({ email, password }: IUserLogin) => {
   const userRepository = AppDataSource.getRepository(User);
@@ -22,7 +22,7 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
   });
 
   if (!users && !arts && !adms) {
-    throw new AppError(403, "Wrong email/password");
+    throw new AppError(403, "Wrong e-mail/password");
   }
   let type = "";
 
@@ -32,7 +32,7 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
     const passwordMatch = bcrypt.compareSync(password, users.password);
 
     if (!passwordMatch) {
-      throw new AppError(403, "Wrong email/password");
+      throw new AppError(403, "Wrong e-mail/password");
     }
     const token = jwt.sign(
       { email: email, type: type },
@@ -45,7 +45,7 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
     const passwordMatch = bcrypt.compareSync(password, arts.password);
 
     if (!passwordMatch) {
-      throw new AppError(403, "Wrong email/password");
+      throw new AppError(403, "Wrong e-mail/password");
     }
     const token = jwt.sign(
       { email: email, type: type },
@@ -63,7 +63,7 @@ export const sessionService = async ({ email, password }: IUserLogin) => {
     );
 
     if (!passwordMatch) {
-      throw new AppError(403, "Wrong email/password");
+      throw new AppError(403, "Wrong e-mail/password");
     }
     return { token };
   }
