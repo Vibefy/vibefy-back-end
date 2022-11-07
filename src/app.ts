@@ -1,13 +1,18 @@
-import "express-async-errors";
 import express, { Request, Response } from "express";
+import "express-async-errors";
 import sessionRoute from "./routes/session.routes";
 import userRoute from "./routes/user.routes";
 import aswRouter from "./routes/aws.routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import admRoutes from "./routes/adm.routes";
+<<<<<<< HEAD
 import handleErrorMiddleware from "./middleware/error.middleware";
 import { mailRoute } from "./routes/mail.routes";
+=======
+import { mailRoute } from "./routes/mail.routes";
+import handleErrorMiddleware from "./middleware/error.middleware";
+>>>>>>> 2ae7f639a1d0c6f0b6adb3e93462befd1f196684
 import { artistRouter } from "./routes/artist.routes";
 import { playlistRoute } from "./routes/playlist.routes";
 
