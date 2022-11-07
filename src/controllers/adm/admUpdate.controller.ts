@@ -6,7 +6,7 @@ export const admUpdateController = async (req: Request, res: Response) => {
 
   const id = req.user.id;
 
-  const adm = await admUpdateService({
+  await admUpdateService({
     id,
     name,
     email,
