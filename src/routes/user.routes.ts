@@ -10,23 +10,20 @@ import { IUserRequest,IUserUpdate } from "../interfaces/users";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
+import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware";
 import { userCreate, userUpdate } from "../schema/user";
 
 const router = Router();
 
 router.post("",schemaValidationMiddleware<IUserRequest>(userCreate),createUserController);
-router.get(
-  "/profile",
-  verifyAuthTokenMiddleware,
-  getUsersController)
-
-router.patch("/profile", verifyAuthTokenMiddleware,schemaValidationMiddleware<IUserUpdate>(userUpdate), userUpdateController)
-router.delete("/profile", verifyAuthTokenMiddleware, deleteUserController)
+router.get("/profile",verifyAuthTokenMiddleware,verifyAuthUserMiddleware,getUsersController)
+router.patch("/profile",verifyAuthTokenMiddleware,verifyAuthUserMiddleware,schemaValidationMiddleware<IUserUpdate>(userUpdate), userUpdateController)
+router.delete("/profile",verifyAuthTokenMiddleware,verifyAuthUserMiddleware,deleteUserController)
 
 //routes adm pro user
-router.delete("/:id", verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, deleteUserByIdController);
-router.get("", verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, getAllUsersController)
-router.get("/:id", verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, getUserByIdController)
+router.delete("/:id",verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, deleteUserByIdController);
+router.get("",verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, getAllUsersController)
+router.get("/:id",verifyAuthTokenMiddleware, verifyAuthAdminMiddleware, getUserByIdController)
 
 
 export default router;

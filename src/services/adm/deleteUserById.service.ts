@@ -9,6 +9,10 @@ export const deleteUserByIdService = async (id: string) => {
   const user = await userRepository.findOneBy({ id });
 
   if (user) {
+      if(user.isActive === false)
+      {
+        throw new AppError(400, "user is not active");
+      }
     userRepository.update(user!.id, {
       isActive: false,
     });
@@ -20,6 +24,10 @@ export const deleteUserByIdService = async (id: string) => {
     const arts = await artRepository.findOneBy({ id });
 
     if (arts) {
+        if(arts.isActive === false)
+        {
+          throw new AppError(400, "artist is not active");
+        }
       artRepository.update(arts!.id, {
         isActive: false,
       });

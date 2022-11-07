@@ -118,10 +118,20 @@ describe("/user - With adm privileges",()=>
         const response = await request(app).delete(`/user/${userId}`).set("Authorization",`Bearer ${admToken}`)
         expect(response.statusCode).toBe(204)
     })
+    it("DELETE /user/:id - Should to be able delete an user by id already deleted",async()=>
+    {
+        const response = await request(app).delete(`/user/${userId}`).set("Authorization",`Bearer ${admToken}`)
+        expect(response.statusCode).toBe(400)
+    })
     it("DELETE /user/:id - Should to be able delete an artist by id",async()=>
     {
         const response = await request(app).delete(`/user/${artistId}`).set("Authorization",`Bearer ${admToken}`)
         expect(response.statusCode).toBe(204)
+    })
+    it("DELETE /user/:id - Should to be able delete an artist by id already deleted",async()=>
+    {
+        const response = await request(app).delete(`/user/${artistId}`).set("Authorization",`Bearer ${admToken}`)
+        expect(response.statusCode).toBe(400)
     })
     it("DELETE /user/:id - Should not to be able delete an user by id without token",async()=>
     {

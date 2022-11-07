@@ -5,12 +5,13 @@ import { createArtistController } from "../controllers/artist/createArtist.contr
 import { getArtistController } from "../controllers/artist/getArtist.controller";
 import { IArtistRequest, IArtistUpdate } from "../interfaces/artist";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { artistCreate, artistUpdate } from "../schema/artist";
 
 const artistRouter = Router();
 artistRouter.post("",schemaValidationMiddleware<IArtistRequest>(artistCreate),createArtistController);
-artistRouter.get("/profile",verifyAuthTokenMiddleware, getArtistController)
-artistRouter.patch("", verifyAuthTokenMiddleware,schemaValidationMiddleware<IArtistUpdate>(artistUpdate),artistUpdateController);
-artistRouter.delete("", verifyAuthTokenMiddleware, deleteArtistController);
+artistRouter.get("/profile",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,getArtistController)
+artistRouter.patch("/profile", verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,schemaValidationMiddleware<IArtistUpdate>(artistUpdate),artistUpdateController);
+artistRouter.delete("/profile", verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,deleteArtistController);
 export { artistRouter };

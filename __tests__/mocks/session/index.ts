@@ -13,3 +13,7 @@ export const loginArtist =
     email : "JohDoeArtist@gmail.com",
     password : "Artist123"
 }
+export const loginWithout = 
+{
+    email : "JohDoeWithout@gmail.com",
+}
