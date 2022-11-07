@@ -15,7 +15,7 @@ export const verifyAuthUserMiddleware = (
     process.env.SECRET_KEY as string,
     (err: any, decoded: any) => {
       if (type !== "user") {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "You must be logged in as a user" });
       }
 
       next();

@@ -15,7 +15,7 @@ export const verifyAuthArtistMiddleware = (
     process.env.SECRET_KEY as string,
     (err: any, decoded: any) => {
       if (type !== "artist") {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "User is not an artist" });
       }
 
       next();

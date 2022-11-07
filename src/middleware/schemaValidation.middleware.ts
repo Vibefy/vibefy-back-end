@@ -1,5 +1,5 @@
-import { NextFunction, Response, Request } from "express";
 import { SchemaOf, ValidationError } from "yup";
+import { NextFunction, Response, Request } from "express";
 
 export function schemaValidationMiddleware<T>(schema: SchemaOf<T>) {
   return async function (req: Request, res: Response, next: NextFunction) {
