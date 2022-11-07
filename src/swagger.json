@@ -144,7 +144,7 @@
         "security": [{ "bearerAuth": [] }],
         "tags": ["User"],
         "summary": "Desativar perfil de usuário",
-        "description": "Esta rota desativa o perfil do usuário",
+        "description": "Esta rota desativa o perfil do usuário, esta rota necessita de autenticação.",
         "requestBody": {
           "content": {
             "application.json": {
@@ -180,7 +180,7 @@
         "security": [{ "bearerAuth": [] }],
         "tags": ["User"],
         "summary": "Enviar imagem de usuário",
-        "description": "Altera a imagem de usuário",
+        "description": "Altera a imagem de usuário, esta rota necessita de autenticação.",
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -206,15 +206,67 @@
             "description": "Bad Request",
             "content": {
               "application.json": {
-                "example": [
-                  { "message": "Image field is required" },
-                  { "message": "Image format must be png or jpeg" }
-                ]
+                "examples": {
+                  "Image field is required": {
+                    "value": {
+                      "message": "Image field is required"
+                    }
+                  },
+                  "Wrong image format": {
+                    "value": {
+                      "message": "Image format must be png or jpeg"
+                    }
+                  }
+                }
               }
             }
           },
           "401": {
             "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "description": "Rota de login de usuário, retorna o token de usuário.",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application.json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "email@user.com",
+                    "password": "1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application.json": {
+                "example": { "message": "Wrong email/password" }
+              }
+            }
           }
         }
       }
@@ -243,6 +295,13 @@
           "playlist": { "type": "array" },
           "created_At": { "type": "string" },
           "updated_At": { "type": "string" }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
         }
       }
     },

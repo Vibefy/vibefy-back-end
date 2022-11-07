@@ -1,12 +1,9 @@
 import UploadMuisicService from "../../services/aws/postFile.service";
 import { Request, Response } from "express";
-export const uploadMusicController = async (
-  request: Request,
-  response: Response
-) => {
-  const { files } = request;
+export const uploadMusicController = async (req: Request, res: Response) => {
+  const { files } = req;
 
-  const uploadMusicService = await UploadMuisicService(files!);
+  await UploadMuisicService(files!);
 
-  return response.json({ success: true });
+  return res.json({ success: true });
 };

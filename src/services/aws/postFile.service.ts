@@ -1,5 +1,5 @@
-import S3Storage from "../../utils/s3Storage";
 import crypto from "crypto";
+import S3Storage from "../../utils/s3Storage";
 import { fileNameWithOutExtension } from "../../config/upload";
 
 const UploadMuisicService = async (file: any): Promise<void> => {

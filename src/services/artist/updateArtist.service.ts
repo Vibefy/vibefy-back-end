@@ -16,7 +16,7 @@ export const artistUpdateService = async ({
     throw new AppError(404, "User not found");
   }
   if (name == undefined && email == undefined && password == undefined) {
-    throw new AppError(401, "body empty");
+    throw new AppError(401, "Required fields not filled");
   }
 
   const updateDate = new Date()
