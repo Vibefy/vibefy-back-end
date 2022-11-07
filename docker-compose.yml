@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   api:
-    container_name: api
+    container_name: vibefy
     build: .
     ports:
       - 3000:3000
@@ -11,12 +11,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    command: bash -c "yarn typeorm migration:run -d src/data-source && yarn dev"
     volumes:
       - .:/app
 
   db:
-    container_name: db
-    image: postgres:14-alpine
+    container_name: vibefy_db
+    image: postgres:latest
     ports:
       - 5434:5432
     env_file:
