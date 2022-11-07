@@ -5,7 +5,7 @@ import { AppError } from "../../error/appError";
 export const createPlaylistService = async (name: string) => {
   const playlistRepository = AppDataSource.getRepository(Playlist);
 
-  const playlistAlreadyExist = playlistRepository.findOneBy({ name });
+  const playlistAlreadyExist = await playlistRepository.findOneBy({ name });
 
   if (playlistAlreadyExist) {
     throw new AppError(403, "Playlist already exist");
@@ -17,4 +17,6 @@ export const createPlaylistService = async (name: string) => {
   playlist.updated_At = new Date();
 
   await playlistRepository.save(playlist);
+
+  return playlist;
 };
