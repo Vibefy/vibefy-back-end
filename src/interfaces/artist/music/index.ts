@@ -1,6 +1,6 @@
 export interface IMusicRequest {
     name: string;
-    artist: string;
+    id: string;
     genre: string;
     description?: string;
     duration?: string;

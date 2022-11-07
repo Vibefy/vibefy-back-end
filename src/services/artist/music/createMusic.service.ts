@@ -5,35 +5,47 @@ import Music from "../../../entities/music.entity";
 import { AppError } from "../../../error/appError";
 import { IMusicRequest } from "../../../interfaces/artist/music";
 
-export const createMusicService = async ({ name, artist, genre, description, duration }: IMusicRequest) => {
-    const musicRepository = AppDataSource.getRepository(Music);
-    const musisExist = await musicRepository.findOne({
-        where: {
-            name: name!
-        }
-    });
-    const artistRepository = await  AppDataSource.getRepository(Artist);
-    const artists = await artistRepository.findOne({
-        where: {
-            name: artist!
-        }
-    });
+export const createMusicService = async ({
+  name,
+  id,
+  genre,
+  description,
+  duration,
+}: IMusicRequest) => {
+  const musicRepository = AppDataSource.getRepository(Music);
 
-    if(!artists){
-        new AppError(400, "Not Find Artist")
-    }
-    if(!musisExist){
-        new AppError(400, "music exist")
-    }
+  const musicExist = await musicRepository.findOneBy({
+    name,
+  });
 
-    const music = new Music()
-    music.artist = artists;
-    music.name = name;
-    music.artistName = artist
-    music.description = description ? description : null
-    music.duration = duration ? +duration : null
-    music.genre = genre
+  const artistRepository = AppDataSource.getRepository(Artist);
+  const artists = await artistRepository.findOneBy({
+    id,
+  });
 
-  
-    return classToPlain(music);
+  if (!artists) {
+    throw new AppError(400, "Not Find Artist");
+  }
+
+  if (musicExist) {
+    throw new AppError(400, "music exist");
+  }
+  console.log(musicExist)
+
+  const date = new Date()
+
+  const music = new Music();
+  music.artist = artists;
+  music.name = name;
+  music.artistName = artists.name;
+  music.description = description ? description : null;
+  music.duration = duration ? Number(duration) : null;
+  music.genre = genre;
+  music.created_At = date;
+  music.updated_At = date;
+
+  await musicRepository.save(music)
+  musicRepository.create(music)
+
+  return classToPlain(music);
 };

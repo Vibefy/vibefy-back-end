@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   Column,
   Entity,
@@ -27,6 +28,7 @@ class Music {
   description: string;
 
   @Column("float",{nullable : true})
+  @Exclude()
   duration: number;
 
   @Column("varchar",{nullable : true})
@@ -36,7 +38,9 @@ class Music {
   image_url : string
 
   @ManyToOne(() => Artist, (artist) => artist.music)
+  @Exclude()
   artist: Artist;
+ 
 
   @Column("date")
   created_At : Date
