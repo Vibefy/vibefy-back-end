@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-export const verifyAuthAdminMiddleware = (
+export const verifyAuthUserMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -14,7 +14,7 @@ export const verifyAuthAdminMiddleware = (
       token as string,
       process.env.SECRET_KEY as string,
       (err: any, decoded: any) => {
-        if (type !== "adm") {
+        if (type !== "user") {
           return res.status(401).json({ message: "Unauthorized" });
         }
 

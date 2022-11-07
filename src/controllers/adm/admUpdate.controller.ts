@@ -1,11 +1,12 @@
 import { Response, Request } from "express";
-import { userUpdateService } from "../../services/user/userUpdate.service";
+import {admUpdateService} from "../../services/adm/updateAdm.service"
 
 export const admUpdateController = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
-  const { id } = req.user;
 
-  const adm = await userUpdateService({
+  const id = req.user.id
+
+  const adm = await admUpdateService({
     id,
     name,
     email,

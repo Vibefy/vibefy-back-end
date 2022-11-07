@@ -10,7 +10,6 @@ export const artistUpdateService = async ({
   email,
   password,
 }: IArtistUpdateRequest) => {
-  console.log(id)
   const artistRepository = AppDataSource.getRepository(Artist);
   const findUser = await artistRepository.findOneBy({ id });
   if (!findUser) {

@@ -139,6 +139,40 @@
             "$ref": "#/components/UnauthorizedError"
           }
         }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Desativar perfil de usuário",
+        "description": "Esta rota desativa o perfil do usuário",
+        "requestBody": {
+          "content": {
+            "application.json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isActive": "boolean"
+                }
+              },
+              "example": {
+                "isActive": "false"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success",
+            "content": {
+              "application.json": {
+                "example": { "message": "Usuário desativado" }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
       }
     }
   },

@@ -2,12 +2,14 @@ import app from "../../../src/app"
 import request from "supertest"
 import { user, userUpdated, userWithout } from "../../mocks/user"
 import {IUser} from "../../interfaces/user"
-import { login } from "../../mocks/session"
+import { loginArtist, loginUser } from "../../mocks/session"
 import {AppDataSource} from "../../../src/data-source"
 import {DataSource} from "typeorm"
+import { artist } from "../../mocks/artist"
 
 let connect: DataSource;
 let token: string;
+let tokenArtist : string;
 describe("/user",()=>
 {
     beforeAll(async()=>
@@ -16,6 +18,9 @@ describe("/user",()=>
         {
             connect = connection
         })
+        const artistCreate = await request(app).post("/artist").send(artist)
+        const artistLogin = await request(app).post("/login").send(loginArtist)
+        tokenArtist = artistLogin.body.token
     })
     afterAll(async()=>
     {
@@ -37,7 +42,7 @@ describe("/user",()=>
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
     }) 
-    it("POST /user - Should not to be able a creation of user with duplicate email",async()=>
+    it("POST /user - Should not to be able a creation of user using the same email",async()=>
     {
         const response = await request(app).post("/user").send(user)
         expect(response.statusCode).toBe(403)
@@ -51,7 +56,7 @@ describe("/user",()=>
     })
     it("GET /user/profile - Should be able show user profile",async()=>
     {
-        const loginRes = await request(app).post("/login").send(login)
+        const loginRes = await request(app).post("/login").send(loginUser)
         token = loginRes.body.token
         const response = await request(app).get("/user/profile").set("Authorization", `Bearer ${token}`)
         const body = response.body as IUser
@@ -85,14 +90,30 @@ describe("/user",()=>
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    it("DELETE /user/profile - Should be able a delete the user",async()=>
+    it("PATCH /user/profile - Should not be able an edit the user without body",async ()=>
+    {
+        const response = await request(app).patch("/user/profile").set("Authorization", `Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
+    it("DELETE /user/profile - Should to be delete an user",async()=>
     {
         const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${token}`)
         expect(response.statusCode).toBe(204)
     })
-    it("DELETE /user/profile - Should not be able a delete the user without token",async()=>
+    it("DELETE /user/profile - Should not to be delete an user already deleted",async()=>
+    {
+        const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+    })
+    it("DELETE /user/profile - Should not to be delete an artist without token",async()=>
     {
         const response = await request(app).delete("/user/profile")
+        expect(response.statusCode).toBe(401)
+    })
+    it("DELETE /user/profile - Should not to be delete an artist using artist token",async()=>
+    {
+        const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${tokenArtist}`)
         expect(response.statusCode).toBe(401)
     })
 })

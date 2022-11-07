@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --verbose"
+    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --detectOpenHandles --runInBand --verbose"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
