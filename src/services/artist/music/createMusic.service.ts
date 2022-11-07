@@ -1,8 +1,8 @@
 import { classToPlain } from "class-transformer";
-import { AppDataSource } from "../../../data-source";
-import Artist from "../../../entities/artist.entity";
-import Music from "../../../entities/music.entity";
 import { AppError } from "../../../error/appError";
+import Music from "../../../entities/music.entity";
+import Artist from "../../../entities/artist.entity";
+import { AppDataSource } from "../../../data-source";
 import { IMusicRequest } from "../../../interfaces/artist/music";
 
 export const createMusicService = async ({
@@ -14,7 +14,7 @@ export const createMusicService = async ({
 }: IMusicRequest) => {
   const musicRepository = AppDataSource.getRepository(Music);
 
-  const musicExist = await musicRepository.findOneBy({
+  const musicAlreadyExists = await musicRepository.findOneBy({
     name,
   });
 
@@ -24,15 +24,14 @@ export const createMusicService = async ({
   });
 
   if (!artists) {
-    throw new AppError(400, "Not Find Artist");
+    throw new AppError(400, "Artist not found");
   }
 
-  if (musicExist) {
-    throw new AppError(400, "music exist");
+  if (musicAlreadyExists) {
+    throw new AppError(400, "Music already exists");
   }
-  console.log(musicExist)
 
-  const date = new Date()
+  const date = new Date();
 
   const music = new Music();
   music.artist = artists;
@@ -44,8 +43,8 @@ export const createMusicService = async ({
   music.created_At = date;
   music.updated_At = date;
 
-  await musicRepository.save(music)
-  musicRepository.create(music)
+  await musicRepository.save(music);
+  musicRepository.create(music);
 
   return classToPlain(music);
 };
