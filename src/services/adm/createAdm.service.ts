@@ -31,8 +31,6 @@ export const createAdmService = async ({
 
   const passwordHash = await bcrypt.hash(password, 10);
 
-  console.log(admHash);
-  console.log(process.env.ADM_HASH);
 
   if (admHash !== process.env.ADM_HASH) {
     throw new AppError(401, "Hash invalid");
