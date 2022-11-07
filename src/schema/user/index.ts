@@ -5,6 +5,7 @@ export const userCreate : yup.SchemaOf<IUserRequest> = yup.object().shape(
         email : yup.string().email().required(),
         name : yup.string().required(),
         password : yup.string().required(),
+        avatar_img : yup.string().notRequired()
     })
 export const userUpdate : yup.SchemaOf<IUserRequest> = yup.object().shape(
     {

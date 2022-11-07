@@ -85,6 +85,12 @@ describe("/user",()=>
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
+    it("PATCH /user/profile - Should not be able an edit the user without body",async ()=>
+    {
+        const response = await request(app).patch("/user/profile").set("Authorization", `Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
     it("DELETE /user/profile - Should be able a delete the user",async()=>
     {
         const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${token}`)
