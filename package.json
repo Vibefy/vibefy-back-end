@@ -2,9 +2,6 @@
   "name": "vibefy",
   "version": "1.0.0",
   "description": "a really cool app",
-  "engines": {
-    "node": "16.17.x"
-  },
   "main": "./src/server.ts",
   "author": "projeto-back-end-vibefy",
   "license": "MIT",
