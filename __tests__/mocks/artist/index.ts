@@ -10,6 +10,12 @@ export const artistUpdated =
     email : "JohDoeArtistUpdated@gmail.com",
     password : "ArtistUpdated123"
 }
+export const artistAnother =
+{
+    name : "JohnDoeArtistAnother",
+    email : "JohDoeArtistAnother@gmail.com",
+    password : "ArtistAnother123"
+}
 export const artistWithout =
 {
     name : "JohnDoeArtist",
