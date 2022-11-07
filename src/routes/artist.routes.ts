@@ -3,6 +3,7 @@ import { deleteArtistController } from "../controllers/artist/artistDelete.contr
 import { artistUpdateController } from "../controllers/artist/artistUpdate.controller";
 import { createArtistController } from "../controllers/artist/createArtist.controller";
 import { getArtistController } from "../controllers/artist/getArtist.controller";
+import { createMusicController } from "../controllers/artist/music/createMusic.controller";
 import { IArtistRequest, IArtistUpdate } from "../interfaces/artist";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
@@ -14,4 +15,5 @@ artistRouter.post("",schemaValidationMiddleware<IArtistRequest>(artistCreate),cr
 artistRouter.get("/profile",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,getArtistController)
 artistRouter.patch("/profile", verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,schemaValidationMiddleware<IArtistUpdate>(artistUpdate),artistUpdateController);
 artistRouter.delete("/profile", verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,deleteArtistController);
+artistRouter.post("music", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, createMusicController)
 export { artistRouter };

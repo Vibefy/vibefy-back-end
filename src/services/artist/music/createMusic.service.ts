@@ -5,7 +5,7 @@ import Music from "../../../entities/music.entity";
 import { AppError } from "../../../error/appError";
 import { IMusicRequest } from "../../../interfaces/artist/music";
 
-export const createArtistService = async ({ name, artist, gener, description, duration }: IMusicRequest) => {
+export const createMusicService = async ({ name, artist, genre, description, duration }: IMusicRequest) => {
     const musicRepository = AppDataSource.getRepository(Music);
     const musisExist = await musicRepository.findOne({
         where: {
@@ -32,7 +32,7 @@ export const createArtistService = async ({ name, artist, gener, description, du
     music.artistName = artist
     music.description = description ? description : null
     music.duration = duration ? +duration : null
-    music.genre = gener
+    music.genre = genre
 
   
     return classToPlain(music);
