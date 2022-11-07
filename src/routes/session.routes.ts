@@ -8,6 +8,6 @@ import { sessionController } from "../controllers/user/session.controller";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
 const router = Router();
-router.post("",schemaValidationMiddleware<ILogin>(login),sessionController)
+router.post("", schemaValidationMiddleware<ILogin>(login), sessionController);
 
 export default router;
