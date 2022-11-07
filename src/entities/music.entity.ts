@@ -23,11 +23,17 @@ class Music {
   @Column("varchar")
   genre: string;
 
-  @Column("varchar")
+  @Column("varchar",{nullable : true})
   description: string;
 
   @Column("float")
   duration: number;
+
+  @Column("varchar",{nullable : true})
+  music_url : string;
+
+  @Column("varchar",{nullable : true})
+  image_url : string
 
   @ManyToOne(() => Artist, (artist) => artist.music)
   artist: Artist;

@@ -9,7 +9,7 @@ import { IPlaylist } from "../../interfaces/playlist"
 import { artist } from "../../mocks/artist"
 import { user } from "../../mocks/user"
 
-describe("/playlist Only Adm",async()=>
+describe("/playlist Only Adm",()=>
 {
     let connect: DataSource
     let admToken : string

@@ -4,7 +4,7 @@ import { AppDataSource } from "../../../src/data-source"
 import app from "../../../src/app"
 import { user } from "../../mocks/user"
 import { loginArtist, loginUser } from "../../mocks/session"
-import { artist, artistWithout,artistUpdated } from "../../mocks/artist"
+import { artist, artistWithout,artistUpdated, artistAnother } from "../../mocks/artist"
 import { IArtist } from "../../interfaces/artist"
 
 describe("/artist",()=>
@@ -45,6 +45,13 @@ describe("/artist",()=>
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
     })
+    it("POST /artist - Should not to be able return property password",async()=>
+    {
+        const response = await request(app).post("/artist").send(artistAnother)
+        const body = response.body as IArtist
+        expect(response.statusCode).toBe(201)
+        expect(body).not.toHaveProperty("password")
+    })
     it("POST /artist - Should not to be create an artist with the same email",async()=>
     {
         const response = await request(app).post("/artist").send(artist)
@@ -69,6 +76,13 @@ describe("/artist",()=>
         expect(body).toHaveProperty("isActive")
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
+    })
+    it("GET /artist/profile - Should not to be able return property password",async()=>
+    {
+        const response = await request(app).get("/artist/profile").set("Authorization",`Bearer ${tokenArtist}`)
+        const body = response.body as IArtist
+        expect(response.statusCode).toBe(200)
+        expect(body).not.toHaveProperty("password")
     })
     it("GET /artist/profile - Should not to be list an artist without token",async()=>
     {

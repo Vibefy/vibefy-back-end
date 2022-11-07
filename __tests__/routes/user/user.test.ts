@@ -1,6 +1,6 @@
 import app from "../../../src/app"
 import request from "supertest"
-import { user, userUpdated, userWithout } from "../../mocks/user"
+import { user, userAnother, userUpdated, userWithout } from "../../mocks/user"
 import {IUser} from "../../interfaces/user"
 import { loginArtist, loginUser } from "../../mocks/session"
 import {AppDataSource} from "../../../src/data-source"
@@ -42,6 +42,14 @@ describe("/user",()=>
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
     }) 
+    it("POST /user - Should not be able return property password",async ()=>
+    {
+        const response = await request(app).post("/user").send(userAnother)
+        const body = response.body as IUser
+        expect(typeof body).toBe("object")
+        expect(response.statusCode).toBe(201)
+        expect(body).not.toHaveProperty("password")
+    }) 
     it("POST /user - Should not to be able a creation of user using the same email",async()=>
     {
         const response = await request(app).post("/user").send(user)
@@ -77,6 +85,16 @@ describe("/user",()=>
         const response = await request(app).get("/user/profile")
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
+    })
+    it("GET /user/profile - Should not be able return property password",async()=>
+    {
+        const loginRes = await request(app).post("/login").send(loginUser)
+        token = loginRes.body.token
+        const response = await request(app).get("/user/profile").set("Authorization", `Bearer ${token}`)
+        const body = response.body as IUser
+        expect(typeof body).toBe("object")
+        expect(response.statusCode).toBe(200)
+        expect(body).not.toHaveProperty("password")
     })
     it("PATCH /user/profile - Should be able an edit the user",async ()=>
     {
