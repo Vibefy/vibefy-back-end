@@ -26,7 +26,7 @@ class Music {
   @Column("varchar",{nullable : true})
   description: string;
 
-  @Column("float")
+  @Column("float",{nullable : true})
   duration: number;
 
   @Column("varchar",{nullable : true})
