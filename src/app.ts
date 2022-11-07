@@ -9,6 +9,7 @@ import admRoutes from "./routes/adm.routes";
 import handleErrorMiddleware from "./middleware/error.middleware";
 import { mailRoute } from "./routes/mail.routes";
 import { artistRouter } from "./routes/artist.routes";
+import { playlistRoute } from "./routes/playlist.routes";
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use("/artist", artistRouter);
 app.use("/login", sessionRoute);
 app.use("/file", aswRouter);
 app.use("/send-email", mailRoute);
+app.use("/playlist", playlistRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/terms", (req: Request, res: Response) => {
