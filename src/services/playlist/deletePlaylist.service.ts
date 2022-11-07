@@ -1,6 +1,6 @@
+import { AppError } from "../../error/appError";
 import { AppDataSource } from "../../data-source";
 import Playlist from "../../entities/playlist.entity";
-import { AppError } from "../../error/appError";
 
 export const deletePlaylistService = async (id: string): Promise<boolean> => {
   const deleteRepository = AppDataSource.getRepository(Playlist);

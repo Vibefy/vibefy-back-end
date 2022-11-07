@@ -3,6 +3,8 @@ import { deleteUserService } from "../../services/user/deleteUser.service";
 
 export const deleteUserController = async (req: Request, res: Response) => {
   const { id } = req.user;
+
   await deleteUserService(id);
-  return res.status(204).json({ message: "Successfully deleted" });
+
+  return res.status(204).send();
 };

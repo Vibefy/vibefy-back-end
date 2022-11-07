@@ -6,7 +6,8 @@ export const addMusicPlaylistController = async (
   res: Response
 ) => {
   const { id, id_music } = req.params;
+  
   const addMusic = await addMusicPlaylistService(id, id_music);
 
-  res.json(addMusic);
+  return res.status(200).json(addMusic);
 };

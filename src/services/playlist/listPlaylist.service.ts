@@ -1,6 +1,6 @@
+import { AppError } from "../../error/appError";
 import { AppDataSource } from "../../data-source";
 import Playlist from "../../entities/playlist.entity";
-import { AppError } from "../../error/appError";
 
 export const listPlaylistService = async () => {
   const playlistsRepository = AppDataSource.getRepository(Playlist);

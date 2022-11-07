@@ -4,5 +4,5 @@ import { listPlaylistService } from "../../services/playlist/listPlaylist.servic
 export const listPlaylistController = async (req: Request, res: Response) => {
   const allPlaylist = await listPlaylistService();
 
-  res.json(allPlaylist);
+  return res.status(200).json(allPlaylist);
 };
