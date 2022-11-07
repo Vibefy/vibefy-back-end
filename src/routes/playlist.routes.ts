@@ -40,7 +40,7 @@ playlistRoute.delete(
   deletePlaylistController
 );
 playlistRoute.delete(
-  "/:id",
+  "/:id/:id_music",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   deleteMusicPlaylistController
