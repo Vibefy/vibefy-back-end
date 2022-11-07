@@ -1,7 +1,7 @@
 import User from "../../entities/user.entity";
+import { classToPlain } from "class-transformer";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
-import { classToPlain } from "class-transformer";
 
 export const getAllUsersService = async () => {
   const userRepository = AppDataSource.getRepository(User);

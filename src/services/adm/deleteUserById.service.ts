@@ -1,7 +1,7 @@
 import User from "../../entities/user.entity";
+import { AppError } from "../../error/appError";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
-import { AppError } from "../../error/appError";
 
 export const deleteUserByIdService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
@@ -11,7 +11,7 @@ export const deleteUserByIdService = async (id: string) => {
   if (user) {
       if(user.isActive === false)
       {
-        throw new AppError(400, "user is not active");
+        throw new AppError(400, "User has already been deleted or does not exist");
       }
     userRepository.update(user!.id, {
       isActive: false,
@@ -26,7 +26,7 @@ export const deleteUserByIdService = async (id: string) => {
     if (arts) {
         if(arts.isActive === false)
         {
-          throw new AppError(400, "artist is not active");
+          throw new AppError(400, "Artist has already been deleted or does not exist");
         }
       artRepository.update(arts!.id, {
         isActive: false,

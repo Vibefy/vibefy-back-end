@@ -8,44 +8,45 @@ export default {
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(request, file, callback) {
-      const fileNameCorrect = validateFile(file.originalname)
+      const fileNameCorrect = validateFile(file.originalname);
 
-      return callback(null, fileNameCorrect)
+      return callback(null, fileNameCorrect);
     },
   }),
 };
 
 const validateFile = (fileName: string) => {
-  let fileWithNoExtension = fileNameWithOutExtension(fileName)
+  let fileWithNoExtension = fileNameWithOutExtension(fileName);
 
-  let fileWithNoSpecialCharacters = removeSpecialCharacters(fileWithNoExtension)
+  let fileWithNoSpecialCharacters =
+    removeSpecialCharacters(fileWithNoExtension);
 
-  let fileExtensionOnly = separateTheFilenameExtension(fileName)
+  let fileExtensionOnly = separateTheFilenameExtension(fileName);
 
-  return fileWithNoSpecialCharacters + fileExtensionOnly
-}
+  return fileWithNoSpecialCharacters + fileExtensionOnly;
+};
 
 export const fileNameWithOutExtension = (fileName: string) => {
-  let string = fileName.split(".")
- 
-  string.pop()
-  
-  return string.join(".")
-}
+  let string = fileName.split(".");
+
+  string.pop();
+
+  return string.join(".");
+};
 
 const removeSpecialCharacters = (fileName: string) => {
-  const fileWithNoSpecialCharacters = []
-  const dotSeparatedFilename = fileName.split(".")
+  const fileWithNoSpecialCharacters = [];
+  const dotSeparatedFilename = fileName.split(".");
 
   dotSeparatedFilename.map((elem) => {
-    fileWithNoSpecialCharacters.push(elem.replace(/[^a-zA-Z0-9 ]/g, ""))
-  })
+    fileWithNoSpecialCharacters.push(elem.replace(/[^a-zA-Z0-9 ]/g, ""));
+  });
 
-  return fileWithNoSpecialCharacters.join(".")
-}
+  return fileWithNoSpecialCharacters.join(".");
+};
 
 const separateTheFilenameExtension = (fileName: string) => {
-  let string = fileName.split(".")
+  let string = fileName.split(".");
 
-  return `.${string.pop()}` 
-}
+  return `.${string.pop()}`;
+};
