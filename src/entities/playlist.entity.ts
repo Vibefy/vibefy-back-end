@@ -13,9 +13,6 @@ class Playlist
     @Column("varchar")
     name : string
 
-    @Column("varchar")
-    link_playlist : string
-
     @OneToMany(()=> PlaylistsMusics,(playlists_musics)=> playlists_musics.music)
     music : Music[]
 
