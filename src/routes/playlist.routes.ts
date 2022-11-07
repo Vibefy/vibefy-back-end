@@ -3,7 +3,7 @@ import { addMusicPlaylistController } from "../controllers/playlist/addMusicPlay
 import { createPlaylistController } from "../controllers/playlist/createPlaylist.controller";
 import { deleteMusicPlaylistController } from "../controllers/playlist/deleteMusicPlaylist.controller";
 import { deletePlaylistController } from "../controllers/playlist/deletePlaylist.controller";
-import { listMusicPlaylistController } from "../controllers/playlist/listMusicPlaylist.controller";
+import { listMusicPlaylistController } from "../controllers/playlist/listMusicsPlaylist.controller";
 import { listPlaylistController } from "../controllers/playlist/listPlaylist.controller";
 import { IPlaylistCreate } from "../interfaces/playlist";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
@@ -21,7 +21,7 @@ playlistRoute.post(
   createPlaylistController
 );
 playlistRoute.post(
-  "/:id",
+  "/:id/:id_music",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   addMusicPlaylistController
