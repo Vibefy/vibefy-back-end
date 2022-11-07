@@ -8,7 +8,7 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  avatar_img : string;
+  avatar_img: string;
   created_At: Date;
   updated_At: Date;
 }
@@ -19,11 +19,11 @@ export interface IUserLogin {
 }
 
 export interface IUserUpdateParam {
-  id : string;
+  id: string;
   name?: string;
   email?: string;
   password?: string;
-  type?: string
+  type?: string;
 }
 
 export interface IUserUpdate {
@@ -32,6 +32,6 @@ export interface IUserUpdate {
   password?: string;
 }
 
-export interface IuserDelete{
-  id: string
+export interface IuserDelete {
+  id: string;
 }
