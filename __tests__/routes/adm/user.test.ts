@@ -53,6 +53,18 @@ describe("/user - With adm privileges",()=>
         expect(body).toHaveProperty("Artist")
         expect(Array.isArray(body.Artist)).toBeTruthy()
     })
+    it("GET /user - Should not to be able list all users with password property",async()=>
+    {
+        const response = await request(app).get(`/user`).set("Authorization",`Bearer ${admToken}`)
+        const body = response.body as IAllUsers
+        expect(response.statusCode).toBe(200)
+        expect(body).toHaveProperty("Users")
+        expect(Array.isArray(body.Users)).toBeTruthy()
+        expect(body.Users[0]).not.toHaveProperty("password")
+        expect(body).toHaveProperty("Artist")
+        expect(Array.isArray(body.Artist)).toBeTruthy()
+        expect(body.Artist[0]).not.toHaveProperty("password")
+    })
     it("GET /user - Should not to be able list all users without token",async()=>
     {
         const response = await request(app).get(`/user`)
@@ -80,14 +92,19 @@ describe("/user - With adm privileges",()=>
         expect(body).toHaveProperty("email")
         expect(body).toHaveProperty("avatar_img")
     })
-    it("GET /user/:id - Should to be able list an artist by id",async()=>
+    it("GET /user/:id - Should not be able list an user by id returning password property",async()=>
+    {
+        const response = await request(app).get(`/user/${userId}`).set("Authorization",`Bearer ${admToken}`)
+        const body = response.body as IUser
+        expect(response.statusCode).toBe(200)
+        expect(body).not.toHaveProperty("password")
+    })
+    it("GET /user/:id - Should to be able list an artist by id returning password property",async()=>
     {
         const response = await request(app).get(`/user/${artistId}`).set("Authorization",`Bearer ${admToken}`)
         const body = response.body as IUser
         expect(response.statusCode).toBe(200)
-        expect(body).toHaveProperty("name")
-        expect(body).toHaveProperty("email")
-        expect(body).toHaveProperty("avatar_img")
+        expect(body).not.toHaveProperty("password")
     })
     it("GET /user/:id - Should not to be able list an user by id without token",async()=>
     {
