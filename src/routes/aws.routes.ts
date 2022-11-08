@@ -6,10 +6,10 @@ import uploadConfig from "../config/upload";
 import { deleteFileController } from "../controllers/aws/deleteFileController";
 import { uploadMusicController } from "../controllers/aws/uploadMusicController";
 
-const routes = Router();
+export const awsRouter = Router();
 const upload = multer(uploadConfig);
 
-routes.post(
+awsRouter.post(
   "/",
   upload.fields([
     { name: "image", maxCount: 1 },
@@ -18,6 +18,4 @@ routes.post(
   uploadMusicController
 );
 
-routes.delete("/", deleteFileController);
-
-export default routes;
+awsRouter.delete("/", deleteFileController);
