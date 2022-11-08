@@ -10,6 +10,7 @@ import userRoute from "./routes/user.routes";
 import { mailRoute } from "./routes/mail.routes";
 import sessionRoute from "./routes/session.routes";
 import { artistRouter } from "./routes/artist.routes";
+import { playlistRoute } from "./routes/playlist.routes";
 
 import handleErrorMiddleware from "./middleware/handleError.middleware";
 
@@ -22,6 +23,7 @@ app.use("/artist", artistRouter);
 app.use("/login", sessionRoute);
 app.use("/file", aswRouter);
 app.use("/send-email", mailRoute);
+app.use("/playlist", playlistRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/terms", (req: Request, res: Response) => {
