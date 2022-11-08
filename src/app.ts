@@ -4,26 +4,26 @@ import express, { Request, Response } from "express";
 import swaggerDocs from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
 
-import aswRouter from "./routes/aws.routes";
-import admRoutes from "./routes/adm.routes";
-import userRoute from "./routes/user.routes";
-import { mailRoute } from "./routes/mail.routes";
-import sessionRoute from "./routes/session.routes";
+import { admRouter } from "./routes/adm.routes";
+import { awsRouter } from "./routes/aws.routes";
+import { mailRouter } from "./routes/mail.routes";
+import { userRouter } from "./routes/user.routes";
 import { artistRouter } from "./routes/artist.routes";
-import { playlistRoute } from "./routes/playlist.routes";
+import { sessionRouter } from "./routes/session.routes";
+import { playlistRouter } from "./routes/playlist.routes";
 
 import handleErrorMiddleware from "./middleware/handleError.middleware";
 
 const app = express();
 
 app.use(express.json());
-app.use("/adm", admRoutes);
-app.use("/user", userRoute);
+app.use("/adm", admRouter);
+app.use("/user", userRouter);
 app.use("/artist", artistRouter);
-app.use("/login", sessionRoute);
-app.use("/file", aswRouter);
-app.use("/send-email", mailRoute);
-app.use("/playlist", playlistRoute);
+app.use("/login", sessionRouter);
+app.use("/file", awsRouter);
+app.use("/send-email", mailRouter);
+app.use("/playlist", playlistRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/terms", (req: Request, res: Response) => {
