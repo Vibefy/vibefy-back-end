@@ -1,7 +1,5 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn,OneToMany} from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn,OneToMany, JoinColumn, JoinTable} from "typeorm";
 import Music from "./music.entity";
-import PlaylistsMusics from "./playlists_musics.entity";
-import PlaylistsUsers from "./playlists_users.entity";
 import User from "./user.entity";
 
 @Entity("playlist")
@@ -13,11 +11,9 @@ class Playlist
     @Column("varchar")
     name : string
 
-    @OneToMany(()=> PlaylistsMusics,(playlists_musics)=> playlists_musics.music)
+    @ManyToMany(()=> Music,{eager : true})
+    @JoinTable()
     music : Music[]
-
-    @OneToMany(()=> PlaylistsUsers,(PlaylistsUsers)=> PlaylistsUsers.user)
-    user : User[]
 
     @Column("date")
     created_At : Date

@@ -50,6 +50,9 @@ userRouter.delete(
   verifyAuthAdminMiddleware,
   deleteUserByIdController
 );
+
+//Only Adm
+
 userRouter.get(
   "",
   verifyAuthTokenMiddleware,

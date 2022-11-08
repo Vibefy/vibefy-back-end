@@ -8,17 +8,12 @@ export const getUserByIdService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({ id });
-  if (user) {
+  if (user) 
+  {
     return classToPlain(user);
-  } else {
-    const artRepository = AppDataSource.getRepository(Artist);
-
-    const arts = await artRepository.findOneBy({ id });
-
-    if (arts) {
-      return classToPlain(arts);
-    } else {
+  } 
+  else 
+  {
       throw new AppError(404, "User not exist");
-    }
   }
 };
