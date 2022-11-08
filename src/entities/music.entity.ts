@@ -2,13 +2,13 @@ import { Exclude } from "class-transformer";
 import {
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Artist from "./artist.entity";
 import Playlist from "./playlist.entity";
-import PlaylistsMusics from "./playlists_musics.entity";
 
 @Entity("music")
 class Music {
@@ -41,18 +41,14 @@ class Music {
   @Exclude()
   artist: Artist;
  
+  @ManyToMany(()=> Playlist)
+  playlist : Playlist[]
 
   @Column("date")
   created_At : Date
 
   @Column("date")
   updated_At : Date
-  @OneToMany(
-    () => PlaylistsMusics,
-    (playlists_musics) => playlists_musics.playlist
-  )
-  playlist: Playlist[];
-
 
 }
 export default Music;
