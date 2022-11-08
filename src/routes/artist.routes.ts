@@ -16,8 +16,9 @@ import { getAllMusicArtistController } from "../controllers/artist/music/getAllM
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
-import { addMusicFilesController } from "../controllers/artist/music/addMusicFiles.controller";
 import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
+import { addAvatarFile } from "../controllers/artist/addAvatarFile";
+import { addMusicFilesAws } from "../controllers/artist/music/addMusicFilesAws";
 
 export const artistRouter = Router();
 
@@ -64,5 +65,7 @@ artistRouter.get(
   verifyAuthArtistMiddleware,
   getIdMusicController
 );
-artistRouter.post("/music/:id/files",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesController)
+artistRouter.post("/music/:id/files",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesAws)
+
+artistRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,addAvatarFile)
 

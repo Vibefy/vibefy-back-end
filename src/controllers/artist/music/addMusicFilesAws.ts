@@ -7,7 +7,7 @@ import Music from "../../../entities/music.entity"
 import { AppError } from "../../../error/appError"
 import { s3ImageUrl, s3MusicUrl } from "../../../utils/s3Url"
 
-export const addMusicFilesController = async (req : Request,res : Response)=>
+export const addMusicFilesAws = async (req : Request,res : Response)=>
 {
     const id = req.params.id
     
