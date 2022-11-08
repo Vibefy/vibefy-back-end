@@ -18,7 +18,7 @@
         "tags": ["User"],
         "requestBody": {
           "content": {
-            "application.json": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/createUser"
               },
@@ -39,20 +39,20 @@
           "201": {
             "description": "Created",
             "content": {
-              "application.json": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/responseUser"
                 },
                 "example": {
-                  "id": "21369faaa2ddabffab03d3e80e08ac1181526a",
                   "name": "Joana",
                   "email": "joana@kenzie.com",
-                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
-                  "isActive": "true",
-                  "payment": {},
                   "playlist": [],
+                  "payment": null,
                   "created_At": "December 17, 1995 03:24:00",
-                  "updated_At": "December 17, 1995 03:24:00"
+                  "updated_At": "December 17, 1995 03:24:00",
+                  "id": "61920fb4-eb18-437b-8901-b8ce52c6ab29",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": "true"
                 }
               }
             }
@@ -60,9 +60,9 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "application.json": {
+              "application/json": {
                 "example": {
-                  "message": "Field is required"
+                  "message": "{field} is a required field"
                 }
               }
             }
@@ -70,7 +70,7 @@
           "403": {
             "description": "Forbidden",
             "content": {
-              "application.json": {
+              "application/json": {
                 "example": { "message": "Email is already being used" }
               }
             }
@@ -88,21 +88,21 @@
           "200": {
             "description": "OK",
             "content": {
-              "application.json": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/responseUser"
                 },
 
                 "example": {
-                  "id": "21369faaa2ddabffab03d3e80e08ac1181526a",
-                  "name": "Joana",
-                  "email": "joana@kenzie.com",
+                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                  "name": "Vinícius",
+                  "email": "henrique@user.com.br",
                   "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
-                  "isActive": "true",
-                  "payment": {},
+                  "isActive": false,
+                  "created_At": "2022-11-08",
+                  "updated_At": "2022-11-08",
                   "playlist": [],
-                  "created_At": "December 17, 1995 03:24:00",
-                  "updated_At": "December 17, 1995 03:24:00"
+                  "payment": null
                 }
               }
             }
@@ -119,9 +119,16 @@
         "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
         "requestBody": {
           "content": {
-            "application.json": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Vinícius"
+                  }
+                }
               }
             }
           }
@@ -130,7 +137,7 @@
           "201": {
             "description": "Updated",
             "content": {
-              "application.json": {
+              "application/json": {
                 "example": { "message": "User updated" }
               }
             }
@@ -147,7 +154,7 @@
         "description": "Esta rota desativa o perfil do usuário, esta rota necessita de autenticação.",
         "requestBody": {
           "content": {
-            "application.json": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -162,12 +169,7 @@
         },
         "responses": {
           "204": {
-            "description": "Success",
-            "content": {
-              "application.json": {
-                "example": { "message": "Usuário desativado" }
-              }
-            }
+            "description": "Success"
           },
           "401": {
             "$ref": "#/components/UnauthorizedError"
@@ -175,7 +177,7 @@
         }
       }
     },
-    "/user/profile/img": {
+    "/user/profile/avatar": {
       "post": {
         "security": [{ "bearerAuth": [] }],
         "tags": ["User"],
@@ -197,7 +199,7 @@
           "200": {
             "description": "Added",
             "content": {
-              "application.json": {
+              "application/json": {
                 "example": { "message": "Image upload success" }
               }
             }
@@ -205,7 +207,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "application.json": {
+              "application/json": {
                 "examples": {
                   "Image field is required": {
                     "value": {
@@ -231,18 +233,18 @@
       "post": {
         "summary": "Login de usuário",
         "description": "Rota de login de usuário, retorna o token de usuário.",
-        "tags": ["User"],
+        "tags": ["Session"],
         "requestBody": {
           "content": {
-            "application.json": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Login"
               },
               "examples": {
                 "user": {
                   "value": {
-                    "email": "email@user.com",
-                    "password": "1234"
+                    "email": "henrique@user.com.br",
+                    "password": "senhaForte123456"
                   }
                 }
               }
@@ -253,9 +255,9 @@
           "200": {
             "description": "Success",
             "content": {
-              "application.json": {
-                "schema": {
-                  "$ref": "#/components/schemas/responseUser"
+              "application/json": {
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbnJpcXVlQHVzZXIuY29tLmJyIiwidHlwZSI6InVzZXIiLCJpYXQiOjE2Njc5MTk3MTMsImV4cCI6MTY2ODAwNjExMywic3ViIjoiNmE2ZjQ4MGYtNTM2MC00MjU2LWI0MzEtODc1ZTExNWVmMDJmIn0.aOmYEgBj4t8gBUAXMz0zdVfwtYC7R1UahESIfDAf8Po"
                 }
               }
             }
@@ -263,7 +265,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "application.json": {
+              "application/json": {
                 "example": { "message": "Wrong email/password" }
               }
             }
@@ -286,15 +288,15 @@
       "responseUser": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "format": "uuid" },
           "name": { "type": "string" },
           "email": { "type": "string" },
-          "avatar_img": { "type": "string" },
-          "isActive": { "type": "boolean" },
-          "payment": { "type": "object" },
           "playlist": { "type": "array" },
+          "payment": null,
           "created_At": { "type": "string" },
-          "updated_At": { "type": "string" }
+          "updated_At": { "type": "string" },
+          "id": { "type": "string", "format": "uuid" },
+          "avatar_img": { "type": "string" },
+          "isActive": { "type": "boolean" }
         }
       },
       "Login": {
@@ -315,7 +317,7 @@
     "UnauthorizedError": {
       "description": "Unauthorized",
       "content": {
-        "application.json": {
+        "application/json": {
           "example": { "message": "Invalid token" }
         }
       }
