@@ -12,8 +12,9 @@ import { IArtistRequest, IArtistUpdate } from "../interfaces/artist";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
-import { addMusicFilesController } from "../controllers/artist/music/addMusicFiles.controller";
+import { addMusicFilesAws } from "../controllers/artist/music/addMusicFilesAws";
 import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
+import { addAvatarFile } from "../controllers/artist/addAvatarFile";
 
 const artistRouter = Router();
 
@@ -40,9 +41,11 @@ artistRouter.delete(
   verifyAuthTokenMiddleware,
   verifyAuthArtistMiddleware,
   deleteArtistController
-);
+  );
+artistRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,addAvatarFile)
+
 artistRouter.post("/music", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, createMusicController)
-artistRouter.post("/music/:id/files", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesController)
+artistRouter.post("/music/:id/files", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesAws)
 artistRouter.get("/music", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, getAllMusicArtistController)
 artistRouter.get("/music/:idMusic",  verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, getIdMusicController)
 

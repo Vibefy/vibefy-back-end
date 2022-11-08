@@ -10,6 +10,7 @@ import { createAdmController } from "../controllers/adm/createAdm.controller";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { addAvatarFile } from "../controllers/adm/addAvatarFile";
 
 const router = Router();
 router.post(
@@ -30,5 +31,6 @@ router.patch(
   schemaValidationMiddleware<IAdmUpdate>(admUpdate),
   admUpdateController
 );
+router.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,addAvatarFile)
 
 export default router;

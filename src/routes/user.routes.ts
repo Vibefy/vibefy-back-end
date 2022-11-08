@@ -15,6 +15,7 @@ import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 
 const router = Router();
 
@@ -62,5 +63,6 @@ router.get(
   verifyAuthAdminMiddleware,
   getUserByIdController
 );
+router.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthUserMiddleware,addAvatarFile)
 
 export default router;
