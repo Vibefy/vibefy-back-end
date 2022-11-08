@@ -1,24 +1,22 @@
-import { AppDataSource } from "../../../data-source";
-import Playlist from "../../../entities/playlist.entity";
 import User from "../../../entities/user.entity";
 import { AppError } from "../../../error/appError";
+import { AppDataSource } from "../../../data-source";
+import Playlist from "../../../entities/playlist.entity";
 
+export const addPlaylistUserService = async (
+  id: string,
+  id_playlist: string
+) => {
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({ id });
+  const playlistRepository = AppDataSource.getRepository(Playlist);
+  const playlistFind = await playlistRepository.findOneBy({ id: id_playlist });
 
-export const addPlaylistUserService = async (id:string, id_playlist:string) => {
-  const userRepository = AppDataSource.getRepository(User)
-  const user = await userRepository.findOneBy({id})
-  const playlistRepository = AppDataSource.getRepository(Playlist)
-  const playlistFind = await  playlistRepository.findOneBy({id: id_playlist})
-
-  if(!playlistFind){
-    throw new AppError(400, "não encontro a playlist")
+  if (!playlistFind) {
+    throw new AppError(400, "Playlist is not found");
   }
-
-  console.log(playlistFind, user)
 
   userRepository.update(user!.id, {
     playlist: [...user.playlist, playlistFind],
   });
-
-  return `PlayList adicionada com sucesso!`
 };

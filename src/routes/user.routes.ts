@@ -20,7 +20,6 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-
 export const userRouter = Router();
 
 userRouter.post(
@@ -48,6 +47,13 @@ userRouter.delete(
   deleteUserController
 );
 
+userRouter.post(
+  "/profile/avatar",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  addAvatarFile
+);
+
 userRouter.delete(
   "/:id",
   verifyAuthTokenMiddleware,
@@ -55,13 +61,24 @@ userRouter.delete(
   deleteUserByIdController
 );
 
-userRouter.post("/playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, addPlaylistUserController)
-userRouter.get("/playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, getAllPlaylistUsersController)
-userRouter.get("/playlist/:id_playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, getIdPlaylistUsersController)
-
+userRouter.post(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  addPlaylistUserController
+);
+userRouter.get(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getAllPlaylistUsersController
+);
+userRouter.get(
+  "/playlist/:id_playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getIdPlaylistUsersController
+);
 
 //Only Adm
 
@@ -76,13 +93,6 @@ userRouter.get(
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   getUserByIdController
-);
-
-userRouter.post(
-  "/profile/avatar",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile
 );
 
 export default userRouter;
