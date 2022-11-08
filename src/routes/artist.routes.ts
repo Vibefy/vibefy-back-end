@@ -1,21 +1,25 @@
 import { Router } from "express";
+
+import { musicCreate } from "../schema/music";
+import { IMusicCreate } from "../interfaces/artist/music";
 import { artistCreate, artistUpdate } from "../schema/artist";
+import { IArtistRequest, IArtistUpdate } from "../interfaces/artist";
+
 import { getArtistController } from "../controllers/artist/getArtist.controller";
 import { deleteArtistController } from "../controllers/artist/artistDelete.controller";
 import { artistUpdateController } from "../controllers/artist/artistUpdate.controller";
 import { createArtistController } from "../controllers/artist/createArtist.controller";
-
+import { getIdMusicController } from "../controllers/artist/music/getIdMusic.controller";
 import { createMusicController } from "../controllers/artist/music/createMusic.controller";
 import { getAllMusicArtistController } from "../controllers/artist/music/getAllMusic.controller";
-import { getIdMusicController } from "../controllers/artist/music/getIdMusic.controller";
-import { IArtistRequest, IArtistUpdate } from "../interfaces/artist";
+
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
 import { addMusicFilesController } from "../controllers/artist/music/addMusicFiles.controller";
 import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
-const artistRouter = Router();
+export const artistRouter = Router();
 
 artistRouter.post(
   "",
@@ -41,9 +45,24 @@ artistRouter.delete(
   verifyAuthArtistMiddleware,
   deleteArtistController
 );
-artistRouter.post("/music", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, createMusicController)
-artistRouter.post("/music/:id/files", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesController)
-artistRouter.get("/music", verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, getAllMusicArtistController)
-artistRouter.get("/music/:idMusic",  verifyAuthTokenMiddleware, verifyAuthArtistMiddleware, getIdMusicController)
+artistRouter.post(
+  "/music",
+  verifyAuthTokenMiddleware,
+  verifyAuthArtistMiddleware,
+  schemaValidationMiddleware<IMusicCreate>(musicCreate),
+  createMusicController
+);
+artistRouter.get(
+  "/music",
+  verifyAuthTokenMiddleware,
+  verifyAuthArtistMiddleware,
+  getAllMusicArtistController
+);
+artistRouter.get(
+  "/music/:idMusic",
+  verifyAuthTokenMiddleware,
+  verifyAuthArtistMiddleware,
+  getIdMusicController
+);
+artistRouter.post("/music/:id/files",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesController)
 
-export { artistRouter };

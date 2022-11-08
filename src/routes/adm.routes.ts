@@ -11,24 +11,22 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-const router = Router();
-router.post(
+export const admRouter = Router();
+admRouter.post(
   "",
   schemaValidationMiddleware<IAdmRequest>(admCreate),
   createAdmController
 );
-router.get(
+admRouter.get(
   "/profile",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   getAdmController
 );
-router.patch(
+admRouter.patch(
   "/profile",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   schemaValidationMiddleware<IAdmUpdate>(admUpdate),
   admUpdateController
 );
-
-export default router;

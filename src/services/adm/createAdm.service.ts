@@ -6,6 +6,7 @@ import { classToPlain } from "class-transformer";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
 import { IAdmRequest } from "../../interfaces/adm";
+import "dotenv";
 
 export const createAdmService = async ({
   name,
@@ -29,6 +30,7 @@ export const createAdmService = async ({
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
+
 
   if (admHash !== process.env.ADM_HASH) {
     throw new AppError(401, "Hash invalid");
