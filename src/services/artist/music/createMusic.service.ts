@@ -3,7 +3,7 @@ import { AppError } from "../../../error/appError";
 import Music from "../../../entities/music.entity";
 import Artist from "../../../entities/artist.entity";
 import { AppDataSource } from "../../../data-source";
-import { IMusicRequest } from "../../../interfaces/artist/music";
+import { IMusicRequest } from "../../../interfaces/artist/music/";
 
 export const createMusicService = async ({
   name,

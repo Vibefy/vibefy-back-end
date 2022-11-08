@@ -14,5 +14,4 @@
     "outDir": "./dist",
     "resolveJsonModule" : true
   },
-
 }
