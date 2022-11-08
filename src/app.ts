@@ -4,7 +4,6 @@ import express, { Request, Response } from "express";
 import swaggerDocs from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
 
-import aswRouter from "./routes/aws.routes";
 import admRoutes from "./routes/adm.routes";
 import userRoute from "./routes/user.routes";
 import { mailRoute } from "./routes/mail.routes";
@@ -20,7 +19,6 @@ app.use("/adm", admRoutes);
 app.use("/user", userRoute);
 app.use("/artist", artistRouter);
 app.use("/login", sessionRoute);
-app.use("/file", aswRouter);
 app.use("/send-email", mailRoute);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
