@@ -43,7 +43,6 @@ router.delete(
   deleteUserController
 );
 
-//routes adm pro user
 router.delete(
   "/:id",
   verifyAuthTokenMiddleware,
