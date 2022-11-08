@@ -17,7 +17,7 @@ import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddlewa
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
 
-const artistRouter = Router();
+export const artistRouter = Router();
 
 artistRouter.post(
   "",
@@ -63,4 +63,3 @@ artistRouter.get(
   getIdMusicController
 );
 
-export { artistRouter };

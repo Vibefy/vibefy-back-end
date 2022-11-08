@@ -1,49 +1,50 @@
 import { Router } from "express";
-import { addMusicPlaylistController } from "../controllers/playlist/addMusicPlaylist.controller";
-import { createPlaylistController } from "../controllers/playlist/createPlaylist.controller";
-import { deleteMusicPlaylistController } from "../controllers/playlist/deleteMusicPlaylist.controller";
-import { deletePlaylistController } from "../controllers/playlist/deletePlaylist.controller";
-import { listMusicsPlaylistController } from "../controllers/playlist/listMusicsPlaylist.controller";
-import { listPlaylistController } from "../controllers/playlist/listPlaylist.controller";
+
+import { playlistCreate } from "../schema/playlist";
 import { IPlaylistCreate } from "../interfaces/playlist";
-import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+
+import { listPlaylistController } from "../controllers/playlist/listPlaylist.controller";
+import { createPlaylistController } from "../controllers/playlist/createPlaylist.controller";
+import { deletePlaylistController } from "../controllers/playlist/deletePlaylist.controller";
+import { addMusicPlaylistController } from "../controllers/playlist/addMusicPlaylist.controller";
+import { listMusicsPlaylistController } from "../controllers/playlist/listMusicsPlaylist.controller";
+import { deleteMusicPlaylistController } from "../controllers/playlist/deleteMusicPlaylist.controller";
+
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
-import { playlistCreate } from "../schema/playlist";
+import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-const playlistRoute = Router();
+export const playlistRouter = Router();
 
-playlistRoute.post(
+playlistRouter.post(
   "",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   schemaValidationMiddleware<IPlaylistCreate>(playlistCreate),
   createPlaylistController
 );
-playlistRoute.post(
+playlistRouter.post(
   "/:id/:id_music",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   addMusicPlaylistController
 );
-playlistRoute.get("", verifyAuthTokenMiddleware, listPlaylistController);
-playlistRoute.get(
+playlistRouter.get("", verifyAuthTokenMiddleware, listPlaylistController);
+playlistRouter.get(
   "/:id",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   listMusicsPlaylistController
 );
-playlistRoute.delete(
+playlistRouter.delete(
   "/:id",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   deletePlaylistController
 );
-playlistRoute.delete(
+playlistRouter.delete(
   "/:id/:id_music",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   deleteMusicPlaylistController
 );
-
-export { playlistRoute };

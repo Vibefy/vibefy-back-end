@@ -16,50 +16,48 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-const router = Router();
+export const userRouter = Router();
 
-router.post(
+userRouter.post(
   "",
   schemaValidationMiddleware<IUserRequest>(userCreate),
   createUserController
 );
-router.get(
+userRouter.get(
   "/profile",
   verifyAuthTokenMiddleware,
   verifyAuthUserMiddleware,
   getUsersController
 );
-router.patch(
+userRouter.patch(
   "/profile",
   verifyAuthTokenMiddleware,
   verifyAuthUserMiddleware,
   schemaValidationMiddleware<IUserUpdate>(userUpdate),
   userUpdateController
 );
-router.delete(
+userRouter.delete(
   "/profile",
   verifyAuthTokenMiddleware,
   verifyAuthUserMiddleware,
   deleteUserController
 );
 
-router.delete(
+userRouter.delete(
   "/:id",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   deleteUserByIdController
 );
-router.get(
+userRouter.get(
   "",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   getAllUsersController
 );
-router.get(
+userRouter.get(
   "/:id",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   getUserByIdController
 );
-
-export default router;
