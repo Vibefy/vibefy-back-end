@@ -36,29 +36,40 @@ export const addMusicFilesAws = async (req : Request,res : Response)=>
                     {
                         if(file.mimetype === "audio/mpeg")
                         {
-                            cb(null,`musics/${id}/${musicName}.mp3`)
                             saveNameMusic = `${id}/${musicName}.mp3`
+                            cb(null,`musics/${id}/${musicName}.mp3`)
+                        }
+                        else
+                        {
+                            return res.status(400).json({"message": "music only in mp3 format"})
                         }
                     }
-                    if(file.fieldname === "image")
-                    { 
-                        if(file.mimetype === "image/jpg")
+                    else
+                    {
+                        if(file.fieldname === "image")
                         {
-                            cb(null,`musics/${id}/${musicName}.jpg`)
-                            saveNameImage = `${id}/${musicName}.jpg`
-                        }
-                        if(file.mimetype === "image/jpeg")
-                        {
-                            cb(null,`musics/${id}/${musicName}.jpeg`)
-                            saveNameImage = `${id}/${musicName}.jpeg`
-                        }
-                        if(file.mimetype === "image/png")
-                        {
-                            cb(null,`musics/${id}/${musicName}.png`)
-                            saveNameImage = `${id}/${musicName}.png`
+                            if(file.mimetype === "image/jpg")
+                            {
+                                saveNameImage = `${id}/${musicName}.jpg`
+                                cb(null,`musics/${id}/${musicName}.jpg`)
+                            }
+                            else if(file.mimetype === "image/jpeg")
+                            {
+                                saveNameImage = `${id}/${musicName}.jpeg`
+                                cb(null,`musics/${id}/${musicName}.jpeg`)
+                            }
+                            else if(file.mimetype === "image/png")
+                            {
+                                saveNameImage = `${id}/${musicName}.png`
+                                cb(null,`musics/${id}/${musicName}.png`)
+                            }
+                            else
+                            {
+                                return res.status(400).json({"message" : "image can only be a png, jpg or jpeg"})
+                            }
                         }
                     }
-                })
+                }),
     
             })
         })
@@ -66,27 +77,15 @@ export const addMusicFilesAws = async (req : Request,res : Response)=>
     
         return music(req,res,async()=>
         {
-            try
+            if(!saveNameMusic || !saveNameImage)
             {
-                const musicField = req.files["music"][0]
-                const imageField = req.files["image"][0]
-                if(musicField.mimetype !== "audio/mpeg")
-                {
-                    return res.status(400).json({"message": "Music only in mp3 format"})
-                }
-                if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
-                {
-                    return res.status(400).json({"message": "Image only in png,jpg or jpeg format"})
-                }
-                IsFindMusic.image_url = s3ImageUrl(saveNameImage)
-                IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
-    
-                await musicRepository.save(IsFindMusic)
-                return res.status(200).json(IsFindMusic)
+                return res.status(400).json({"message": "music and image are required files"})
             }
-            catch(err)
-            {
-                return res.status(400).json({"message" : "music and image are required files"})
-            }
+
+            IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
+            IsFindMusic.image_url = s3ImageUrl(saveNameImage)
+            
+            await musicRepository.save(IsFindMusic)
+            return res.status(200).json(IsFindMusic)
         })
 }
