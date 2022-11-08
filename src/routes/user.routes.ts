@@ -11,11 +11,15 @@ import { userUpdateController } from "../controllers/user/userUpdate.controller"
 import { getAllUsersController } from "../controllers/adm/getAllUsers.controller";
 import { getUserByIdController } from "../controllers/adm/getUserById.controller";
 import { deleteUserByIdController } from "../controllers/adm/deleteUserById.controller";
+import { addPlaylistUserController } from "../controllers/user/playlist/addPlaylistUser.controller";
+import { getIdPlaylistUsersController } from "../controllers/user/playlist/getIdPlaylistUser.controller";
+import { getAllPlaylistUsersController } from "../controllers/user/playlist/getAllPlaylistUse.controller";
 
 import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+
 
 export const userRouter = Router();
 
@@ -50,6 +54,14 @@ userRouter.delete(
   verifyAuthAdminMiddleware,
   deleteUserByIdController
 );
+
+userRouter.post("/playlist", verifyAuthTokenMiddleware,
+verifyAuthAdminMiddleware, addPlaylistUserController)
+userRouter.get("/playlist", verifyAuthTokenMiddleware,
+verifyAuthAdminMiddleware, getAllPlaylistUsersController)
+userRouter.get("/playlist/:id_playlist", verifyAuthTokenMiddleware,
+verifyAuthAdminMiddleware, getIdPlaylistUsersController)
+
 
 //Only Adm
 
