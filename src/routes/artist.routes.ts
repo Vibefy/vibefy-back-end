@@ -12,7 +12,6 @@ import { createArtistController } from "../controllers/artist/createArtist.contr
 import { getIdMusicController } from "../controllers/artist/music/getIdMusic.controller";
 import { createMusicController } from "../controllers/artist/music/createMusic.controller";
 import { getAllMusicArtistController } from "../controllers/artist/music/getAllMusic.controller";
-import { getIdMusicController } from "../controllers/artist/music/getIdMusic.controller";
 
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
