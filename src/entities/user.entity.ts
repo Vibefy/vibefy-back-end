@@ -1,8 +1,7 @@
 import { Exclude } from "class-transformer";
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Payment from "./payment_user.entity";
 import Playlist from "./playlist.entity";
-import PlaylistsUsers from "./playlists_users.entity";
 
 @Entity("user")
 class User
@@ -30,7 +29,8 @@ class User
     @JoinColumn()
     payment : Payment
 
-    @OneToMany(()=> PlaylistsUsers,(PlaylistsUsers)=> PlaylistsUsers.playlist)
+    @ManyToMany(()=> Playlist,{eager : true})
+    @JoinTable()
     playlist : Playlist[]
 
     @Column("date")

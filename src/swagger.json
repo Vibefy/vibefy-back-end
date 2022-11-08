@@ -434,6 +434,19 @@
                   "User is not an admin": {
                     "value": {
                       "message": "User is not an admin"
+                  "name": "string",
+                  "email": "string",
+                  "id": "string",
+                  "avatar_img": "string"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "name": "henrique",
+                      "email": "henrique@vibes.com",
+                      "password": "senhaForte1234",
+                      "admHash": "69faaa2bffab03d3e80e08ac1181526a",
+                      "avatar_img": "Imagem do luffy"
                     }
                   }
                 }
@@ -484,6 +497,17 @@
                     "value": {
                       "message": "Image format must be png or jpeg"
                     }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "name": "henrique",
+                    "email": "henrique@vibes.com",
+                    "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"
                   }
                 }
               }
@@ -491,6 +515,7 @@
           },
           "401": {
             "$ref": "#/components/UnauthorizedError"
+
           }
         }
       }
