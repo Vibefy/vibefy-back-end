@@ -9,8 +9,8 @@ import { s3ImageUrl, s3MusicUrl } from "../../../utils/s3Url"
 
 export const addMusicFilesController = async (req : Request,res : Response)=>
 {
-        const id = req.params.id
-
+    const id = req.params.id
+    
         let saveNameMusic: string
         let saveNameImage : string
 
@@ -23,10 +23,10 @@ export const addMusicFilesController = async (req : Request,res : Response)=>
             throw new AppError(404,"Music not found")
         }
         const musicName = IsFindMusic.name
-    
+        
         const upload =  multer(
-        {
-            storage : multerS3(
+            {
+                storage : multerS3(
             {
                 bucket : "vibefy",
                 s3 : ConnectAws,
@@ -66,24 +66,27 @@ export const addMusicFilesController = async (req : Request,res : Response)=>
     
         return music(req,res,async()=>
         {
-            const musicField = req.files["music"][0]
-            const imageField = req.files["image"][0]
-            if(!musicField || !imageField)
+            try
+            {
+                const musicField = req.files["music"][0]
+                const imageField = req.files["image"][0]
+                if(musicField.mimetype !== "audio/mpeg")
+                {
+                    return res.status(400).json({"message": "Music only in mp3 format"})
+                }
+                if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
+                {
+                    return res.status(400).json({"message": "Image only in png,jpg or jpeg format"})
+                }
+                IsFindMusic.image_url = s3ImageUrl(saveNameImage)
+                IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
+    
+                await musicRepository.save(IsFindMusic)
+                return res.status(200).json(IsFindMusic)
+            }
+            catch(err)
             {
                 return res.status(400).json({"message" : "music and image are required files"})
             }
-            if(musicField.mimetype !== "audio/mpeg")
-            {
-                return res.status(400).json({"message": "Music only in mp3 format"})
-            }
-            if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
-            {
-                return res.status(400).json({"message": "Image only in png,jpg or jpeg format"})
-            }
-            IsFindMusic.image_url = s3ImageUrl(saveNameImage)
-            IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
-
-            await musicRepository.save(IsFindMusic)
-            return res.status(200).json(IsFindMusic)
         })
 }
