@@ -65,6 +65,7 @@ artistRouter.get(
   verifyAuthArtistMiddleware,
   getIdMusicController
 );
+
 artistRouter.post("/music/:id/files",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesAws)
 
 artistRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,addAvatarFile)

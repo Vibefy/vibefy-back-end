@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 
 import swaggerDocs from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
+
 import { admRouter } from "./routes/adm.routes";
 import { mailRouter } from "./routes/mail.routes";
 import { userRouter } from "./routes/user.routes";
@@ -19,8 +20,10 @@ app.use("/adm", admRouter);
 app.use("/user", userRouter);
 app.use("/artist", artistRouter);
 app.use("/login", sessionRouter);
+app.use("/file", awsRouter);
 app.use("/send-email", mailRouter);
 app.use("/playlist", playlistRouter);
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get("/terms", (req: Request, res: Response) => {
