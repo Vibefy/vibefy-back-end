@@ -31,6 +31,11 @@ admRouter.patch(
   schemaValidationMiddleware<IAdmUpdate>(admUpdate),
   admUpdateController
 );
-admRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,addAvatarFile)
+admRouter.post(
+  "/profile/avatar",
+  verifyAuthTokenMiddleware,
+  verifyAuthAdminMiddleware,
+  addAvatarFile
+);
 
 export default admRouter;

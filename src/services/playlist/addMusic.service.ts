@@ -21,5 +21,7 @@ export const addMusicPlaylistService = async (id: string, id_music: string) => {
 
   playlist.music = [...playlist.music, music];
 
+  await playlistRepository.save(playlist)
+
   return music;
 };
