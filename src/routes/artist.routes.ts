@@ -69,11 +69,11 @@ artistRouter.get(
   getIdMusicController
 );
 
+
 artistRouter.post("/music/:id/files",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,checkIdMiddleware,addMusicFilesAws)
 
 artistRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthArtistMiddleware,addAvatarFile)
 
-//Only adm
 
 artistRouter.get("",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,getAllArtistsController)
 artistRouter.get("/:id",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,getArtistByIdController)

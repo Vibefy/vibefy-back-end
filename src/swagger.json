@@ -71,7 +71,7 @@
             "description": "Forbidden",
             "content": {
               "application/json": {
-                "example": { "message": "Email is already being used" }
+                "example": { "message": "E-mail already exists" }
               }
             }
           }
@@ -134,7 +134,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Updated",
             "content": {
               "application/json": {
@@ -284,6 +284,156 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "id": { "type": "string" },
+                  "avatar_img": { "type": "string" }
+                }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "henrique",
+                    "email": "henrique@vibes.com",
+                    "password": "senhaForte1234",
+                    "admHash": "69faaa2bffab03d3e80e08ac1181526a",
+                    "avatar_img": "Imagem do luffy"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "henrique",
+                  "email": "henrique@vibes.com",
+                  "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Hash invalid": {
+                    "value": {
+                      "message": "Hash Invalid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "E-mail already exists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adm/profile": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar o próprio perfil do administrador",
+        "description": "Esta rota faz a listagem do próprio perfil do administrador, esta rota necessita de autenticação",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseUser"
+                },
+
+                "example": {
+                  "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
+                  "name": "henrique",
+                  "email": "henrique@vibes.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "password": "$2a$10$g0hHOzJZyS1Y2H7PJjW5zOmWhlWEy6Sdy2mM/BAXu7J8X7Xskv6vC"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Atualizar informações do usuário",
+        "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Vinícius"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "example": { "message": "User updated" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
                   "name": "string",
                   "email": "string",
                   "id": "string",
@@ -302,6 +452,51 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/adm/profile/avatar": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Enviar imagem de perfil do administrador",
+        "description": "Altera a imagem de perfil do administrador, esta rota necessita de autenticação.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Added",
+            "content": {
+              "application/json": {
+                "example": { "message": "Image upload success" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Image field is required": {
+                    "value": {
+                      "message": "Image field is required"
+                    }
+                  },
+                  "Wrong image format": {
+                    "value": {
+                      "message": "Image format must be png or jpeg"
+                    }
           },
           "responses": {
             "201": {
@@ -317,7 +512,10 @@
                 }
               }
             }
-            
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+
           }
         }
       }
