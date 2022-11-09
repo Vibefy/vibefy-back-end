@@ -8,7 +8,6 @@ import { artist } from "../../mocks/artist"
 import { user } from "../../mocks/user"
 import { musicCreate } from "../../mocks/music"
 import { IMusicCreate } from "../../interfaces/music"
-import axios from "axios"
 import path from "path"
 
 describe("/artist/music",()=>
@@ -37,8 +36,6 @@ describe("/artist/music",()=>
         artistToken = artistLogin.body.token
         admToken = admLogin.body.token
         userToken = userLogin.body.token
-
-        axios.defaults.headers.common["Authorization"] = artistToken
     })
     afterAll(async()=>
     {
