@@ -84,7 +84,7 @@ artistRouter.post(
   addAvatarFile
 );
 
-// Only Adm
+//Only adm
 
 artistRouter.get(
   "",

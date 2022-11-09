@@ -88,20 +88,46 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/responseUser"
+                  "type": "array",
+                  "items": {
+                    "anyOf": {
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "playlist": { "type": "array" },
+                      "payment": { "type": "null" },
+                      "created_At": { "type": "string" },
+                      "updated_At": { "type": "string" },
+                      "id": { "type": "string", "format": "uuid" },
+                      "avatar_img": { "type": "string" },
+                      "isActive": { "type": "boolean" }
+                    }
+                  }
                 },
 
-                "example": {
-                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
-                  "name": "Vinícius",
-                  "email": "henrique@user.com.br",
-                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
-                  "isActive": false,
-                  "created_At": "2022-11-08",
-                  "updated_At": "2022-11-08",
-                  "playlist": [],
-                  "payment": null
-                }
+                "example": [
+                  {
+                    "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                    "name": "Vinícius",
+                    "email": "vinicius@email.com",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": false,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "playlist": [],
+                    "payment": null
+                  },
+                  {
+                    "id": "6a8f480f-5360-4356-b431-875e115ef02p",
+                    "name": "henrique",
+                    "email": "henrique@user.com.br",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": false,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "playlist": [],
+                    "payment": null
+                  }
+                ]
               }
             }
           },
@@ -111,13 +137,29 @@
         }
       }
     },
-    "/user/{id}": {
+    "/user/{userId}": {
       "get": {
         "security": [{ "bearerAuth": [] }],
-        "tags": ["User"],
+        "tags": ["Adm"],
         "summary": "Listar perfil de usuário a partir do seu id",
         "description": "Esta rota faz a listagem de um usuário a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
-        "parameters": {}
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id do usuário a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "true"
+          }
+        }
       }
     },
     "/user/profile": {
@@ -627,7 +669,7 @@
           "name": { "type": "string" },
           "email": { "type": "string" },
           "playlist": { "type": "array" },
-          "payment": null,
+          "payment": { "type": "null" },
           "created_At": { "type": "string" },
           "updated_At": { "type": "string" },
           "id": { "type": "string", "format": "uuid" },

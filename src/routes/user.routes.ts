@@ -3,7 +3,6 @@ import { Router } from "express";
 import { userCreate, userUpdate } from "../schema/user";
 import { IUserRequest, IUserUpdate } from "../interfaces/users";
 
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { createUserController } from "../controllers/user/createUser.controller";
 import { deleteUserController } from "../controllers/user/deleteUser.controller";
@@ -21,7 +20,6 @@ import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddlewa
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
-
 
 export const userRouter = Router();
 
@@ -63,7 +61,6 @@ userRouter.delete(
   verifyAuthAdminMiddleware,
   deleteUserByIdController
 );
-
 
 userRouter.post(
   "/playlist",
