@@ -2,6 +2,10 @@ import { Router } from "express";
 
 import { mailController } from "../controllers/mail.controller";
 
-export const mailRouter = Router();
+const routes = Router();
 
-mailRouter.get("", mailController);
+export const mailRoutes = () => {
+  routes.get("", mailController);
+
+  return routes;
+};

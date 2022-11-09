@@ -8,6 +8,6 @@ export const listMusicsPlaylistController = async (
   const { id } = req.params;
 
   const musics = await listMusicsPlaylistService(id);
-  
+
   return res.status(200).json(musics);
 };

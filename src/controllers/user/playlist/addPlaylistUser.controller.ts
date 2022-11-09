@@ -11,5 +11,5 @@ export const addPlaylistUserController = async (
 
   await addPlaylistUserService(id, id_playlist);
 
-  return res.status(201).json({ message: "Playlist created" });
+  return res.status(201).json({ message: "Successfully created" });
 };

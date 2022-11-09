@@ -5,6 +5,6 @@ export const deleteArtistController = async (req: Request, res: Response) => {
   const { id } = req.user;
 
   await deleteArtistService(id);
-  
+
   return res.status(204).send();
 };

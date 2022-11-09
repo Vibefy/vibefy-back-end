@@ -1,8 +1,8 @@
 import { classToPlain } from "class-transformer";
+import { AppError } from "../../../error/appError";
 import { AppDataSource } from "../../../data-source";
 import Artist from "../../../entities/artist.entity";
 import Music from "../../../entities/music.entity";
-import { AppError } from "../../../error/appError";
 
 export const getIdMusicService = async (id: string, idArtis: string) => {
   const musicRepository = AppDataSource.getRepository(Music);

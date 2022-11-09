@@ -7,9 +7,10 @@ import { sessionController } from "../controllers/user/session.controller";
 
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-export const sessionRouter = Router();
-sessionRouter.post(
-  "",
-  schemaValidationMiddleware<ILogin>(login),
-  sessionController
-);
+const routes = Router();
+
+export const sessionRoutes = () => {
+  routes.post("", schemaValidationMiddleware<ILogin>(login), sessionController);
+
+  return routes;
+};
