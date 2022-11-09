@@ -101,7 +101,7 @@ export const mailController = async (req: Request, res: Response) => {
                         >
                           &reg; Vibefy, Don't wait for the vibe, Play it!<br />
                           Não foi você que se cadastrou? <br /><a
-                            href="malito:clinicasaqui@outlook.com"
+                            href="malito:vibefy@gmail.com"
                             style="color: #d0bdf4"
                             >Nos mande um email!</a
                           >
