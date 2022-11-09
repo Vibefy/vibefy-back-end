@@ -76,6 +76,90 @@
             }
           }
         }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar todos os perfis de usuário, esta rota necessita de permissão de administrador e autenticação.",
+        "description": "Esta rota necessita de permissão de administrador e autenticação.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": {
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "playlist": { "type": "array" },
+                      "payment": { "type": "null" },
+                      "created_At": { "type": "string" },
+                      "updated_At": { "type": "string" },
+                      "id": { "type": "string", "format": "uuid" },
+                      "avatar_img": { "type": "string" },
+                      "isActive": { "type": "boolean" }
+                    }
+                  }
+                },
+
+                "example": [
+                  {
+                    "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                    "name": "Vinícius",
+                    "email": "vinicius@email.com",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": false,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "playlist": [],
+                    "payment": null
+                  },
+                  {
+                    "id": "6a8f480f-5360-4356-b431-875e115ef02p",
+                    "name": "henrique",
+                    "email": "henrique@user.com.br",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": false,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "playlist": [],
+                    "payment": null
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar perfil de usuário a partir do seu id",
+        "description": "Esta rota faz a listagem de um usuário a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id do usuário a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "true"
+          }
+        }
       }
     },
     "/user/profile": {
@@ -286,8 +370,8 @@
                 "properties": {
                   "name": { "type": "string" },
                   "email": { "type": "string" },
-                  "id": { "type": "string" },
-                  "avatar_img": { "type": "string" }
+                  "password": { "type": "string" },
+                  "admHash": { "type": "string" }
                 }
               },
               "examples": {
@@ -296,8 +380,7 @@
                     "name": "henrique",
                     "email": "henrique@vibes.com",
                     "password": "senhaForte1234",
-                    "admHash": "69faaa2bffab03d3e80e08ac1181526a",
-                    "avatar_img": "Imagem do luffy"
+                    "admHash": "69faaa2bffab03d3e80e08ac1181526a"
                   }
                 }
               }
@@ -494,6 +577,79 @@
           }
         }
       }
+    },
+    "/artist": {
+      "post": {
+        "summary": "Criação de usuários artistas",
+        "description": "Esta rota faz a criação de usuários artistas.",
+        "tags": ["Artist"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Dua Lipa",
+                    "email": "dualipa@artist.com",
+                    "password": "1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "created_At": { "type": "string" },
+                    "updated_At": { "type": "string" },
+                    "id": { "type": "string", "format": "uuid" },
+                    "avatar_img": { "type": "string" },
+                    "isActive": { "type": "boolean" }
+                  }
+                },
+                "example": {
+                  "name": "Dua Lipa",
+                  "email": "dualipa@artist.com",
+                  "created_At": "December 17, 1995 03:24:00",
+                  "updated_At": "December 17, 1995 03:24:00",
+                  "id": "61920fb4-eb18-437b-8901-b8ce52c6ab29",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": "true"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "example": { "message": "E-mail already exists" }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -513,7 +669,7 @@
           "name": { "type": "string" },
           "email": { "type": "string" },
           "playlist": { "type": "array" },
-          "payment": null,
+          "payment": { "type": "null" },
           "created_At": { "type": "string" },
           "updated_At": { "type": "string" },
           "id": { "type": "string", "format": "uuid" },

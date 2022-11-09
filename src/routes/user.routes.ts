@@ -49,8 +49,14 @@ userRouter.delete(
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   deleteUserByIdController
-);
-
+  );
+  userRouter.post(
+    "/profile/avatar",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    addAvatarFile
+  );
+  
 //Only Adm
 
 userRouter.get(
@@ -66,11 +72,5 @@ userRouter.get(
   getUserByIdController
 );
 
-userRouter.post(
-  "/profile/avatar",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile
-);
 
 export default userRouter;
