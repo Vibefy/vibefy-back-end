@@ -19,6 +19,9 @@ import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
+import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
+
 
 export const userRouter = Router();
 
@@ -60,6 +63,7 @@ userRouter.delete(
   verifyAuthAdminMiddleware,
   deleteUserByIdController
 );
+
 
 userRouter.post(
   "/playlist",
