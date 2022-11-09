@@ -206,6 +206,57 @@
             }
           }
         }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Desativar perfil de usuário pelo Id",
+        "description": "Esta rota desativa o perfil de usuário pelo id, esta rota necessita de autenticação e privilégios de administrador.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id do usuário a ser desativado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/user/profile": {
@@ -1015,6 +1066,57 @@
           },
           "401": {
             "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Desativar perfil de artista pelo Id",
+        "description": "Esta rota desativa o perfil de artista pelo Id, esta rota necessita de autenticação e privilégios de administrador.",
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "description": "Id do artista a ser desativado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
             "content": {
               "application/json": {
                 "examples": {
