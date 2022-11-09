@@ -1,26 +1,25 @@
-import multer from "multer"
-import multerS3 from "multer-s3"
-import { ConnectAws } from "../../utils/s3Storage"
-import {Response,Request} from "express"
-import { AppDataSource } from "../../data-source"
-import { AppError } from "../../error/appError"
-import { s3AvatarAdmUrl, s3AvatarUserUrl } from "../../utils/s3Url"
-import Adm from "../../entities/adm.entity"
+import multer from "multer";
+import multerS3 from "multer-s3";
+import Adm from "../../entities/adm.entity";
+import { Response, Request } from "express";
+import { AppError } from "../../error/appError";
+import { AppDataSource } from "../../data-source";
+import { ConnectAws } from "../../utils/s3Storage";
+import { s3AvatarAdmUrl } from "../../utils/s3Url";
 
-export const addAvatarFile = async (req : Request,res : Response)=>
-{
-        const id = req.user.id
-    
-        let saveAvatarImage : string;
+export const addAvatarFile = async (req: Request, res: Response) => {
+  const id = req.user.id;
 
-        const admRepository = AppDataSource.getRepository(Adm)
-    
-        const adm = await admRepository.findOneBy({id})
-    
-        if(!adm)
-        {
-            throw new AppError(404,"Adm not found")
-        }
+  let saveAvatarImage: string;
+
+  const admRepository = AppDataSource.getRepository(Adm);
+
+  const adm = await admRepository.findOneBy({ id });
+
+  if (!adm) {
+    throw new AppError(404, "Adm is not found");
+  }
+  
         const admName = adm.name
         
         const upload =  multer(
@@ -38,16 +37,24 @@ export const addAvatarFile = async (req : Request,res : Response)=>
                             cb(null,`avatar/adm/${admName}.jpg`)
                             saveAvatarImage = `${admName}.jpg`
                         }
-                        if(file.mimetype === "image/jpeg")
+                        else if(file.mimetype === "image/jpeg")
                         {
                             cb(null,`avatar/adm/${admName}.jpeg`)
                             saveAvatarImage = `${admName}.jpeg`
                         }
-                        if(file.mimetype === "image/png")
+                        else if(file.mimetype === "image/png")
                         {
                             cb(null,`avatar/adm/${admName}.png`)
                             saveAvatarImage = `${admName}.png`
                         }
+                        else
+                        {
+                            return res.status(400).end("Avatar only in png,jpg or jpeg format")
+                        }
+                    }
+                    else
+                    {
+                        return res.status(400).end("Avatar field is required")
                     }
                 })
     
@@ -62,12 +69,12 @@ export const addAvatarFile = async (req : Request,res : Response)=>
                 const imageField = req.file
                 if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
                 {
-                    return res.status(400).json({"message": "Avatar only in png,jpg or jpeg format"})
+                    return res.status(400).end("Avatar only in png,jpg or jpeg format")
                 }
 
-                const avatarUrl = s3AvatarAdmUrl(saveAvatarImage)
+                const avatarUrl = s3AvatarAdmUrl(saveAvatarImage);
 
-                adm.avatar_img = avatarUrl
+                adm.avatar_img = avatarUrl;
 
                 await admRepository.save(adm)
                 
@@ -75,7 +82,7 @@ export const addAvatarFile = async (req : Request,res : Response)=>
             }
             catch(err)
             {
-                return res.status(400).json({"message" : "avatar is required file"})
+                return res.status(400).end("avatar is required file")
             }
         })
 }

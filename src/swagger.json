@@ -1054,6 +1054,7 @@
                     "email": { "type": "string" },
                     "avatar_img": { "type": "string" },
                     "isActive": { "type": "boolean" },
+                    "playlist": { "type": "array" },
                     "created_At": { "type": "string" },
                     "updated_At": { "type": "string" },
                     "music": { "type": "array" }
@@ -1067,7 +1068,6 @@
                   "isActive": true,
                   "created_At": "2022-11-08",
                   "updated_At": "2022-11-08",
-                  "music": [
                     {
                       "name": "Dont Start Now",
                       "genre": "pop",
@@ -1093,6 +1093,7 @@
                       "duration": "example"
                     }
                   ]
+                  "playlist": []
                 }
               }
             }

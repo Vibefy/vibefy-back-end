@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import { deleteIdPlaylistUserService } from "../../../services/user/playlist/deletePlaylistUser.service";
 
-
 export const deleteIdPlaylistUsersController = async (
   req: Request,
   res: Response

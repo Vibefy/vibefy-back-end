@@ -19,85 +19,100 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 
-export const userRouter = Router();
+import { addAvatarFile} from "../controllers/user/addAvatarFileAws";
+import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
-userRouter.post(
-  "",
-  schemaValidationMiddleware<IUserRequest>(userCreate),
-  createUserController
-);
-userRouter.get(
-  "/profile",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  getUsersController
-);
-userRouter.patch(
-  "/profile",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  schemaValidationMiddleware<IUserUpdate>(userUpdate),
-  userUpdateController
-);
-userRouter.delete(
-  "/profile",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  deleteUserController
-);
+const routes = Router();
 
-userRouter.post(
-  "/profile/avatar",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile
-);
+export const userRoutes = () => {
+  routes.post(
+    "",
+    schemaValidationMiddleware<IUserRequest>(userCreate),
+    createUserController
+  );
 
-userRouter.delete(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  deleteUserByIdController
-);
+  routes.get(
+    "/profile",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    getUsersController
+  );
 
-userRouter.post(
-  "/playlist",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addPlaylistUserController
-);
-userRouter.get(
-  "/playlist",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  getAllPlaylistUsersController
-);
-userRouter.get(
-  "/playlist/:id_playlist",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  getIdPlaylistUsersController
-);
-userRouter.delete( "/playlist/:id_playlist",
-verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware,
-deleteIdPlaylistUsersController)
+  routes.patch(
+    "/profile",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    schemaValidationMiddleware<IUserUpdate>(userUpdate),
+    userUpdateController
+  );
 
-//Only Adm
+  routes.delete(
+    "/profile",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    deleteUserController
+  );
 
-userRouter.get(
-  "",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  getAllUsersController
-);
-userRouter.get(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  getUserByIdController
-);
+  routes.post(
+    "/profile/avatar",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    addAvatarFile
+  );
 
-export default userRouter;
+  routes.post(
+    "/playlist",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    addPlaylistUserController
+  );
+
+  routes.get(
+    "/playlist",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    getAllPlaylistUsersController
+  );
+
+  routes.get(
+    "/playlist/:id_playlist",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    getIdPlaylistUsersController
+  );
+
+  routes.delete(
+    "/playlist/:id_playlist",
+    verifyAuthTokenMiddleware,
+    verifyAuthUserMiddleware,
+    deleteIdPlaylistUsersController
+  );
+
+  //Only Adm
+
+  routes.get(
+    "",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    getAllUsersController
+  );
+
+  routes.get(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    checkIdMiddleware,
+    getUserByIdController
+  );
+
+  routes.delete(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    checkIdMiddleware,
+    deleteUserByIdController
+  );
+
+  return routes;
+};

@@ -29,7 +29,7 @@ export const createUserService = async ({
   user.name = name;
   user.email = email;
   user.password = passwordHash;
-  user.payment = null;
+  user.playlist = [];
   user.created_At = new Date();
   user.updated_At = new Date();
 

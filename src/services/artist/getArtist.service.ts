@@ -1,5 +1,5 @@
-import Artist from "../../entities/artist.entity";
 import { classToPlain } from "class-transformer";
+import Artist from "../../entities/artist.entity";
 import { AppDataSource } from "../../data-source";
 
 export const getArtistService = async (id: string) => {

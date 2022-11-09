@@ -29,18 +29,17 @@ class Artist {
   @Exclude()
   password: string;
 
-  @Column("boolean",{default : true})
-  isActive : boolean
+  @Column("boolean", { default: true })
+  isActive: boolean;
 
   @OneToMany(() => Music, (music) => music.artist, { eager: true })
   @JoinColumn()
   music: Music[];
 
   @Column("date")
-  created_At : Date
+  created_At: Date;
 
   @Column("date")
-  updated_At : Date
-
+  updated_At: Date;
 }
 export default Artist;

@@ -1,3 +1,4 @@
+import "dotenv";
 import * as bcrypt from "bcryptjs";
 import Adm from "../../entities/adm.entity";
 import User from "../../entities/user.entity";
@@ -6,7 +7,6 @@ import { classToPlain } from "class-transformer";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
 import { IAdmRequest } from "../../interfaces/adm";
-import "dotenv";
 
 export const createAdmService = async ({
   name,

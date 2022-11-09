@@ -1,24 +1,28 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn,OneToMany, JoinColumn, JoinTable} from "typeorm";
 import Music from "./music.entity";
-import User from "./user.entity";
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  JoinTable,
+} from "typeorm";
 
 @Entity("playlist")
-class Playlist
-{
-    @PrimaryGeneratedColumn("uuid")
-    id : string
+class Playlist {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column("varchar")
-    name : string
+  @Column("varchar")
+  name: string;
 
-    @ManyToMany(()=> Music,{eager : true})
-    @JoinTable()
-    music : Music[]
+  @ManyToMany(() => Music, { eager: true })
+  @JoinTable()
+  music: Music[];
 
-    @Column("date")
-    created_At : Date
+  @Column("date")
+  created_At: Date;
 
-    @Column("date")
-    updated_At : Date
+  @Column("date")
+  updated_At: Date;
 }
-export default Playlist
+export default Playlist;

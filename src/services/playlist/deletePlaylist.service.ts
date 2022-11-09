@@ -10,8 +10,8 @@ export const deletePlaylistService = async (id: string): Promise<boolean> => {
   if (!playlist) {
     throw new AppError(404, "Playlist not found");
   }
-
-  await deleteRepository.delete(playlist);
+  
+  await deleteRepository.remove(playlist)
 
   return true;
 };
