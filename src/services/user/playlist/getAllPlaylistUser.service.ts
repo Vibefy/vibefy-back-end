@@ -1,10 +1,17 @@
 import { AppDataSource } from "../../../data-source";
 import User from "../../../entities/user.entity";
+import { AppError } from "../../../error/appError";
 
+export const getAllPlaylistUserService = async (id: string) => {
+  const userRepository = AppDataSource.getRepository(User);
+  const userPlaylist = await userRepository.findOne({
+    where: { id: id},
+    relations: { playlist: true },
+  });
 
-export const getAllPlaylistUserService = async (id:string,) => {
-  const userRepository = AppDataSource.getRepository(User)
-  const user = await userRepository.findOneBy({id})
-  
-  return user.playlist
+  if(!userPlaylist){
+    throw new AppError(404, "User is not found")
+  }
+
+  return userPlaylist.playlist;
 };

@@ -56,11 +56,11 @@ userRouter.delete(
 );
 
 userRouter.post("/playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, addPlaylistUserController)
+verifyAuthUserMiddleware, addPlaylistUserController)
 userRouter.get("/playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, getAllPlaylistUsersController)
+verifyAuthUserMiddleware, getAllPlaylistUsersController)
 userRouter.get("/playlist/:id_playlist", verifyAuthTokenMiddleware,
-verifyAuthAdminMiddleware, getIdPlaylistUsersController)
+verifyAuthUserMiddleware, getIdPlaylistUsersController)
 
 
 //Only Adm

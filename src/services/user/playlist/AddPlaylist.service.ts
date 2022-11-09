@@ -7,18 +7,19 @@ import { AppError } from "../../../error/appError";
 export const addPlaylistUserService = async (id:string, id_playlist:string) => {
   const userRepository = AppDataSource.getRepository(User)
   const user = await userRepository.findOneBy({id})
+
   const playlistRepository = AppDataSource.getRepository(Playlist)
   const playlistFind = await  playlistRepository.findOneBy({id: id_playlist})
 
   if(!playlistFind){
-    throw new AppError(400, "não encontro a playlist")
+    throw new AppError(404, "Playlist not exist")
+  }
+  if(user.playlist.find((elem) => elem.id == playlistFind.id)){
+    throw new AppError(404, "Playlist exist")
   }
 
-  console.log(playlistFind, user)
+  user.playlist = [...user.playlist, playlistFind]
+  await userRepository.save(user);
 
-  userRepository.update(user!.id, {
-    playlist: [...user.playlist, playlistFind],
-  });
-
-  return `PlayList adicionada com sucesso!`
+  return 
 };
