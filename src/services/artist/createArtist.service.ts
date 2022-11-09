@@ -11,7 +11,7 @@ export const createArtistService = async ({
   name,
   email,
   password,
-}:IArtistRequest) => {
+}: IArtistRequest) => {
   const userRepository = AppDataSource.getRepository(User);
   const users = await userRepository.findOneBy({ email });
   const artRepository = AppDataSource.getRepository(Artist);
@@ -27,7 +27,7 @@ export const createArtistService = async ({
     throw new AppError(400, "Required fields not filled");
   }
   const passwordHash = await bcrypt.hash(password, 10);
- 
+
   const artist = new Artist();
   artist.name = name;
   artist.email = email;
@@ -35,7 +35,7 @@ export const createArtistService = async ({
   artist.created_At = new Date();
   artist.updated_At = new Date();
 
-   artRepository.create(artist);
+  artRepository.create(artist);
   await artRepository.save(artist);
 
   const artistSerialized = classToPlain(artist);

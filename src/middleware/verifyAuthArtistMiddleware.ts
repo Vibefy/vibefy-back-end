@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
 export const verifyAuthArtistMiddleware = (
   req: Request,

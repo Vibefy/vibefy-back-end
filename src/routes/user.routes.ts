@@ -80,10 +80,12 @@ userRouter.get(
   verifyAuthUserMiddleware,
   getIdPlaylistUsersController
 );
-userRouter.delete( "/playlist/:id_playlist",
-verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware,
-deleteIdPlaylistUsersController)
+userRouter.delete(
+  "/playlist/:id_playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  deleteIdPlaylistUsersController
+);
 
 //Only Adm
 

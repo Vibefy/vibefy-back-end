@@ -19,13 +19,13 @@ export const artistUpdateService = async ({
     throw new AppError(401, "Required fields not filled");
   }
 
-  const updateDate = new Date()
+  const updateDate = new Date();
 
   artistRepository.update(findUser!.id, {
     name: name ? name : findUser.name,
     email: email ? email : findUser.email,
     password: password ? await bcrypt.hash(password, 10) : findUser.password,
-    updated_At : updateDate
+    updated_At: updateDate,
   });
   return true;
 };

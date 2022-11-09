@@ -23,12 +23,12 @@ export const mailController = async (req: Request, res: Response) => {
     if (err)
       return res.status(400).json({
         error: true,
-        message: "Erro: E-mail não enviado com sucesso!",
+        message: "Error: E-mail not sent",
       });
   });
 
   return res.json({
     error: false,
-    message: "E-mail enviado com sucesso!",
+    message: "E-mail successfully sent!",
   });
 };
