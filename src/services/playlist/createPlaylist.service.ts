@@ -5,7 +5,7 @@ import Playlist from "../../entities/playlist.entity";
 export const createPlaylistService = async (name: string) => {
   const playlistRepository = AppDataSource.getRepository(Playlist);
 
-  const playlistAlreadyExist = await playlistRepository.findOneBy({ name });
+  const playlistAlreadyExist = await playlistRepository.findOneBy({name});
 
   if (playlistAlreadyExist) {
     throw new AppError(403, "Playlist already exist");
@@ -15,6 +15,7 @@ export const createPlaylistService = async (name: string) => {
   playlist.name = name;
   playlist.created_At = new Date();
   playlist.updated_At = new Date();
+  playlist.music = []
 
   await playlistRepository.save(playlist);
 

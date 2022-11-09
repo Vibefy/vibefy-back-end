@@ -19,54 +19,70 @@ export const addAvatarFile = async (req: Request, res: Response) => {
   if (!artist) {
     throw new AppError(404, "Artist is not found");
   }
-  const artistName = artist.name;
 
-  const upload = multer({
-    storage: multerS3({
-      bucket: "vibefy",
-      s3: ConnectAws,
-      key: async (req: Request, file, cb) => {
-        if (file.fieldname === "avatar") {
-          if (file.mimetype === "image/jpg") {
-            cb(null, `avatar/artist/${artistName}.jpg`);
-            saveAvatarImage = `${artistName}.jpg`;
-          }
-          if (file.mimetype === "image/jpeg") {
-            cb(null, `avatar/artist/${artistName}.jpeg`);
-            saveAvatarImage = `${artistName}.jpeg`;
-          }
-          if (file.mimetype === "image/png") {
-            cb(null, `avatar/artist/${artistName}.png`);
-            saveAvatarImage = `${artistName}.png`;
-          }
-        }
-      },
-    }),
-  });
-  const avatarUpload = upload.single("avatar");
+        const artistName = artist.name
+        
+        const upload =  multer(
+            {
+                storage : multerS3(
+            {
+                bucket : "vibefy",
+                s3 : ConnectAws,
+                key : (async(req : Request,file,cb)=>
+                {
+                    if(file.fieldname === "avatar")
+                    { 
+                        if(file.mimetype === "image/jpg")
+                        {
+                            cb(null,`avatar/artist/${artistName}.jpg`)
+                            saveAvatarImage = `${artistName}.jpg`
+                        }
+                        else if(file.mimetype === "image/jpeg")
+                        {
+                            cb(null,`avatar/artist/${artistName}.jpeg`)
+                            saveAvatarImage = `${artistName}.jpeg`
+                        }
+                        else if(file.mimetype === "image/png")
+                        {
+                            cb(null,`avatar/artist/${artistName}.png`)
+                            saveAvatarImage = `${artistName}.png`
+                        }
+                        else
+                        {
+                            return res.status(400).end("avatar only in png,jpg or jpeg format")
+                        }
+                    }
+                    else
+                    {
+                        return res.status(400).end("avatar field is required")
+                    }
+                })
+    
+            })
+        })
+        const avatarUpload = upload.single("avatar")
+    
+        return avatarUpload(req,res,async()=>
+        {
+            try
+            {
+                const imageField = req.file
+                if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
+                {
+                    return res.status(400).end("avatar only in png,jpg or jpeg format")
+                }
 
-  return avatarUpload(req, res, async () => {
-    try {
-      const imageField = req.file;
-      if (
-        imageField.mimetype !== "image/png" &&
-        imageField.mimetype !== "image/jpg" &&
-        imageField.mimetype !== "image/jpeg"
-      ) {
-        return res
-          .status(400)
-          .json({ message: "Avatar only in png, jpg or jpeg format" });
-      }
+                const avatarUrl = s3AvatarArtistUrl(saveAvatarImage);
 
-      const avatarUrl = s3AvatarArtistUrl(saveAvatarImage);
+                artist.avatar_img = avatarUrl;
 
-      artist.avatar_img = avatarUrl;
+                await artistRepository.save(artist)
 
-      await artistRepository.save(artist);
-
-      return res.status(200).json({ avatar_img: avatarUrl });
-    } catch (err) {
-      return res.status(400).json({ message: "Avatar is required file" });
-    }
-  });
-};
+                return res.status(200).json({avatar_img : avatarUrl})
+            }
+            catch(err)
+            {
+                return res.status(400).end("avatar is required file")
+            }
+        })
+}

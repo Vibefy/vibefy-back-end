@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --detectOpenHandles --runInBand --verbose"
+    "test": "cross-env ADM_HASH=SECRET_ADM NODE_ENV=test SECRET_KEY=secret_key jest --forceExit --detectOpenHandles --runInBand --verbose"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -41,7 +41,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
-    "file-type": "^18.0.0",
     "jsonwebtoken": "^8.5.1",
     "mime": "^3.0.0",
     "multer": "^1.4.5-lts.1",

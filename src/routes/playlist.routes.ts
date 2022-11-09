@@ -13,6 +13,7 @@ import { deleteMusicPlaylistController } from "../controllers/playlist/deleteMus
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
 const routes = Router();
 
@@ -29,6 +30,7 @@ export const playlistRoutes = () => {
     "/:id/:id_music",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     addMusicPlaylistController
   );
 
@@ -38,6 +40,7 @@ export const playlistRoutes = () => {
     "/:id",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     listMusicsPlaylistController
   );
 
@@ -45,6 +48,7 @@ export const playlistRoutes = () => {
     "/:id",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     deletePlaylistController
   );
 
@@ -52,6 +56,7 @@ export const playlistRoutes = () => {
     "/:id/:id_music",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     deleteMusicPlaylistController
   );
 
