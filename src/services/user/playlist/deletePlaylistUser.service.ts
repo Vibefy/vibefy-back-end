@@ -13,20 +13,18 @@ export const deleteIdPlaylistUserService = async (
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ id: id });
 
-  if (!playlist) {
-    throw new AppError(404, "Playlist not found");
+    if (!playlist) {
+      throw new AppError(404, "Playlist not found");
+    }
+  
+    if (!user) {
+      throw new AppError(404, "User not found");
+    }
+  
+    const filteredPlaylist = user.playlist.filter((elem) => elem.id !== id_playlist);
+
+    user.playlist = filteredPlaylist;
+    await userRepository.save(user);
+  
+    return true;
   }
-
-  if (!user) {
-    throw new AppError(404, "User not found");
-  }
-
-  const filteredPlaylist = user.playlist.filter(
-    (elem) => elem.id !== id_playlist
-  );
-  console.log(filteredPlaylist);
-  user.playlist = filteredPlaylist;
-  await userRepository.save(user);
-
-  return true;
-};

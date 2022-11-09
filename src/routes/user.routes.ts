@@ -18,7 +18,6 @@ import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
 
 export const userRouter = Router();
@@ -80,6 +79,10 @@ userRouter.get(
   verifyAuthUserMiddleware,
   getIdPlaylistUsersController
 );
+userRouter.delete( "/playlist/:id_playlist",
+verifyAuthTokenMiddleware,
+verifyAuthUserMiddleware,
+deleteIdPlaylistUsersController)
 
 //Only Adm
 
