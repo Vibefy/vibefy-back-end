@@ -17,6 +17,7 @@
         "description": "Esta rota faz a criação de usuários para o aplicativo",
         "tags": ["User"],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -80,8 +81,8 @@
       "get": {
         "security": [{ "bearerAuth": [] }],
         "tags": ["Adm"],
-        "summary": "Listar todos os perfis de usuário, esta rota necessita de permissão de administrador e autenticação.",
-        "description": "Esta rota necessita de permissão de administrador e autenticação.",
+        "summary": "Listar todos os perfis de usuário",
+        "description": "Listar todos os perfis de usuário, esta rota necessita de permissão de administrador e autenticação.",
         "responses": {
           "200": {
             "description": "OK",
@@ -132,7 +133,23 @@
             }
           },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -157,7 +174,41 @@
         ],
         "responses": {
           "200": {
-            "description": "true"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "c50a044f-0fec-4e15-aa6b-a17b72c0f6c7",
+                  "name": "Janet",
+                  "email": "email@user.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": true,
+                  "created_At": "2022-11-08",
+                  "updated_At": "2022-11-08",
+                  "payment": null,
+                  "playlist": []
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -202,6 +253,7 @@
         "summary": "Atualizar informações do usuário",
         "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -237,6 +289,7 @@
         "summary": "Desativar perfil de usuário",
         "description": "Esta rota desativa o perfil do usuário, esta rota necessita de autenticação.",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -268,6 +321,7 @@
         "summary": "Enviar imagem de usuário",
         "description": "Altera a imagem de usuário, esta rota necessita de autenticação.",
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -319,16 +373,29 @@
         "description": "Rota de login de usuário, retorna o token de usuário.",
         "tags": ["Session"],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Login"
               },
               "examples": {
-                "user": {
+                "User": {
                   "value": {
                     "email": "henrique@user.com.br",
                     "password": "senhaForte123456"
+                  }
+                },
+                "Adm": {
+                  "value": {
+                    "email": "henrique@vibes.com",
+                    "password": "senhaForte1234"
+                  }
+                },
+                "Artist": {
+                  "value": {
+                    "email": "dualipa@artist.com",
+                    "password": "1234"
                   }
                 }
               }
@@ -363,6 +430,7 @@
         "description": "Esta é uma rota de destinada à criação de usuários com privilégios de administrador.",
         "tags": ["Adm"],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -470,7 +538,23 @@
             }
           },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -480,6 +564,7 @@
         "summary": "Atualizar informações do usuário",
         "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -533,6 +618,7 @@
         "summary": "Enviar imagem de perfil do administrador",
         "description": "Altera a imagem de perfil do administrador, esta rota necessita de autenticação.",
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -573,7 +659,23 @@
             }
           },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -584,6 +686,7 @@
         "description": "Esta rota faz a criação de usuários artistas.",
         "tags": ["Artist"],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -647,6 +750,196 @@
                 "example": { "message": "E-mail already exists" }
               }
             }
+          }
+        }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar todos os perfis de artistas",
+        "description": "Listar todos os perfis de artistas, esta rota necessita de permissão de administrador e autenticação.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": {
+                      "id": { "type": "string", "format": "uuid" },
+                      "name": { "type": "string" },
+                      "email": { "type": "string" },
+                      "avatar_img": { "type": "string" },
+                      "isActive": { "type": "boolean" },
+                      "created_At": { "type": "string" },
+                      "updated_At": { "type": "string" },
+                      "music": { "type": "array" }
+                    }
+                  }
+                },
+
+                "example": [
+                  {
+                    "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                    "name": "Lady Gaga",
+                    "email": "ladygaga@artist.com",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": true,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "music": ["Bad Romance", "Born This Way", "Poker Face"]
+                  },
+                  {
+                    "id": "6a8f480f-5360-4356-b431-875e115ef02p",
+                    "name": "Dua Lipa",
+                    "email": "dualipa@artist.com",
+                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                    "isActive": false,
+                    "created_At": "2022-11-08",
+                    "updated_At": "2022-11-08",
+                    "music": [
+                      "Dont Start Now",
+                      "Physical",
+                      "Levitating",
+                      "Break My Heart"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/{artistId}": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar perfil de artista a partir do seu id",
+        "description": "Esta rota faz a listagem de um artista a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "description": "Id do artista a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                  "name": "Lady Gaga",
+                  "email": "ladygaga@artist.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": true,
+                  "created_At": "2022-11-08",
+                  "updated_At": "2022-11-08",
+                  "music": ["Bad Romance", "Born This Way", "Poker Face"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Artist not exist"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/profile": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Listar o próprio perfil",
+        "description": "Esta rota faz a listagem do próprio perfil do artista, esta rota necessita de autenticação",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "playlist": { "type": "array" },
+                    "payment": { "type": "null" },
+                    "created_At": { "type": "string" },
+                    "updated_At": { "type": "string" },
+                    "id": { "type": "string", "format": "uuid" },
+                    "avatar_img": { "type": "string" },
+                    "isActive": { "type": "boolean" }
+                  }
+                },
+
+                "example": {
+                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                  "name": "Vinícius",
+                  "email": "henrique@user.com.br",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": false,
+                  "created_At": "2022-11-08",
+                  "updated_At": "2022-11-08",
+                  "playlist": [],
+                  "payment": null
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
           }
         }
       }
