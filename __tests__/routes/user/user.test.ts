@@ -1,13 +1,18 @@
 import app from "../../../src/app"
 import request from "supertest"
-import { user, userUpdated, userWithout } from "../../mocks/user"
+import { user, userAnother, userUpdated, userWithout } from "../../mocks/user"
 import {IUser} from "../../interfaces/user"
-import { loginUser } from "../../mocks/session"
+import { loginAdm, loginArtist, loginUser } from "../../mocks/session"
 import {AppDataSource} from "../../../src/data-source"
 import {DataSource} from "typeorm"
+import { artist } from "../../mocks/artist"
+import path from "path"
+import { adm } from "../../mocks/adm"
 
 let connect: DataSource;
 let token: string;
+let tokenArtist : string;
+let tokenAdm : string
 describe("/user",()=>
 {
     beforeAll(async()=>
@@ -16,6 +21,12 @@ describe("/user",()=>
         {
             connect = connection
         })
+        const artistCreate = await request(app).post("/artist").send(artist)
+        const artistLogin = await request(app).post("/login").send(loginArtist)
+        const admCreate = await request(app).post("/adm").send(adm)
+        const admLogin = await request(app).post("/login").send(loginAdm)
+        tokenArtist = artistLogin.body.token
+        tokenAdm = admLogin.body.token
     })
     afterAll(async()=>
     {
@@ -31,11 +42,18 @@ describe("/user",()=>
         expect(body).toHaveProperty("name")
         expect(body).toHaveProperty("email")
         expect(body).toHaveProperty("avatar_img")
-        expect(body).toHaveProperty("payment")
         expect(body).toHaveProperty("playlist")
         expect(Array.isArray(body.playlist)).toBeTruthy()
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")
+    }) 
+    it("POST /user - Should not be able return property password",async ()=>
+    {
+        const response = await request(app).post("/user").send(userAnother)
+        const body = response.body as IUser
+        expect(typeof body).toBe("object")
+        expect(response.statusCode).toBe(201)
+        expect(body).not.toHaveProperty("password")
     }) 
     it("POST /user - Should not to be able a creation of user using the same email",async()=>
     {
@@ -61,7 +79,6 @@ describe("/user",()=>
         expect(body).toHaveProperty("name")
         expect(body).toHaveProperty("email")
         expect(body).toHaveProperty("avatar_img")
-        expect(body).toHaveProperty("payment")
         expect(body).toHaveProperty("playlist")
         expect(Array.isArray(body.playlist)).toBeTruthy()
         expect(body).toHaveProperty("created_At")
@@ -72,6 +89,16 @@ describe("/user",()=>
         const response = await request(app).get("/user/profile")
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
+    })
+    it("GET /user/profile - Should not be able return property password",async()=>
+    {
+        const loginRes = await request(app).post("/login").send(loginUser)
+        token = loginRes.body.token
+        const response = await request(app).get("/user/profile").set("Authorization", `Bearer ${token}`)
+        const body = response.body as IUser
+        expect(typeof body).toBe("object")
+        expect(response.statusCode).toBe(200)
+        expect(body).not.toHaveProperty("password")
     })
     it("PATCH /user/profile - Should be able an edit the user",async ()=>
     {
@@ -85,14 +112,67 @@ describe("/user",()=>
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    it("DELETE /user/profile - Should be able a delete the user",async()=>
+    it("PATCH /user/profile - Should not be able an edit the user without body",async ()=>
+    {
+        const response = await request(app).patch("/user/profile").set("Authorization", `Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
+    it("DELETE /user/profile - Should to be delete an user",async()=>
     {
         const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${token}`)
         expect(response.statusCode).toBe(204)
     })
-    it("DELETE /user/profile - Should not be able a delete the user without token",async()=>
+    it("DELETE /user/profile - Should not to be delete an user already deleted",async()=>
+    {
+        const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+    })
+    it("DELETE /user/profile - Should not to be delete an artist without token",async()=>
     {
         const response = await request(app).delete("/user/profile")
+        expect(response.statusCode).toBe(401)
+    })
+    it("DELETE /user/profile - Should not to be delete an artist using artist token",async()=>
+    {
+        const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${tokenArtist}`)
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /user/profile/avatar - Should to be upload avatar img",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${token}`)
+        const body = response.body as IUser
+        expect(response.statusCode).toBe(200)
+        expect(body).toHaveProperty("avatar_img")
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar img using invalid img format",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music_invalid.bmp")).set("Authorization", `Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar img without field",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").set("Authorization", `Bearer ${token}`)
+        expect(response.statusCode).toBe(400)
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar img using artist token",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${tokenArtist}`)
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar img using adm token",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${tokenAdm}`)
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar img without token",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png"))
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /user/profile/avatar - Should not to be upload avatar with invalid token",async()=>
+    {
+        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer invalidToken`)
         expect(response.statusCode).toBe(401)
     })
 })

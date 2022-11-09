@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { sessionController } from "../controllers/user/session.controller";
-import { ILogin } from "../interfaces/session";
-import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+
 import { login } from "../schema/session";
+import { ILogin } from "../interfaces/session";
 
-const router = Router();
-router.post("",schemaValidationMiddleware<ILogin>(login),sessionController)
+import { sessionController } from "../controllers/user/session.controller";
 
-export default router;
+import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+
+const routes = Router();
+
+export const sessionRoutes = () => {
+  routes.post("", schemaValidationMiddleware<ILogin>(login), sessionController);
+
+  return routes;
+};

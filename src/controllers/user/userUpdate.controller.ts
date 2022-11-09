@@ -3,13 +3,14 @@ import { userUpdateService } from "../../services/user/userUpdate.service";
 
 export const userUpdateController = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
+
   const { id } = req.user;
 
-  const user = await userUpdateService({
+  await userUpdateService({
     id,
     name,
     email,
     password,
   });
-  return res.status(200).json({ message: "update user" });
+  return res.status(200).json({ message: "Successfully update" });
 };

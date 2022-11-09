@@ -2,36 +2,38 @@ export interface IAdmRequest {
   name: string;
   email: string;
   password: string;
+  avatar_img?: string;
   admHash: string;
 }
 
-export interface IUser {
+export interface IAdm {
   id: string;
   name: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  avatar_img?: string;
+  created_At: Date;
+  updated_At: Date;
 }
 
-export interface IUserLogin {
+export interface IAdmLogin {
   email: string;
   password: string;
 }
 
-export interface IUserUpdateParamenst {
+export interface IAdmUpdateParam {
   name?: string;
   email?: string;
   password?: string;
   id: string;
-  type?: string
+  type?: string;
 }
 
-export interface IUserUpdate {
+export interface IAdmUpdate {
   name?: string;
   email?: string;
   password?: string;
 }
 
-export interface IuserDelete{
-  id: string
+export interface IAdmDelete {
+  id: string;
 }

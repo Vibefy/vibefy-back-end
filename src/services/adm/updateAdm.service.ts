@@ -14,7 +14,7 @@ export const admUpdateService = async ({
   const findAdm = await admRepository.findOneBy({id})
 
   if (name == undefined && email == undefined && password == undefined) {
-    throw new AppError(401, "body empty");
+    throw new AppError(400, "Required fields not filled");
   }
 
   admRepository.update(findAdm,{

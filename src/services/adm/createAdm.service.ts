@@ -1,7 +1,9 @@
+import "dotenv";
 import * as bcrypt from "bcryptjs";
 import Adm from "../../entities/adm.entity";
 import User from "../../entities/user.entity";
 import { AppError } from "../../error/appError";
+import { classToPlain } from "class-transformer";
 import { AppDataSource } from "../../data-source";
 import Artist from "../../entities/artist.entity";
 import { IAdmRequest } from "../../interfaces/adm";
@@ -20,17 +22,18 @@ export const createAdmService = async ({
   const adms = await amdRepository.findOneBy({ email });
 
   if (users || arts || adms) {
-    throw new AppError(403, "Email already exists");
+    throw new AppError(403, "E-mail already exists");
   }
 
   if (name == undefined || email == undefined || password == undefined) {
-    throw new AppError(400, "Field is required");
+    throw new AppError(400, "Required fields not filled");
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
 
+
   if (admHash !== process.env.ADM_HASH) {
-    throw new AppError(401, "Secrect key invalid");
+    throw new AppError(401, "Hash invalid");
   }
 
   const adm = new Adm();
@@ -41,5 +44,5 @@ export const createAdmService = async ({
   amdRepository.create(adm);
   await amdRepository.save(adm);
 
-  return { ...adm, password: undefined };
+  return classToPlain(adm)
 };

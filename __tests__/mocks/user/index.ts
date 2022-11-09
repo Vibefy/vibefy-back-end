@@ -10,6 +10,12 @@ export const userUpdated =
     email : "JohnTripaSeca@gmail.com",
     password : "John123TripaSeca",
 }
+export const userAnother= 
+{
+    name : "JohnAnother",
+    email : "JohnAnother@gmail.com",
+    password : "JohnAnother123",
+}
 export const userWithout = 
 {
     name : "John Doe",
