@@ -75,6 +75,7 @@ artistRouter.post(
   verifyAuthArtistMiddleware,
   checkIdMiddleware,
   addMusicFilesAws
+  
 );
 
 artistRouter.post(

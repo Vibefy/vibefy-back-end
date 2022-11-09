@@ -1,4 +1,4 @@
-import multer from "multer"
+import multer, { MulterError } from "multer"
 import multerS3 from "multer-s3"
 import { ConnectAws } from "../../../utils/s3Storage"
 import {Response,Request} from "express"
@@ -9,7 +9,9 @@ import { s3ImageUrl, s3MusicUrl } from "../../../utils/s3Url"
 
 export const addMusicFilesAws = async (req : Request,res : Response)=>
 {
-    const id = req.params.id
+    try
+    {
+        const id = req.params.id
     
         let saveNameMusic: string
         let saveNameImage : string
@@ -32,42 +34,50 @@ export const addMusicFilesAws = async (req : Request,res : Response)=>
                 s3 : ConnectAws,
                 key : (async(req : Request,file,cb)=>
                 {
-                    if(file.fieldname === "music")
+                    try
                     {
-                        if(file.mimetype === "audio/mpeg")
+                        if(file.fieldname === "music")
                         {
+                            if(file.mimetype !== "audio/mpeg")
+                            {
+                                throw new AppError(400,"music only in mp3 format")
+                            }
                             saveNameMusic = `${id}/${musicName}.mp3`
                             cb(null,`musics/${id}/${musicName}.mp3`)
                         }
                         else
                         {
-                            return res.status(400).json({"message": "music only in mp3 format"})
+                            if(file.fieldname === "image")
+                            {
+                                if(file.mimetype !== "image/jpg" && file.mimetype !== "image/jpeg" && file.mimetype !== "image/png")
+                                {
+                                    throw new AppError(400,"image can only be a png, jpg or jpeg")
+                                }
+                                if(file.mimetype === "image/jpg")
+                                {
+                                    saveNameImage = `${id}/${musicName}.jpg`
+                                    cb(null,`musics/${id}/${musicName}.jpg`)
+                                }
+                                else if(file.mimetype === "image/jpeg")
+                                {
+                                    saveNameImage = `${id}/${musicName}.jpeg`
+                                    cb(null,`musics/${id}/${musicName}.jpeg`)
+                                }
+                                else if(file.mimetype === "image/png")
+                                {
+                                    saveNameImage = `${id}/${musicName}.png`
+                                    cb(null,`musics/${id}/${musicName}.png`)
+                                }
+                            }
                         }
                     }
-                    else
+                    catch(err)
                     {
-                        if(file.fieldname === "image")
+                        if(err instanceof AppError)
                         {
-                            if(file.mimetype === "image/jpg")
-                            {
-                                saveNameImage = `${id}/${musicName}.jpg`
-                                cb(null,`musics/${id}/${musicName}.jpg`)
-                            }
-                            else if(file.mimetype === "image/jpeg")
-                            {
-                                saveNameImage = `${id}/${musicName}.jpeg`
-                                cb(null,`musics/${id}/${musicName}.jpeg`)
-                            }
-                            else if(file.mimetype === "image/png")
-                            {
-                                saveNameImage = `${id}/${musicName}.png`
-                                cb(null,`musics/${id}/${musicName}.png`)
-                            }
-                            else
-                            {
-                                return res.status(400).json({"message" : "image can only be a png, jpg or jpeg"})
-                            }
+                            return res.status(err.statusCode).end(err.message)
                         }
+                        return res.status(500).json({"message" : "Error"})
                     }
                 }),
     
@@ -77,16 +87,38 @@ export const addMusicFilesAws = async (req : Request,res : Response)=>
     
         return music(req,res,async()=>
         {
-            console.log(req.files)
-            if(!saveNameMusic || !saveNameImage)
+            try
             {
-                return res.status(400).json({"message": "music and image are required files"})
-            }
+                if(!saveNameMusic || !saveNameImage)
+                {
+                    throw new AppError(400,"music and image are required files")
+                }
+                else
+                {
+                    IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
+                    IsFindMusic.image_url = s3ImageUrl(saveNameImage)
+                    await musicRepository.save(IsFindMusic)
 
-            IsFindMusic.music_url = s3MusicUrl(saveNameMusic)
-            IsFindMusic.image_url = s3ImageUrl(saveNameImage)
+                    return res.status(200).json(IsFindMusic)
+                }
+            }
+            catch(err)
+            {
+                if(err instanceof AppError)
+                {
+                    return res.status(err.statusCode).end(err.message)
+                }
+                return res.status(500).json("Error")
+            }
             
-            await musicRepository.save(IsFindMusic)
-            return res.status(200).json(IsFindMusic)
         })
+    }
+    catch(err)
+    {
+        if(err instanceof AppError)
+        {
+            return res.status(err.statusCode).json({"message" : err.message})
+        }
+        return res.status(400).json(err.message)
+    }
 }

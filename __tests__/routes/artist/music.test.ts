@@ -137,7 +137,7 @@ describe("/artist/music",()=>
     })
     it("POST /artist/music/:id_music/files - Should to be able send music and image to aws",async()=>
     {
-        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./music.png")).attach("music",path.resolve(__dirname,"./music.mp3")).set("Authorization",`Bearer ${artistToken}`)       
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer ${artistToken}`)       
         const body = response.body as IMusicCreate
         expect(response.statusCode).toBe(200)
         expect(body).toHaveProperty("id")
@@ -149,10 +149,40 @@ describe("/artist/music",()=>
         expect(body).toHaveProperty("created_At")
         expect(body).toHaveProperty("updated_At")  
     })
-    it("POST /artist/music/:id_music/files - Should not to be able send music and image to aws",async()=>
+    it("POST /artist/music/:id_music/files - Should not to be able send invalid format image to aws",async()=>
     {
-        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./music.png")).attach("music",path.resolve(__dirname,"./music.mp3")).set("Authorization",`Bearer ${artistToken}`)       
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music_invalid.bmp")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer ${artistToken}`)       
         const body = response.body as IMusicCreate
-        expect(response.statusCode).toBe(200)
+        expect(response.statusCode).toBe(400)
+    })
+    it("POST /artist/music/:id_music/files - Should not to be able send invalid format music to aws",async()=>
+    {
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music_invalid.FLAC")).set("Authorization",`Bearer ${artistToken}`)       
+        const body = response.body as IMusicCreate
+        expect(response.statusCode).toBe(400)
+    })
+    it("POST /artist/music/:id_music/files - Should not to be able send  send music and image to aws using invalid id music",async()=>
+    {
+        const response = await request(app).post(`/artist/music/invalidId/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer ${artistToken}`)
+        const body = response.body as IMusicCreate
+        expect(response.statusCode).toBe(400)
+    })
+    it("POST /artist/music/:id_music/files - Should not to be able send music and image to aws using invalid token",async()=>
+    {
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer $invalidToken`)
+        const body = response.body as IMusicCreate
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /artist/music/:id_music/files - Should not to be able send music and image to aws using user token",async()=>
+    {
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer ${userToken}`)
+        const body = response.body as IMusicCreate
+        expect(response.statusCode).toBe(401)
+    })
+    it("POST /artist/music/:id_music/files - Should not to be able send music and image to aws using adm token",async()=>
+    {
+        const response = await request(app).post(`/artist/music/${musicId}/files`).attach('image',path.resolve(__dirname,"./mock_img/music.png")).attach("music",path.resolve(__dirname,"./mock_img/music.mp3")).set("Authorization",`Bearer ${admToken}`)
+        const body = response.body as IMusicCreate
+        expect(response.statusCode).toBe(401)
     })
 })

@@ -56,13 +56,6 @@ userRouter.post(
   addAvatarFile
 );
 
-userRouter.delete(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile)
-
-
 userRouter.post(
   "/playlist",
   verifyAuthTokenMiddleware,
