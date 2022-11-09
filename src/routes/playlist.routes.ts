@@ -14,37 +14,46 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 
-export const playlistRouter = Router();
+const routes = Router();
 
-playlistRouter.post(
-  "",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  schemaValidationMiddleware<IPlaylistCreate>(playlistCreate),
-  createPlaylistController
-);
-playlistRouter.post(
-  "/:id/:id_music",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  addMusicPlaylistController
-);
-playlistRouter.get("", verifyAuthTokenMiddleware, listPlaylistController);
-playlistRouter.get(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  listMusicsPlaylistController
-);
-playlistRouter.delete(
-  "/:id",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  deletePlaylistController
-);
-playlistRouter.delete(
-  "/:id/:id_music",
-  verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  deleteMusicPlaylistController
-);
+export const playlistRoutes = () => {
+  routes.post(
+    "",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    schemaValidationMiddleware<IPlaylistCreate>(playlistCreate),
+    createPlaylistController
+  );
+
+  routes.post(
+    "/:id/:id_music",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    addMusicPlaylistController
+  );
+
+  routes.get("", verifyAuthTokenMiddleware, listPlaylistController);
+
+  routes.get(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    listMusicsPlaylistController
+  );
+
+  routes.delete(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    deletePlaylistController
+  );
+
+  routes.delete(
+    "/:id/:id_music",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    deleteMusicPlaylistController
+  );
+
+  return routes;
+};
