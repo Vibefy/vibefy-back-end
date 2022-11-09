@@ -206,6 +206,57 @@
             }
           }
         }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Desativar perfil de usuário pelo Id",
+        "description": "Esta rota desativa o perfil de usuário pelo id, esta rota necessita de autenticação e privilégios de administrador.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id do usuário a ser desativado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/user/profile": {
@@ -1033,6 +1084,57 @@
             }
           }
         }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Desativar perfil de artista pelo Id",
+        "description": "Esta rota desativa o perfil de artista pelo Id, esta rota necessita de autenticação e privilégios de administrador.",
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "description": "Id do artista a ser desativado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/artist/profile": {
@@ -1572,7 +1674,438 @@
           }
         }
       }
+    },
+    "/playlist": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Criação de playlists",
+        "tags": ["Adm"],
+        "description": "Esta rota faz a criação de uma playlist, esta rota necessita de autenticação e privilégios de administrador",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" }
+                }
+              },
+              "example": {
+                "name": "Summer Vibes"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "Summer Vibes",
+                  "created_At": "2022-11-09T20:40:27.998Z",
+                  "updated_At": "2022-11-09T20:40:27.998Z",
+                  "music": [],
+                  "id": "b155238b-3744-4fd1-9878-3c8bb4e45b91"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar todas as playlists",
+        "description": "Listar todas as playlists, esta rota necessita de permissão de administrador e autenticação.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "b155238b-3744-4fd1-9878-3c8bb4e45b91",
+                    "name": "Summer Vibes",
+                    "created_At": "2022-11-09",
+                    "updated_At": "2022-11-09",
+                    "music": [
+                      {
+                        "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                        "name": "Levitating",
+                        "artistName": "Dua Lipa",
+                        "genre": "pop",
+                        "description": "Dua lipa's Levitating Music",
+                        "duration": null,
+                        "music_url": null,
+                        "image_url": null,
+                        "created_At": "2022-11-09",
+                        "updated_At": "2022-11-09"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlist/{playlistId}": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Retornar playlist pelo id",
+        "tags": ["Adm"],
+        "description": "Esta rota busca uma playlist a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist que será retornada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "b155238b-3744-4fd1-9878-3c8bb4e45b91",
+                  "name": "Summer Vibes",
+                  "created_At": "2022-11-09",
+                  "updated_At": "2022-11-09",
+                  "music": [
+                    {
+                      "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                      "name": "Levitating",
+                      "artistName": "Dua Lipa",
+                      "genre": "pop",
+                      "description": "Dua lipa's Levitating Music",
+                      "duration": null,
+                      "music_url": null,
+                      "image_url": null,
+                      "created_At": "2022-11-09",
+                      "updated_At": "2022-11-09"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }, 
+      "delete":{
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Retornar playlist pelo id",
+        "tags": ["Adm"],
+        "description": "Esta rota busca uma playlist a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist que será excluída",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playlist/{playlistId}/{musicId}": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Adicionar músicas em uma playlist a partir de seu id",
+        "description": "Esta rota adiciona músicas em uma playlist a partir do id da playlist e id da música a ser adicionada, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist que receberá a música adicionada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "musicId",
+            "in": "path",
+            "description": "Id da música a ser adicionada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                  "name": "Levitating",
+                  "artistName": "Dua Lipa",
+                  "genre": "pop",
+                  "description": "Dua lipa's Levitating Music",
+                  "duration": null,
+                  "music_url": null,
+                  "image_url": null,
+                  "created_At": "2022-11-09",
+                  "updated_At": "2022-11-09"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  },
+                  "Music Not Found": {
+                    "value": {
+                      "message": "Music not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete":{
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Excluir música de uma playlist pelo seu id",
+        "tags": ["Adm"],
+        "description": "Esta rota exclui uma música da playlist a partir do id da playlist e o id da música a ser excluída.",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist que se encontra a música a ser excluída",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "musicId",
+            "in": "path",
+            "description": "Id da música que será excluída da playlist",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist/Music Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+
   },
   "components": {
     "schemas": {
