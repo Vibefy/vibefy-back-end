@@ -19,7 +19,7 @@ export const deleteIdPlaylistUserService = async (id:string, id_playlist:string)
     }
   
     const filteredPlaylist = user.playlist.filter((elem) => elem.id !== id_playlist);
-  console.log(filteredPlaylist)
+
     user.playlist = filteredPlaylist;
     await userRepository.save(user);
   
