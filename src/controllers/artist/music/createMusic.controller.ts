@@ -13,6 +13,6 @@ export const createMusicController = async (req: Request, res: Response) => {
     description,
     duration,
   });
-  
+
   return res.status(201).json(music);
 };

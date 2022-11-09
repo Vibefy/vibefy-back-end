@@ -19,6 +19,7 @@ export const addAvatarFile = async (req: Request, res: Response) => {
   if (!artist) {
     throw new AppError(404, "Artist is not found");
   }
+
   const artistName = artist.name;
 
   const upload = multer({
@@ -30,15 +31,17 @@ export const addAvatarFile = async (req: Request, res: Response) => {
           if (file.mimetype === "image/jpg") {
             cb(null, `avatar/artist/${artistName}.jpg`);
             saveAvatarImage = `${artistName}.jpg`;
-          }
-          if (file.mimetype === "image/jpeg") {
+          } else if (file.mimetype === "image/jpeg") {
             cb(null, `avatar/artist/${artistName}.jpeg`);
             saveAvatarImage = `${artistName}.jpeg`;
-          }
-          if (file.mimetype === "image/png") {
+          } else if (file.mimetype === "image/png") {
             cb(null, `avatar/artist/${artistName}.png`);
             saveAvatarImage = `${artistName}.png`;
+          } else {
+            return res.status(400).end("avatar only in png,jpg or jpeg format");
           }
+        } else {
+          return res.status(400).end("avatar field is required");
         }
       },
     }),
@@ -53,9 +56,7 @@ export const addAvatarFile = async (req: Request, res: Response) => {
         imageField.mimetype !== "image/jpg" &&
         imageField.mimetype !== "image/jpeg"
       ) {
-        return res
-          .status(400)
-          .json({ message: "Avatar only in png, jpg or jpeg format" });
+        return res.status(400).end("avatar only in png,jpg or jpeg format");
       }
 
       const avatarUrl = s3AvatarArtistUrl(saveAvatarImage);
@@ -66,7 +67,7 @@ export const addAvatarFile = async (req: Request, res: Response) => {
 
       return res.status(200).json({ avatar_img: avatarUrl });
     } catch (err) {
-      return res.status(400).json({ message: "Avatar is required file" });
+      return res.status(400).end("avatar is required file");
     }
   });
 };

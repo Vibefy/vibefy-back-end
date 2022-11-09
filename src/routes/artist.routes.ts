@@ -22,6 +22,7 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { verifyAuthArtistMiddleware } from "../middleware/verifyAuthArtistMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
+import { deleteArtistByIdController } from "../controllers/adm/deleteArtistById.controller";
 
 const routes = Router();
 
@@ -69,7 +70,6 @@ export const artistRoutes = () => {
     verifyAuthArtistMiddleware,
     getIdMusicController
   );
-
   routes.post(
     "/music/:id/files",
     verifyAuthTokenMiddleware,
@@ -97,7 +97,16 @@ export const artistRoutes = () => {
     "/:id",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     getArtistByIdController
+  );
+
+  routes.delete(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    checkIdMiddleware,
+    deleteArtistByIdController
   );
 
   return routes;

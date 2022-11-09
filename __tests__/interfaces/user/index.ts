@@ -5,7 +5,6 @@ export interface IUser
     email : string
     password : string
     avatar_img : string;
-    payment : {}
     playlist : []
     isActive : boolean;
     created_At : Date;

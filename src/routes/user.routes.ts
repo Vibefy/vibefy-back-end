@@ -3,7 +3,6 @@ import { Router } from "express";
 import { userCreate, userUpdate } from "../schema/user";
 import { IUserRequest, IUserUpdate } from "../interfaces/users";
 
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { createUserController } from "../controllers/user/createUser.controller";
 import { deleteUserController } from "../controllers/user/deleteUser.controller";
@@ -20,6 +19,9 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
+
+import { addAvatarFile} from "../controllers/user/addAvatarFileAws";
+import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
 const routes = Router();
 
@@ -57,13 +59,6 @@ export const userRoutes = () => {
     verifyAuthTokenMiddleware,
     verifyAuthUserMiddleware,
     addAvatarFile
-  );
-
-  routes.delete(
-    "/:id",
-    verifyAuthTokenMiddleware,
-    verifyAuthAdminMiddleware,
-    deleteUserByIdController
   );
 
   routes.post(
@@ -107,7 +102,16 @@ export const userRoutes = () => {
     "/:id",
     verifyAuthTokenMiddleware,
     verifyAuthAdminMiddleware,
+    checkIdMiddleware,
     getUserByIdController
+  );
+
+  routes.delete(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    checkIdMiddleware,
+    deleteUserByIdController
   );
 
   return routes;

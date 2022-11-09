@@ -19,54 +19,70 @@ export const addAvatarFile = async (req: Request, res: Response) => {
   if (!adm) {
     throw new AppError(404, "Adm is not found");
   }
-  const admName = adm.name;
+  
+        const admName = adm.name
+        
+        const upload =  multer(
+            {
+                storage : multerS3(
+            {
+                bucket : "vibefy",
+                s3 : ConnectAws,
+                key : (async(req : Request,file,cb)=>
+                {
+                    if(file.fieldname === "avatar")
+                    { 
+                        if(file.mimetype === "image/jpg")
+                        {
+                            cb(null,`avatar/adm/${admName}.jpg`)
+                            saveAvatarImage = `${admName}.jpg`
+                        }
+                        else if(file.mimetype === "image/jpeg")
+                        {
+                            cb(null,`avatar/adm/${admName}.jpeg`)
+                            saveAvatarImage = `${admName}.jpeg`
+                        }
+                        else if(file.mimetype === "image/png")
+                        {
+                            cb(null,`avatar/adm/${admName}.png`)
+                            saveAvatarImage = `${admName}.png`
+                        }
+                        else
+                        {
+                            return res.status(400).end("Avatar only in png,jpg or jpeg format")
+                        }
+                    }
+                    else
+                    {
+                        return res.status(400).end("Avatar field is required")
+                    }
+                })
+    
+            })
+        })
+        const avatarUpload = upload.single("avatar")
+    
+        return avatarUpload(req,res,async()=>
+        {
+            try
+            {
+                const imageField = req.file
+                if(imageField.mimetype !== "image/png" && imageField.mimetype !== "image/jpg" && imageField.mimetype !== "image/jpeg")
+                {
+                    return res.status(400).end("Avatar only in png,jpg or jpeg format")
+                }
 
-  const upload = multer({
-    storage: multerS3({
-      bucket: "vibefy",
-      s3: ConnectAws,
-      key: async (req: Request, file, cb) => {
-        if (file.fieldname === "avatar") {
-          if (file.mimetype === "image/jpg") {
-            cb(null, `avatar/adm/${admName}.jpg`);
-            saveAvatarImage = `${admName}.jpg`;
-          }
-          if (file.mimetype === "image/jpeg") {
-            cb(null, `avatar/adm/${admName}.jpeg`);
-            saveAvatarImage = `${admName}.jpeg`;
-          }
-          if (file.mimetype === "image/png") {
-            cb(null, `avatar/adm/${admName}.png`);
-            saveAvatarImage = `${admName}.png`;
-          }
-        }
-      },
-    }),
-  });
-  const avatarUpload = upload.single("avatar");
+                const avatarUrl = s3AvatarAdmUrl(saveAvatarImage);
 
-  return avatarUpload(req, res, async () => {
-    try {
-      const imageField = req.file;
-      if (
-        imageField.mimetype !== "image/png" &&
-        imageField.mimetype !== "image/jpg" &&
-        imageField.mimetype !== "image/jpeg"
-      ) {
-        return res
-          .status(400)
-          .json({ message: "Avatar only in png,jpg or jpeg format" });
-      }
+                adm.avatar_img = avatarUrl;
 
-      const avatarUrl = s3AvatarAdmUrl(saveAvatarImage);
-
-      adm.avatar_img = avatarUrl;
-
-      await admRepository.save(adm);
-
-      return res.status(200).json({ avatar_img: avatarUrl });
-    } catch (err) {
-      return res.status(400).json({ message: "Avatar is required file" });
-    }
-  });
-};
+                await admRepository.save(adm)
+                
+                return res.status(200).json({avatar_img : avatarUrl})
+            }
+            catch(err)
+            {
+                return res.status(400).end("avatar is required file")
+            }
+        })
+}
