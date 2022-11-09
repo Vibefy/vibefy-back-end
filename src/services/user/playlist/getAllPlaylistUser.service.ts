@@ -1,4 +1,3 @@
-import { AppDataSource } from "../../../data-source";
 import User from "../../../entities/user.entity";
 import { AppError } from "../../../error/appError";
 
@@ -14,4 +13,5 @@ export const getAllPlaylistUserService = async (id: string) => {
   }
 
   return userPlaylist.playlist;
+
 };
