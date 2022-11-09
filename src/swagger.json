@@ -1054,46 +1054,43 @@
                     "email": { "type": "string" },
                     "avatar_img": { "type": "string" },
                     "isActive": { "type": "boolean" },
-                    "playlist": { "type": "array" },
                     "created_At": { "type": "string" },
                     "updated_At": { "type": "string" },
                     "music": { "type": "array" }
                   }
                 },
                 "example": {
-                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                  "id": "034bc647-27fa-4c8f-a22c-b1b3c4cd2506",
                   "name": "Dua Lipa",
                   "email": "dualipa@artist.com",
                   "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
                   "isActive": true,
                   "created_At": "2022-11-08",
                   "updated_At": "2022-11-08",
+                  "music": [
                     {
+                      "id": "3a7bf59c-d497-4018-9211-0b8debd43c6a",
                       "name": "Dont Start Now",
+                      "artistName": "Dua Lipa",
                       "genre": "pop",
-                      "description": "example",
-                      "duration": "example"
+                      "description": "Dua lipa's Dont Start Now Music",
+                      "music_url": null,
+                      "image_url": null,
+                      "created_At": "2022-11-09",
+                      "updated_At": "2022-11-09"
                     },
                     {
-                      "name": "Physical",
-                      "genre": "pop",
-                      "description": "example",
-                      "duration": "example"
-                    },
-                    {
+                      "id": "47504428-35cd-477e-8e66-f652e62525bf",
                       "name": "Levitating",
+                      "artistName": "Dua Lipa",
                       "genre": "pop",
-                      "description": "example",
-                      "duration": "example"
-                    },
-                    {
-                      "name": "Break My Heart",
-                      "genre": "pop",
-                      "description": "example",
-                      "duration": "example"
+                      "description": "Dua lipa's Levitating Music",
+                      "music_url": null,
+                      "image_url": null,
+                      "created_At": "2022-11-09",
+                      "updated_At": "2022-11-09"
                     }
                   ]
-                  "playlist": []
                 }
               }
             }
@@ -1281,6 +1278,127 @@
                     }
                   },
                   "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Rota para buscar músicas do artista",
+        "description": "Rota para buscar músicas do artista, esta rota necessita de autenticação e privilégios de artista.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "3a7bf59c-d497-4018-9211-0b8debd43c6a",
+                    "name": "Dont Start Now",
+                    "artistName": "Dua Lipa",
+                    "genre": "pop",
+                    "description": "Dua lipa's Dont Start Now Music",
+                    "music_url": null,
+                    "image_url": null,
+                    "created_At": "2022-11-09",
+                    "updated_At": "2022-11-09"
+                  },
+                  {
+                    "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                    "name": "Levitating",
+                    "artistName": "Dua Lipa",
+                    "genre": "pop",
+                    "description": "Dua lipa's Levitating Music",
+                    "music_url": null,
+                    "image_url": null,
+                    "created_At": "2022-11-09",
+                    "updated_At": "2022-11-09"
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/music/{musicId}": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Listar uma música a partir do seu id",
+        "description": "Esta rota faz a listagem de uma música a partir do seu id, esta rota necessita de privilégios de artista e autenticação",
+        "parameters": [
+          {
+            "name": "musicId",
+            "in": "path",
+            "description": "Id da música a ser retornada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "3a7bf59c-d497-4018-9211-0b8debd43c6a",
+                    "name": "Dont Start Now",
+                    "artistName": "Dua Lipa",
+                    "genre": "pop",
+                    "description": "Dua lipa's Dont Start Now Music",
+                    "music_url": null,
+                    "image_url": null,
+                    "created_At": "2022-11-09",
+                    "updated_At": "2022-11-09"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
                     "value": {
                       "message": "User is not an artist"
                     }
