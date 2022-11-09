@@ -34,7 +34,7 @@
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-<img height="700" align="center" src="https://i.imgur.com/UO8G8XD.png"></img>
+<img height="700" align="center" src="https://i.imgur.com/UO8G8XD.png](https://drive.google.com/file/d/1yc0GUd6VoiS2wFjyIw7N_z2Ggzc7MbRK/view?usp=sharing"></img>
 
 <a align="left" name="techs"></a>
 
