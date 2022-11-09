@@ -1,6 +1,5 @@
 import Playlist from "./playlist.entity";
 import { Exclude } from "class-transformer";
-import Payment from "./payment_user.entity";
 import {
   Column,
   Entity,
@@ -34,10 +33,6 @@ class User {
 
   @Column("boolean", { default: true })
   isActive: boolean;
-
-  @OneToOne(() => Payment, { eager: true, nullable: true })
-  @JoinColumn()
-  payment: Payment;
 
   @ManyToMany(() => Playlist, { eager: true })
   @JoinTable()
