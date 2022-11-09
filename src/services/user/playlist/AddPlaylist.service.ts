@@ -17,7 +17,7 @@ export const addPlaylistUserService = async (
     throw new AppError(404, "Playlist not exist");
   }
   if (user.playlist.find((elem) => elem.id == playlistFind.id)) {
-    throw new AppError(404, "Playlist exist");
+    throw new AppError(403, "Playlist already exist in user");
   }
 
   user.playlist = [...user.playlist, playlistFind];
