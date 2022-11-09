@@ -101,7 +101,13 @@ export const artistRoutes = () => {
     getArtistByIdController
   );
 
-  routes.delete("/:id",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,checkIdMiddleware,deleteArtistByIdController)
+  routes.delete(
+    "/:id",
+    verifyAuthTokenMiddleware,
+    verifyAuthAdminMiddleware,
+    checkIdMiddleware,
+    deleteArtistByIdController
+  );
 
   return routes;
 };
