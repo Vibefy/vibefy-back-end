@@ -222,7 +222,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/responseUser"
                 },
-
                 "example": {
                   "id": "6a6f480f-5360-4256-b431-875e115ef02f",
                   "name": "Vinícius",
@@ -272,8 +271,33 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -302,8 +326,33 @@
           "204": {
             "description": "Success"
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -356,7 +405,22 @@
             }
           },
           "401": {
-            "$ref": "#/components/UnauthorizedError"
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -376,8 +440,8 @@
               "examples": {
                 "User": {
                   "value": {
-                    "email": "henrique@user.com.br",
-                    "password": "senhaForte123456"
+                    "email": "email@user.com",
+                    "password": "1234"
                   }
                 },
                 "Adm": {
@@ -411,7 +475,18 @@
             "description": "Bad Request",
             "content": {
               "application/json": {
-                "example": { "message": "Wrong email/password" }
+                "examples": {
+                  "Wrong email/password": {
+                    "value": {
+                      "message": "Wrong email/password"
+                    }
+                  },
+                  "Required field": {
+                    "value": {
+                      "message": "{field} is a required field"
+                    }
+                  }
+                }
               }
             }
           }
@@ -580,6 +655,16 @@
             "content": {
               "application/json": {
                 "example": { "message": "User updated" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
               }
             }
           },
@@ -782,7 +867,26 @@
                     "isActive": true,
                     "created_At": "2022-11-08",
                     "updated_At": "2022-11-08",
-                    "music": ["Bad Romance", "Born This Way", "Poker Face"]
+                    "music": [
+                      {
+                        "name": "Bad Romance",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      },
+                      {
+                        "name": "Born This Way",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      },
+                      {
+                        "name": "Poker Face",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      }
+                    ]
                   },
                   {
                     "id": "6a8f480f-5360-4356-b431-875e115ef02p",
@@ -793,10 +897,30 @@
                     "created_At": "2022-11-08",
                     "updated_At": "2022-11-08",
                     "music": [
-                      "Dont Start Now",
-                      "Physical",
-                      "Levitating",
-                      "Break My Heart"
+                      {
+                        "name": "Dont Start Now",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      },
+                      {
+                        "name": "Physical",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      },
+                      {
+                        "name": "Levitating",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      },
+                      {
+                        "name": "Break My Heart",
+                        "genre": "pop",
+                        "description": "example",
+                        "duration": "example"
+                      }
                     ]
                   }
                 ]
@@ -855,7 +979,26 @@
                   "isActive": true,
                   "created_At": "2022-11-08",
                   "updated_At": "2022-11-08",
-                  "music": ["Bad Romance", "Born This Way", "Poker Face"]
+                  "music": [
+                    {
+                      "name": "Bad Romance",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    },
+                    {
+                      "name": "Born This Way",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    },
+                    {
+                      "name": "Poker Face",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    }
+                  ]
                 }
               }
             }
@@ -906,25 +1049,50 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "id": { "type": "string", "format": "uuid" },
                     "name": { "type": "string" },
                     "email": { "type": "string" },
+                    "avatar_img": { "type": "string" },
+                    "isActive": { "type": "boolean" },
                     "playlist": { "type": "array" },
                     "created_At": { "type": "string" },
                     "updated_At": { "type": "string" },
-                    "id": { "type": "string", "format": "uuid" },
-                    "avatar_img": { "type": "string" },
-                    "isActive": { "type": "boolean" }
+                    "music": { "type": "array" }
                   }
                 },
-
                 "example": {
                   "id": "6a6f480f-5360-4256-b431-875e115ef02f",
-                  "name": "Vinícius",
-                  "email": "henrique@user.com.br",
+                  "name": "Dua Lipa",
+                  "email": "dualipa@artist.com",
                   "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
-                  "isActive": false,
+                  "isActive": true,
                   "created_At": "2022-11-08",
                   "updated_At": "2022-11-08",
+                    {
+                      "name": "Dont Start Now",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    },
+                    {
+                      "name": "Physical",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    },
+                    {
+                      "name": "Levitating",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    },
+                    {
+                      "name": "Break My Heart",
+                      "genre": "pop",
+                      "description": "example",
+                      "duration": "example"
+                    }
+                  ]
                   "playlist": []
                 }
               }
@@ -932,6 +1100,194 @@
           },
           "401": {
             "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Atualizar informações do artista",
+        "description": "Esta rota faz a atualização das informações do artista, esta rota necessita de autenticação",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "name": { "type": "string" },
+                "email": { "type": "string" },
+                "password": { "type": "string" }
+              },
+              "example": {
+                "name": "Dula Peep",
+                "email": "dulapeep@artist.com",
+                "password": "12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "example": { "message": "User updated" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Desativar perfil de artista",
+        "description": "Esta rota desativa o perfil de artista, esta rota necessita de autenticação.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isActive": "boolean"
+                }
+              },
+              "example": {
+                "isActive": "false"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/music": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Rota para inserção de músicas",
+        "description": "Rota para a inserção de músicas do artista, esta rota necessita de autenticação e privilégios de artista.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "name": "Dont Start Now",
+                "genre": "pop",
+                "description": "Dua lipa's Dont Start Now Music"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "Dont Start Now",
+                  "artistName": "Dua Lipa",
+                  "description": "Dua lipa's Dont Start Now Music",
+                  "genre": "pop",
+                  "created_At": "2022-11-09T16:15:49.364Z",
+                  "updated_At": "2022-11-09T16:15:49.364Z",
+                  "music_url": null,
+                  "image_url": null,
+                  "id": "3a7bf59c-d497-4018-9211-0b8debd43c6a"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

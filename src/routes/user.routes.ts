@@ -19,6 +19,7 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
+
 import { addAvatarFile} from "../controllers/user/addAvatarFileAws";
 import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
