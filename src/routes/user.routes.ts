@@ -3,6 +3,7 @@ import { Router } from "express";
 import { userCreate, userUpdate } from "../schema/user";
 import { IUserRequest, IUserUpdate } from "../interfaces/users";
 
+import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { createUserController } from "../controllers/user/createUser.controller";
 import { deleteUserController } from "../controllers/user/deleteUser.controller";
