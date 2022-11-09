@@ -34,7 +34,7 @@
 
 - Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-<img height="700" align="center" src="https://imgur.com/Z7Zolmy"></img>
+<img height="700" align="center" src="https://i.imgur.com/Z7Zolmy.png"></img>
 
 <a align="left" name="techs"></a>
 
@@ -53,6 +53,15 @@ Visão Geral das tecnologias usadas no projeto.
 - [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [Nodemailer](https://nodemailer.com/about/)
 - [Multer-s3](https://www.npmjs.com/package/multer-s3)
+- [uuid-validate](https://www.npmjs.com/package/uuid-validate)
+- [swager](https://swagger.io/docs/)
+- [reflect-metadata](https://github.com/rbuckton/reflect-metadata)
+- [pg](https://www.postgresql.org/docs/)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [express-async-errors](https://expressjs.com/pt-br/)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [cross-env](https://www.npmjs.com/package/cross-env)
+- [class-transformer](https://github.com/typestack/class-transformer)
 
 ---
 <a align="left" name="techs"></a>
