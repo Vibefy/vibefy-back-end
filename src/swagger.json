@@ -1435,8 +1435,8 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "music_url": { "type": "string", "format": "binary" },
-                  "image_url": { "type": "string", "format": "binary" }
+                  "music": { "type": "string", "format": "binary" },
+                  "image": { "type": "string", "format": "binary" }
                 }
               }
             }
@@ -1444,13 +1444,136 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "3a7bf59c-d497-4018-9211-0b8debd43c6a",
+                  "name": "Dont Start Now",
+                  "artistName": "Dua Lipa",
+                  "genre": "pop",
+                  "description": "Dua lipa's Dont Start Now Music",
+                  "duration": null,
+                  "music_url": "https://vibefy.s3.sa-east-1.amazonaws.com/musics/3a7bf59c-d497-4018-9211-0b8debd43c6a/Dont Start Now.mp3",
+                  "image_url": "https://vibefy.s3.sa-east-1.amazonaws.com/musics/3a7bf59c-d497-4018-9211-0b8debd43c6a/Dont Start Now.jpeg",
+                  "created_At": "2022-11-09",
+                  "updated_At": "2022-11-09"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Wrong file format"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Music not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artist/profile/avatar": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Artist"],
+        "summary": "Enviar imagem de perfil do artista",
+        "description": "Altera a imagem de perfil do artista, esta rota necessita de autenticação e privilégios de artista.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Added",
+            "content": {
+              "application/json": {
+                "example": { "message": "Image upload success" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Image field is required": {
+                    "value": {
+                      "message": "Image field is required"
+                    }
+                  },
+                  "Wrong image format": {
+                    "value": {
+                      "message": "Image format must be png or jpeg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an artist": {
+                    "value": {
+                      "message": "User is not an artist"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   },
-
   "components": {
     "schemas": {
       "createUser": {
