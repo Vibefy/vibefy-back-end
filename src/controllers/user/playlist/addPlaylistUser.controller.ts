@@ -5,11 +5,11 @@ export const addPlaylistUserController = async (
   req: Request,
   res: Response
 ) => {
-  const { id_playlist } = req.body;
+  const { id_playlist } = req.params;
 
   const { id } = req.user;
 
   await addPlaylistUserService(id, id_playlist);
 
-  return res.status(201).json({ message: "Successfully created" });
+  return res.status(200).json({ message: "Successfully added" });
 };

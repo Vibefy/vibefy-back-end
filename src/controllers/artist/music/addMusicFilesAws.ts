@@ -61,9 +61,9 @@ export const addMusicFilesAws = async (req: Request, res: Response) => {
             }
           } catch (err) {
             if (err instanceof AppError) {
-              return res.status(err.statusCode).end(err.message);
+              return res.status(err.statusCode).send(err.message);
             }
-            return res.status(500).json({ message: "Error" });
+            return res.status(500).send({ message: "Error" });
           }
         },
       }),
@@ -86,15 +86,15 @@ export const addMusicFilesAws = async (req: Request, res: Response) => {
         }
       } catch (err) {
         if (err instanceof AppError) {
-          return res.status(err.statusCode).end(err.message);
+          return res.status(err.statusCode).send({message : err.message});
         }
-        return res.status(500).json("Error");
+        return res.status(500).send("Error");
       }
     });
   } catch (err) {
     if (err instanceof AppError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return res.status(err.statusCode).send({ message: err.message });
     }
-    return res.status(400).json(err.message);
+    return res.status(400).send({message : err.message});
   }
 };

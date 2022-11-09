@@ -62,7 +62,7 @@ export const userRoutes = () => {
   );
 
   routes.post(
-    "/playlist",
+    "/playlist/:id_playlist",
     verifyAuthTokenMiddleware,
     verifyAuthUserMiddleware,
     addPlaylistUserController

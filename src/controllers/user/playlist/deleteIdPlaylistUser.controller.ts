@@ -8,7 +8,7 @@ export const deleteIdPlaylistUsersController = async (
   const { id_playlist } = req.params;
   const { id } = req.user;
 
-  const user = await deleteIdPlaylistUserService(id, id_playlist);
+  await deleteIdPlaylistUserService(id, id_playlist);
 
-  return res.status(204).json(user);
+  return res.status(204).send()
 };
