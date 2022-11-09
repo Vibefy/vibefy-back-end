@@ -16,6 +16,7 @@ import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddlewa
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
 import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
+import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
 
 export const userRouter = Router();
 
@@ -44,12 +45,11 @@ userRouter.delete(
   deleteUserController
 );
 
-userRouter.delete(
-  "/:id",
+userRouter.post(
+  "/profile/avatar",
   verifyAuthTokenMiddleware,
-  verifyAuthAdminMiddleware,
-  deleteUserByIdController
-);
+  verifyAuthUserMiddleware,
+  addAvatarFile)
 
 //Only Adm
 
@@ -63,14 +63,11 @@ userRouter.get(
   "/:id",
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
+  checkIdMiddleware,
   getUserByIdController
 );
 
-userRouter.post(
-  "/profile/avatar",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile
-);
+
+userRouter.delete("/:id", verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,checkIdMiddleware,deleteUserByIdController)
 
 export default userRouter;

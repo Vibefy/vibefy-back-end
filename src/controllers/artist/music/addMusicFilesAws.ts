@@ -77,6 +77,7 @@ export const addMusicFilesAws = async (req : Request,res : Response)=>
     
         return music(req,res,async()=>
         {
+            console.log(req.files)
             if(!saveNameMusic || !saveNameImage)
             {
                 return res.status(400).json({"message": "music and image are required files"})

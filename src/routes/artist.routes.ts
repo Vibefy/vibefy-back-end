@@ -76,4 +76,5 @@ artistRouter.post("/profile/avatar",verifyAuthTokenMiddleware,verifyAuthArtistMi
 //Only adm
 
 artistRouter.get("",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,getAllArtistsController)
-artistRouter.get("/:id",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,getArtistByIdController)
+artistRouter.get("/:id",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,checkIdMiddleware,getArtistByIdController)
+artistRouter.delete("/:id",verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,checkIdMiddleware,deleteArtistController)

@@ -78,13 +78,13 @@ describe("/adm",()=>
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    it("GET /user/profile - Should not to be able a list adm profile using user token",async()=>
+    it("GET /adm/profile - Should not to be able a list adm profile using user token",async()=>
     {
         const response = await request(app).get("/adm/profile").set("Authorization", `Bearer ${tokenUser}`)
         expect(response.statusCode).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    it("GET /user/profile - Should not to be able a list adm profile using artist token",async()=>
+    it("GET /adm/profile - Should not to be able a list adm profile using artist token",async()=>
     {
         const response = await request(app).get("/adm/profile").set("Authorization", `Bearer ${tokenArtist}`)
         expect(response.statusCode).toBe(401)

@@ -7,7 +7,7 @@ export const checkIdMiddleware = (req : Request,res: Response,next : NextFunctio
     const validateID = validate(id,4)
     if(!validateID)
     {
-        throw new AppError(400,"ID is not valid")
+        throw new AppError(400,"id is not valid")
     }
     next()
 }
