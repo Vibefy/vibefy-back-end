@@ -10,13 +10,17 @@ import { userUpdateController } from "../controllers/user/userUpdate.controller"
 import { getAllUsersController } from "../controllers/adm/getAllUsers.controller";
 import { getUserByIdController } from "../controllers/adm/getUserById.controller";
 import { deleteUserByIdController } from "../controllers/adm/deleteUserById.controller";
+import { addPlaylistUserController } from "../controllers/user/playlist/addPlaylistUser.controller";
+import { getIdPlaylistUsersController } from "../controllers/user/playlist/getIdPlaylistUser.controller";
+import { getAllPlaylistUsersController } from "../controllers/user/playlist/getAllPlaylistUse.controller";
 
 import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware";
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
+import { addAvatarFile} from "../controllers/user/addAvatarFileAws";
 import { checkIdMiddleware } from "../middleware/checkIdMiddleware";
+
 
 export const userRouter = Router();
 
@@ -49,7 +53,34 @@ userRouter.post(
   "/profile/avatar",
   verifyAuthTokenMiddleware,
   verifyAuthUserMiddleware,
+  addAvatarFile
+);
+
+userRouter.delete(
+  "/:id",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
   addAvatarFile)
+
+
+userRouter.post(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  addPlaylistUserController
+);
+userRouter.get(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getAllPlaylistUsersController
+);
+userRouter.get(
+  "/playlist/:id_playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getIdPlaylistUsersController
+);
 
 //Only Adm
 
@@ -67,7 +98,4 @@ userRouter.get(
   getUserByIdController
 );
 
-
 userRouter.delete("/:id", verifyAuthTokenMiddleware,verifyAuthAdminMiddleware,checkIdMiddleware,deleteUserByIdController)
-
-export default userRouter;

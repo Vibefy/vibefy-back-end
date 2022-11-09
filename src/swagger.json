@@ -71,11 +71,53 @@
             "description": "Forbidden",
             "content": {
               "application/json": {
-                "example": { "message": "Email is already being used" }
+                "example": { "message": "E-mail already exists" }
               }
             }
           }
         }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar todos os perfis de usuário, esta rota necessita de permissão de administrador e autenticação.",
+        "description": "Esta rota necessita de permissão de administrador e autenticação.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseUser"
+                },
+
+                "example": {
+                  "id": "6a6f480f-5360-4256-b431-875e115ef02f",
+                  "name": "Vinícius",
+                  "email": "henrique@user.com.br",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": false,
+                  "created_At": "2022-11-08",
+                  "updated_At": "2022-11-08",
+                  "playlist": [],
+                  "payment": null
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Listar perfil de usuário a partir do seu id",
+        "description": "Esta rota faz a listagem de um usuário a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "parameters": {}
       }
     },
     "/user/profile": {
@@ -134,7 +176,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Updated",
             "content": {
               "application/json": {
@@ -284,40 +326,285 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": "string",
-                  "email": "string",
-                  "id": "string",
-                  "avatar_img": "string"
-                },
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "admHash": { "type": "string" }
+                }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "henrique",
+                    "email": "henrique@vibes.com",
+                    "password": "senhaForte1234",
+                    "admHash": "69faaa2bffab03d3e80e08ac1181526a"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "henrique",
+                  "email": "henrique@vibes.com",
+                  "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
                 "examples": {
-                  "user": {
+                  "Invalid token": {
                     "value": {
-                      "name": "henrique",
-                      "email": "henrique@vibes.com",
-                      "password": "senhaForte1234",
-                      "admHash": "69faaa2bffab03d3e80e08ac1181526a",
-                      "avatar_img": "Imagem do luffy"
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Hash invalid": {
+                    "value": {
+                      "message": "Hash Invalid"
                     }
                   }
                 }
               }
             }
           },
-          "responses": {
-            "201": {
-              "description": "Created",
-              "content": {
-                "application/json": {
-                  "example": {
-                    "name": "henrique",
-                    "email": "henrique@vibes.com",
-                    "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
-                    "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg"
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "E-mail already exists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adm/profile": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Listar o próprio perfil do administrador",
+        "description": "Esta rota faz a listagem do próprio perfil do administrador, esta rota necessita de autenticação",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseUser"
+                },
+
+                "example": {
+                  "id": "7ba51f56-b786-490a-9e3a-8df8cf565a03",
+                  "name": "henrique",
+                  "email": "henrique@vibes.com",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "password": "$2a$10$g0hHOzJZyS1Y2H7PJjW5zOmWhlWEy6Sdy2mM/BAXu7J8X7Xskv6vC"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Atualizar informações do usuário",
+        "description": "Esta rota faz a atualização das informações do usuário, esta rota necessita de autenticação",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Vinícius"
                   }
                 }
               }
             }
-            
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "example": { "message": "User updated" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "User is not an admin": {
+                    "value": {
+                      "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adm/profile/avatar": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Adm"],
+        "summary": "Enviar imagem de perfil do administrador",
+        "description": "Altera a imagem de perfil do administrador, esta rota necessita de autenticação.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Added",
+            "content": {
+              "application/json": {
+                "example": { "message": "Image upload success" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Image field is required": {
+                    "value": {
+                      "message": "Image field is required"
+                    }
+                  },
+                  "Wrong image format": {
+                    "value": {
+                      "message": "Image format must be png or jpeg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/artist": {
+      "post": {
+        "summary": "Criação de usuários artistas",
+        "description": "Esta rota faz a criação de usuários artistas.",
+        "tags": ["Artist"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUser"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Dua Lipa",
+                    "email": "dualipa@artist.com",
+                    "password": "1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "created_At": { "type": "string" },
+                    "updated_At": { "type": "string" },
+                    "id": { "type": "string", "format": "uuid" },
+                    "avatar_img": { "type": "string" },
+                    "isActive": { "type": "boolean" }
+                  }
+                },
+                "example": {
+                  "name": "Dua Lipa",
+                  "email": "dualipa@artist.com",
+                  "created_At": "December 17, 1995 03:24:00",
+                  "updated_At": "December 17, 1995 03:24:00",
+                  "id": "61920fb4-eb18-437b-8901-b8ce52c6ab29",
+                  "avatar_img": "https://www.lance.com.br/files/article_main/uploads/2022/04/29/626c07807ccfa.jpeg",
+                  "isActive": "true"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "{field} is a required field"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "example": { "message": "E-mail already exists" }
+              }
+            }
           }
         }
       }

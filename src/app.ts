@@ -20,6 +20,7 @@ app.use("/adm", admRouter);
 app.use("/user", userRouter);
 app.use("/artist", artistRouter);
 app.use("/login", sessionRouter);
+
 app.use("/send-email", mailRouter);
 app.use("/playlist", playlistRouter);
 
