@@ -11,5 +11,5 @@ export const getIdPlaylistUsersController = async (
 
   const playlistUser = await getIdPlaylistUserService(id, id_playlist);
 
-  return res.status(201).json(playlistUser);
+  return res.status(200).json(playlistUser);
 };
