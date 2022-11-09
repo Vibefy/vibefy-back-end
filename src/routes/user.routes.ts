@@ -3,6 +3,7 @@ import { Router } from "express";
 import { userCreate, userUpdate } from "../schema/user";
 import { IUserRequest, IUserUpdate } from "../interfaces/users";
 
+import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { getUsersController } from "../controllers/user/getUsers.controller";
 import { createUserController } from "../controllers/user/createUser.controller";
 import { deleteUserController } from "../controllers/user/deleteUser.controller";
@@ -18,7 +19,6 @@ import { verifyAuthUserMiddleware } from "../middleware/verifyAuthUserMiddleware
 import { verifyAuthAdminMiddleware } from "../middleware/verifyAuthAdminMiddleware";
 import { verifyAuthTokenMiddleware } from "../middleware/verifyAuthTokenMiddleware";
 import { schemaValidationMiddleware } from "../middleware/schemaValidation.middleware";
-import { addAvatarFile } from "../controllers/user/addAvatarFileAws";
 import { deleteIdPlaylistUsersController } from "../controllers/user/playlist/deleteIdPlaylistUser.controller";
 
 
@@ -49,6 +49,13 @@ userRouter.delete(
   deleteUserController
 );
 
+userRouter.post(
+  "/profile/avatar",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  addAvatarFile
+);
+
 userRouter.delete(
   "/:id",
   verifyAuthTokenMiddleware,
@@ -56,15 +63,29 @@ userRouter.delete(
   deleteUserByIdController
 );
 
-userRouter.post("/playlist", verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware, addPlaylistUserController)
-userRouter.get("/playlist", verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware, getAllPlaylistUsersController)
-userRouter.get("/playlist/:id_playlist", verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware, getIdPlaylistUsersController)
-userRouter.delete("/playlist/:id_playlist", verifyAuthTokenMiddleware,
-verifyAuthUserMiddleware, deleteIdPlaylistUsersController)
 
+userRouter.post(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  addPlaylistUserController
+);
+userRouter.get(
+  "/playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getAllPlaylistUsersController
+);
+userRouter.get(
+  "/playlist/:id_playlist",
+  verifyAuthTokenMiddleware,
+  verifyAuthUserMiddleware,
+  getIdPlaylistUsersController
+);
+userRouter.delete( "/playlist/:id_playlist",
+verifyAuthTokenMiddleware,
+verifyAuthUserMiddleware,
+deleteIdPlaylistUsersController)
 
 //Only Adm
 
@@ -79,13 +100,6 @@ userRouter.get(
   verifyAuthTokenMiddleware,
   verifyAuthAdminMiddleware,
   getUserByIdController
-);
-
-userRouter.post(
-  "/profile/avatar",
-  verifyAuthTokenMiddleware,
-  verifyAuthUserMiddleware,
-  addAvatarFile
 );
 
 export default userRouter;

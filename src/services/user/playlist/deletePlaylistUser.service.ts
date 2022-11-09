@@ -1,14 +1,17 @@
-import { AppDataSource } from "../../../data-source";
-import Playlist from "../../../entities/playlist.entity";
 import User from "../../../entities/user.entity";
 import { AppError } from "../../../error/appError";
+import { AppDataSource } from "../../../data-source";
+import Playlist from "../../../entities/playlist.entity";
 
-export const deleteIdPlaylistUserService = async (id:string, id_playlist:string) => {
-    const playlistRepository = AppDataSource.getRepository(Playlist);
-    const playlist = await playlistRepository.findOneBy({ id: id_playlist});
+export const deleteIdPlaylistUserService = async (
+  id: string,
+  id_playlist: string
+) => {
+  const playlistRepository = AppDataSource.getRepository(Playlist);
+  const playlist = await playlistRepository.findOneBy({ id: id_playlist });
 
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneBy({ id: id });
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.findOneBy({ id: id });
 
     if (!playlist) {
       throw new AppError(404, "Playlist not found");
@@ -24,4 +27,4 @@ export const deleteIdPlaylistUserService = async (id:string, id_playlist:string)
     await userRepository.save(user);
   
     return true;
-};
+  }
