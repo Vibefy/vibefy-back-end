@@ -138,41 +138,4 @@ describe("/user",()=>
         const response = await request(app).delete("/user/profile").set("Authorization",`Bearer ${tokenArtist}`)
         expect(response.statusCode).toBe(401)
     })
-    it("POST /user/profile/avatar - Should to be upload avatar img",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${token}`)
-        const body = response.body as IUser
-        expect(response.statusCode).toBe(200)
-        expect(body).toHaveProperty("avatar_img")
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar img using invalid img format",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music_invalid.bmp")).set("Authorization", `Bearer ${token}`)
-        expect(response.statusCode).toBe(400)
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar img without field",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").set("Authorization", `Bearer ${token}`)
-        expect(response.statusCode).toBe(400)
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar img using artist token",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${tokenArtist}`)
-        expect(response.statusCode).toBe(401)
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar img using adm token",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer ${tokenAdm}`)
-        expect(response.statusCode).toBe(401)
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar img without token",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png"))
-        expect(response.statusCode).toBe(401)
-    })
-    it("POST /user/profile/avatar - Should not to be upload avatar with invalid token",async()=>
-    {
-        const response = await request(app).post("/user/profile/avatar").attach("avatar",path.resolve(__dirname,"./mock_img/music.png")).set("Authorization", `Bearer invalidToken`)
-        expect(response.statusCode).toBe(401)
-    })
 })
