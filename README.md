@@ -17,7 +17,7 @@
 
 ## 1. Sobre
 
-- Ja se pegou perdendo tempo procurando musicas e montando playlists que se encaixem no seu perfil?
+- Já se pegou perdendo tempo procurando músicas e montando playlists que se encaixem no seu perfil?
 - O vibefy foi projetado por pessoas que assim como você cansaram de perder tempo pesquisando músicas ou montando playlists só para no fim acabar usando umas 5 ou 6 músicas em uma corrida matinal, ou em outras tarefas onde apenas procuramos músicas para não deixar aquele silêncio absoluto (codar é um desses exemplos), No vibefy você vai poder abrir o site ou o aplicativo e estar ouvindo a "Vibe" que desejar em menos de 2 minutos.
 - O projeto funciona da seguinte forma, o usuário se cadastra, e após estar cadastrado ele terá acesso a todas as playlists montadas pela nossa curadoria, o usuário poderá digitar a vibe que deseja no campo de buscas e retornaremos as playlists mais indicadas para ele, ai é só clicar e curtir, caso goste muito ele ainda poderá adicionar às suas playlists favoritas e tocá-las com apenas um clique.
 - Possuímos uma área exclusiva para artistas poderem divulgar suas musicas, mas claro terá que passar pela nossa curadoria para que encaixemos nas playlists que combinam com a "vibe" da musica, claro a opinião do artista também tem peso na decisão.
