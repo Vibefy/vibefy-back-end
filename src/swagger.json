@@ -384,7 +384,7 @@
       },
       "delete": {
         "security": [{ "bearerAuth": [] }],
-        "summary": "Listar playlist do usuário pelo Id",
+        "summary": "Remover playlist do usuário pelo Id",
         "description": "Esta rota remove uma playlist do usuário a partir do seu id, esta rota necessita de autenticação.",
         "tags": ["User"],
         "parameters": [
@@ -2176,9 +2176,9 @@
       },
       "delete": {
         "security": [{ "bearerAuth": [] }],
-        "summary": "Retornar playlist pelo id",
+        "summary": "Excluir playlist pelo id",
         "tags": ["Adm"],
-        "description": "Esta rota busca uma playlist a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
+        "description": "Esta rota exclui uma playlist a partir do seu id, esta rota necessita de privilégios de administrador e autenticação",
         "parameters": [
           {
             "name": "playlistId",
