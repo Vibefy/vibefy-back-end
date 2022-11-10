@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Vibefy API",
-    "description": "API para um streamer de músicas de forma aleatória, baseada em playlists de acordo com a vibe do usuário",
+    "description": "O vibefy foi projetado por pessoas que assim como vc cansaram de perder tempo pesquisando musicas ou montando playlists so para no fim acabar usando umas 5 ou 6 musicas em uma corrida matinal, ou em outras tarefas onde apenas procuramos musicas para não deixar aquele silêncio absoluto (codar é um desses exemplos), No vibefy voce vai poder abrir o site ou o aplicativo e estar ouvindo a 'Vibe' que desejar em menos de 2 minutos.",
     "termsOfService": "http://localhost:3000/terms",
     "contact": {
       "email": "support@vibefy.com"
