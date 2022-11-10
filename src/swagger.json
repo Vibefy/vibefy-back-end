@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Vibefy API",
-    "description": "API para um streamer de músicas de forma aleatória, baseada em playlists de acordo com a vibe do usuário",
+    "description": "O vibefy foi projetado por pessoas que assim como vc cansaram de perder tempo pesquisando musicas ou montando playlists so para no fim acabar usando umas 5 ou 6 musicas em uma corrida matinal, ou em outras tarefas onde apenas procuramos musicas para não deixar aquele silêncio absoluto (codar é um desses exemplos), No vibefy voce vai poder abrir o site ou o aplicativo e estar ouvindo a 'Vibe' que desejar em menos de 2 minutos.",
     "termsOfService": "http://localhost:3000/terms",
     "contact": {
       "email": "support@vibefy.com"
@@ -141,6 +141,296 @@
                   "User is not an admin": {
                     "value": {
                       "message": "User is not an admin"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/playlist": {
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Listar as playlists do usuário",
+        "description": "Esta rota lista todas as playlists do usuário, esta rota necessita de autenticação",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "b155238b-3744-4fd1-9878-3c8bb4e45b91",
+                    "name": "Summer Vibes",
+                    "created_At": "2022-11-09",
+                    "updated_At": "2022-11-09",
+                    "music": [
+                      {
+                        "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                        "name": "Levitating",
+                        "artistName": "Dua Lipa",
+                        "genre": "pop",
+                        "description": "Dua lipa's Levitating Music",
+                        "duration": null,
+                        "music_url": null,
+                        "image_url": null,
+                        "created_At": "2022-11-09",
+                        "updated_At": "2022-11-09"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  },
+                  "Music Not Found": {
+                    "value": {
+                      "message": "Music not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/playlist/{playlistId}": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Adicionar playlists ao usuário",
+        "description": "Esta rota adiciona uma playlist ao usuário a partir da id da playlist, esta rota necessita de autenticação",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist a ser adicionada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Successfully added"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  },
+                  "Music Not Found": {
+                    "value": {
+                      "message": "Music not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["User"],
+        "summary": "Listar playlist do usuário pelo Id",
+        "description": "Esta rota lista uma playlist do usuário a partir do id da playlist, esta rota necessita de autenticação.",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist a ser listada",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "b155238b-3744-4fd1-9878-3c8bb4e45b91",
+                  "name": "Summer Vibes",
+                  "created_At": "2022-11-09",
+                  "updated_At": "2022-11-09",
+                  "music": [
+                    {
+                      "id": "47504428-35cd-477e-8e66-f652e62525bf",
+                      "name": "Levitating",
+                      "artistName": "Dua Lipa",
+                      "genre": "pop",
+                      "description": "Dua lipa's Levitating Music",
+                      "duration": null,
+                      "music_url": null,
+                      "image_url": null,
+                      "created_At": "2022-11-09",
+                      "updated_At": "2022-11-09"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Listar playlist do usuário pelo Id",
+        "description": "Esta rota remove uma playlist do usuário a partir do seu id, esta rota necessita de autenticação.",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "description": "Id da playlist a ser removida",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No body"
+          },
+
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid token": {
+                    "value": {
+                      "message": "Invalid token"
+                    }
+                  },
+                  "Not an user": {
+                    "value": {
+                      "message": "Must be logged in as an user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Playlist Not Found": {
+                    "value": {
+                      "message": "Playlist Not Found"
                     }
                   }
                 }
@@ -1883,8 +2173,8 @@
             }
           }
         }
-      }, 
-      "delete":{
+      },
+      "delete": {
         "security": [{ "bearerAuth": [] }],
         "summary": "Retornar playlist pelo id",
         "tags": ["Adm"],
@@ -2035,7 +2325,7 @@
           }
         }
       },
-      "delete":{
+      "delete": {
         "security": [{ "bearerAuth": [] }],
         "summary": "Excluir música de uma playlist pelo seu id",
         "tags": ["Adm"],
@@ -2105,7 +2395,6 @@
         }
       }
     }
-
   },
   "components": {
     "schemas": {
